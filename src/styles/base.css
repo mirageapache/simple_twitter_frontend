@@ -1,10 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 :global(:root) {
-  --main-font-family: 'Noto Sans TC', Montserrat, sans-serif;
-  
+  --main-font-family: "Noto Sans TC", Montserrat, sans-serif;
 }
 
 :global(body) {
@@ -15,28 +12,20 @@
   --main-text: #171725;
   --secondary-text: #808080;
   --active-color: #50b5ff;
-
-  // 內文字大小
   --main-text-size: 16px;
   --secondary-text-size: 14px;
   --small-text-size: 12px;
-
-  // 主要色彩
   --main-color: #ff6600;
   --primary-color: #0062ff;
   --secondary-color: #6c757d;
   --success-color: #3dd598;
   --warning-color: #ffc542;
   --error-color: #fc5a5a;
-
-  // 輔助色彩
   --light-orange-color: #ff974a;
   --light-blue-color: #50b5ff;
   --ligth-green-color: #82c43c;
   --ligth-purple-color: #a461d8;
   --ligth-pink-color: #ff9ad5;
-
-  // 灰階色彩
   --gray-9: #171725;
   --gray-8: #44444f;
   --gray-7: #696974;
@@ -46,21 +35,19 @@
   --gray-3: #e2e2ea;
   --gray-2: #f1f1f5;
   --gray-1: #fafafb;
-
-  *{
-    font-size: var(--main-text-size);
-    font-family: var(--main-font-family);
-  }
+}
+:global(body) * {
+  font-size: var(--main-text-size);
+  font-family: var(--main-font-family);
 }
 
-//標題文字大小
-:global(h1){
+:global(h1) {
   font-size: 68px;
   line-height: 78px;
   font-weight: bold;
 }
 
-:global(h2){
+:global(h2) {
   font-size: 42px;
   line-height: 52px;
   font-weight: bold;
@@ -81,8 +68,7 @@
   line-height: 26px;
 }
 
-// 按鈕
-:global(button){
+:global(button) {
   border: 0;
   cursor: pointer;
 }
