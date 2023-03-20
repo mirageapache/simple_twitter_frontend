@@ -1,5 +1,5 @@
 // import {Navbar, Recommend} from 'components';
-import { RegisterPage, LoginPage } from 'pages';
+import { RegisterPage, LoginPage, AdminLoginPage } from 'pages';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import 'styles/app.css';
 
@@ -11,6 +11,7 @@ export default function App() {
           <Routes>
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage />} />
+            <Route path='/admin_login' element={<AdminLoginPage />} />
           </Routes>
         </BrowserRouter>
       </div>
