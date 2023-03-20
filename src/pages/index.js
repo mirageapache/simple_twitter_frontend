@@ -1,5 +1,5 @@
 import RegisterPage from './RegisterPage';
-// import Login from './Login';
+import LoginPage from './LoginPage';
 // import Main from './Main'
 
-export { RegisterPage };
+export { RegisterPage, LoginPage };
