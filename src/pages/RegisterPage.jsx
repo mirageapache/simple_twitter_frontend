@@ -1,4 +1,4 @@
-import AccountForm from 'components/Form/AccountFrom'
+import AccountForm from 'components/Form/AccountForm';
 import { useNavigate } from 'react-router-dom';
 
 
