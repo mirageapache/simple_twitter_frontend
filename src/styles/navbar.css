@@ -1,0 +1,69 @@
+@import url("styles/base.css");
+.navbar {
+  position: fixed;
+  width: 180px;
+  height: 100%;
+  top:0;
+  left: 0;
+}
+
+.logo {
+  padding: 13px;
+}
+
+.nav_item {
+  display: flex;
+  align-items: center;
+  color: var(--gray-8);
+  height: 58px;
+  margin: 10px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.item_svg {
+  margin-right: 16px;
+}
+
+.item_svg svg path {
+  fill: var(--gray-8);
+}
+
+.nav_item[data-active=ture] {
+  color: var(--main-color);
+}
+
+.nav_item[data-active=ture] .item_svg svg path {
+  fill: var(--main-color);
+}
+
+.tweet_btn {
+  border: 1px solid red;
+  background-color: var(--main-color);
+  width: 100%;
+  color: white;
+  font-size: 20px;
+  border: 0;
+  border-radius: 50px;
+  padding: 8px;
+}
+
+.logout {
+  position: absolute;
+  bottom: 0;
+  width: 150px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 10px;
+  padding: 6px;
+  color: var(--gray-8);
+}
+
+.logout_svg {
+  margin-right: 16px;
+}
+
+.logout_svg svg path {
+  fill: var(--gray-8);
+}
