@@ -1,0 +1,26 @@
+.register,
+.login {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.register .content,
+.login .content {
+  margin-top: 64px;
+  width: 360px;
+}
+.register .content .title,
+.login .content .title {
+  margin: 20px 0;
+}
+
+.register .cancel_btn{
+  background-color: transparent;
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--primary-color);
+  padding: 0;
+  padding-bottom: 1px;
+  line-height: 16px;
+}
