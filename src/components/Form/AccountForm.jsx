@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import 'styles/auth_form.css';
 
 export default function AccountForm (){
@@ -14,7 +15,10 @@ export default function AccountForm (){
         <FormInput title='密碼確認' name='confirm_password' type='password' placeholder='請再次輸入密碼' />
       </div>
       <button className='submit_btn'>註冊</button>
-      <button className='cancel_btn'>取消</button>
+      
+      <Link to='/login'>
+        <button className='link_btn cancel_btn'>取消</button>
+      </Link>
     </div>
   )
 }
