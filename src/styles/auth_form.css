@@ -4,7 +4,7 @@
   margin: 40px 0;
 }
 
-.input_div {
+.form .input_div {
   position: relative;
   text-align: left;
   margin-bottom: 32px;
@@ -13,18 +13,18 @@
   background-color: #f5f8fa;
 }
 
-.input_div * {
+.form .input_div * {
   background-color: #f5f8fa;
   padding-left: 10px;
 }
 
-.input_div label {
+.form .input_div label {
   color: var(--gray-7);
   font-size: var(--secondary-text-size);
   margin-bottom: 5px;
 }
 
-.input_div input {
+.form .input_div input {
   border: 0;
   border-bottom: 3px;
   border-style: solid;
@@ -35,23 +35,23 @@
   margin-top: 5px;
 }
 
-.input_div input::-moz-placeholder {
+.form .input_div input::-moz-placeholder {
   color: var(--gray-5);
   font-size: var(--main-text-size);
 }
 
-.input_div input::placeholder {
+.form .input_div input::placeholder {
   color: var(--gray-5);
   font-size: var(--main-text-size);
 }
 
-.input_div input:hover,
-.input_div input:focus {
+.form .input_div input:hover,
+.form .input_div input:focus {
   outline: none;
   border-color: var(--light-blue-color);
 }
 
-.submit_btn {
+.form .submit_btn {
   position: relative;
   width: 100%;
   height: 46px;

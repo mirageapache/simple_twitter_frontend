@@ -2,19 +2,17 @@
 
 .recommend {
   position: fixed;
-  top: 0;
-  right: 0;
   width: 275px;
   background-color: var(--gray-1);
   margin-top: 16px;
   border-radius: 16px;
 }
 
-.title {
+.recommend .title {
   margin: 24px;
 }
 
-.title::after {
+.recommend .title::after {
   content: "";
   position: absolute;
   top: 74px;
@@ -23,27 +21,27 @@
   width: 275px;
 }
 
-.recommend_item {
+.recommend .recommend_item {
   padding: 16px;
   display: flex;
   align-items: center;
 }
 
-.item_text {
+.recommend .recommend_item .item_text {
   width: 75px;
   height: 48px;
   margin-left: 8px;
   margin-right: 13px;
 }
 
-.item_text .name {
+.recommend .recommend_item .item_text .name {
   margin-bottom: 2px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.item_text .account {
+.recommend .recommend_item .item_text .account {
   font-size: var(--secondary-text-size);
   color: var(--gray-6);
   margin-top: 5px;
@@ -53,7 +51,7 @@
   text-overflow: ellipsis;
 }
 
-.item_btn .follow_btn {
+.recommend .recommend_item .item_btn .follow_btn {
   background-color: var(--main-color);
   color: white;
   border-radius: 50px;

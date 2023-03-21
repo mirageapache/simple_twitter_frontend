@@ -1,5 +1,4 @@
 import AccountForm from 'components/Form/AccountForm';
-import { useNavigate } from 'react-router-dom';
 
 
 // import style
@@ -7,10 +6,6 @@ import 'styles/auth.css';
 import { ReactComponent as SvgIconLogo } from 'assets/icons/logo.svg';
 
 export default function Register(){
-  const navigate = useNavigate();
-
-  // 註冊 onclick eventhandle
-
   return(
     <div className='register'>
       <div className='content'>
