@@ -1,5 +1,6 @@
 // import {Navbar, Recommend} from 'components';
-import { BrowserRouter, Routes } from 'react-router-dom';
+import { RegisterPage } from 'pages';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import 'styles/app.css';
 
 export default function App() {
@@ -8,7 +9,7 @@ export default function App() {
       <div className='container'>
         <BrowserRouter>
           <Routes>
-
+            <Route path='/register' element={<RegisterPage />} />
           </Routes>
         </BrowserRouter>
       </div>
