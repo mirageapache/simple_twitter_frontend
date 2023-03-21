@@ -24,7 +24,7 @@ export default function LoginForm ({ current_page }){
           </Link>
         </div>
       :
-        <div className=''>
+        <div className='btn_group'>
           <Link to='/login'>
             <button className='link_btn user_login_btn'>前台登入</button>
           </Link>
