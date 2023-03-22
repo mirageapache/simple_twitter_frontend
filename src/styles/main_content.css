@@ -2,30 +2,36 @@
 /* 大螢幕 */
 @media screen and (min-width: 992px) {
   /* MainPage Content style */
-  .banner{
+  .main_content .banner_div{
+    display: flex;
+    align-items: center;
+    padding: 24px;
     border-bottom: 1px solid #E6ECF0;
-    padding: 16px;
+  }
+  .main_content .back_btn{
+    margin-right: 16px;
+    cursor: pointer;
   }
 
-  .posting{
+  .main_content .posting{
     display: flex;
     align-items: center;
     padding: 16px 24px;
   }
-  .posting .avatar_span{
+  .main_content .posting .avatar_span{
     width: 50px;
     height: 50px;
   }
-  .posting h5{
+  .main_content .posting h5{
     color: #6C757D;
     margin: 8px;
   }
   
-  .btn_div{
+  .main_content .btn_div{
     text-align: right;
     border-bottom: 10px solid #E6ECF0;
   }
-  .post_btn{
+  .main_content .post_btn{
     background-color: var(--main-color);
     color: white;
     margin: 16px 24px;
@@ -34,59 +40,59 @@
   }
 
   /* TweetList style */
-  .tweet_item{
+  .tweet_list .tweet_item{
     border-bottom: 1px solid #E6ECF0;
     padding: 16px 24px;
     display: flex;
   }
-  .tweet_item .avatar_div{
+  .tweet_list .tweet_item .avatar_div{
     width: 50px;
     height: 50px;
   }
   
-  .tweet_item .text_div{
+  .tweet_list .tweet_item .text_div{
     margin-left: 8px;
     color: var(--main-text-color);
     line-height: 26px;
   }
-  .tweet_item .card_header{
+  .tweet_list .tweet_item .card_header{
     display: flex;
   }
-  .tweet_item .user_name{
+  .tweet_list .tweet_item .user_name{
     font-weight: 700;
     margin-right: 8px;
     cursor: pointer;
   }
-  .tweet_item .user_account{
+  .tweet_list .tweet_item .user_account{
     font-size: 14px;
     color: var(--secondary-text-color);
     cursor: pointer;
   }
   
-  .tweet_item .card_body{
+  .tweet_list .tweet_item .card_body{
     margin: 10px 0;
   }
 
-  .tweet_item .card_footer{
+  .tweet_list .tweet_item .card_footer{
     display:flex;
     color: var(--secondary-text-color);
   }
-  .tweet_item .card_footer span{
+  .tweet_list .tweet_item .card_footer span{
     display: flex;
     align-items: center;
     cursor: pointer;
   }
-  .tweet_item .card_footer span svg{
+  .tweet_list .tweet_item .card_footer span svg{
     width: 14px;
     height: 14px;
   }
-  .tweet_item .card_footer span p{
+  .tweet_list .tweet_item .card_footer span p{
     font-size: 14px;
     line-height: 14px;
     font-weight: 600;
     margin-left: 10px;
   }
-  .tweet_item .like_span{
+  .tweet_list .tweet_item .like_span{
     margin-left: 40px;
   }
 

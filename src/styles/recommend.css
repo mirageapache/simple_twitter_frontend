@@ -35,10 +35,11 @@
 }
 
 .recommend .recommend_item .item_text .name {
-  margin-bottom: 2px;
+  font-weight: 700;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  margin-bottom: 2px;
 }
 
 .recommend .recommend_item .item_text .account {

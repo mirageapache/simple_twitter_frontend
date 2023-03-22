@@ -2,7 +2,7 @@ import { ReactComponent as IconClose } from 'assets/icons/close.svg';
 import { ReactComponent as IconAvatar } from 'assets/icons/avatar.svg'
 import { useState } from 'react';
 
-export default function TweetModal({TweetModalToggle}) {
+export default function TweetModal({onModalToggle}) {
   const [words, setWords] = useState(0);
 
   // 判斷推文內容是否超過140字
@@ -13,10 +13,10 @@ export default function TweetModal({TweetModalToggle}) {
 
   return(
     <div className="tweet_modal">
-      <div className="gray_panel" onClick={() => {TweetModalToggle()}}></div>
+      <div className="gray_panel" onClick={() => {onModalToggle()}}></div>
       <div className="modal_panel">
         <div className="modal_header">
-          <span className="close_btn" onClick={() => {TweetModalToggle()}}>
+          <span className="close_btn" onClick={() => {onModalToggle()}}>
             <IconClose />
           </span>
         </div>
