@@ -1,6 +1,6 @@
 import { usersData } from "data/dummyAdminData";
 
-import AdminUsersList from "components/AdminUsersList";
+import AdminUsersList from "components/admin/AdminUsersList";
 
 // style
 import "styles/AdminUsers.css";
