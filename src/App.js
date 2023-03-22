@@ -1,6 +1,7 @@
-import { RegisterPage, LoginPage, AdminLoginPage, MainPage } from 'pages';
+import { RegisterPage, LoginPage, AdminLoginPage, SettingPage } from 'pages';
+import { MainPage } from 'pages';
 import { FollowPage } from 'pages';
-import {AdminUsersPage,AdminTweetsPage} from 'pages/admin'
+import { AdminUsersPage, AdminTweetsPage } from 'pages'
 import { Route, Routes } from 'react-router-dom';
 import 'styles/app.css';
 
@@ -12,6 +13,7 @@ export default function App() {
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/admin_login' element={<AdminLoginPage />} />
+            <Route path='/setting' element={<SettingPage />} />
             <Route path='/main' element={<MainPage />} />
             <Route path='/admin_users' element={<AdminUsersPage />}></Route>
             <Route path='/admin_tweets' element={<AdminTweetsPage />}></Route>

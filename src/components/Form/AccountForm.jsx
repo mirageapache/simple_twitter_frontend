@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "styles/auth_form.css";
 
-export default function AccountForm() {
+export default function AccountForm ({page}){
   const [accout, setAccount] = useState();
 
   return (
@@ -40,11 +40,20 @@ export default function AccountForm() {
           placeholder="請再次輸入密碼"
         />
       </div>
-      <button className="submit_btn">註冊</button>
 
-      <Link to="/login">
-        <button className="link_btn cancel_btn">取消</button>
-      </Link>
+      {page === 'register'?
+        <>
+          <button className='submit_btn'>註冊</button>
+          <Link to='/login'>
+            <button className='link_btn cancel_btn'>取消</button>
+          </Link>
+        
+        </>
+      :
+        <>
+          <button className='edit_btn'>儲存</button>
+        </>
+      }
     </div>
   );
 }
