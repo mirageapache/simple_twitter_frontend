@@ -1,5 +1,6 @@
 import { RegisterPage, LoginPage, AdminLoginPage, SettingPage } from 'pages';
 import { MainPage } from 'pages';
+import { FollowPage } from 'pages';
 import { AdminUsersPage, AdminTweetsPage } from 'pages'
 import { Route, Routes } from 'react-router-dom';
 import 'styles/app.css';
@@ -16,6 +17,7 @@ export default function App() {
             <Route path='/main' element={<MainPage />} />
             <Route path='/admin_users' element={<AdminUsersPage />}></Route>
             <Route path='/admin_tweets' element={<AdminTweetsPage />}></Route>
+            <Route path="/follow" element={<FollowPage />}></Route>
           </Routes>
       </div>
     </div>
