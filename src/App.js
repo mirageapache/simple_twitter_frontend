@@ -1,13 +1,12 @@
 import { RegisterPage, LoginPage, AdminLoginPage, MainPage } from 'pages';
 import {AdminUsersPage,AdminTweetsPage} from 'pages/admin'
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import 'styles/app.css';
 
 export default function App() {
   return (
     <div className="app">
       <div className='container'>
-        <BrowserRouter>
           <Routes>
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage />} />
@@ -16,7 +15,6 @@ export default function App() {
             <Route path='/admin_users' element={<AdminUsersPage />}></Route>
             <Route path='/admin_tweets' element={<AdminTweetsPage />}></Route>
           </Routes>
-        </BrowserRouter>
       </div>
     </div>
   );
