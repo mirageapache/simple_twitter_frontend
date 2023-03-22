@@ -13,7 +13,7 @@ export default function Register(){
           <SvgIconLogo />
         </span>
         <h3 className='title'>建立你的帳號</h3>
-        <AccountForm />
+        <AccountForm page='register' />
 
       </div>
     </div>
