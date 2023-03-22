@@ -1,6 +1,6 @@
 import RegisterPage from './RegisterPage';
 import LoginPage from './LoginPage';
 import AdminLoginPage from './AdminLoginPage'
-// import Main from './Main'
+import MainPage from './MainPage'
 
-export { RegisterPage, LoginPage, AdminLoginPage };
+export { RegisterPage, LoginPage, AdminLoginPage, MainPage };
