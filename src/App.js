@@ -1,9 +1,12 @@
 import 'styles/app.css';
 import { Route, Routes } from 'react-router-dom';
 // user
-import { RegisterPage, LoginPage, AdminLoginPage, SettingPage } from 'pages';
+import { RegisterPage, LoginPage, AdminLoginPage, 
+  // SettingPage
+ } from 'pages';
 import { MainPage } from 'pages';
 import FollowPage from "pages/FollowPage.jsx";
+import ProfilePage from 'pages/ProfilePage';
 // admin
 // import AdminNavbar from "components/Admin/AdminNavbar.jsx";
 import AdminTweetsPage from'pages/admin/AdminTweetsPage'
@@ -24,6 +27,7 @@ export default function App() {
             <Route path='/admin_users' element={<AdminUsersPage />}></Route>
             <Route path='/admin_tweets' element={<AdminTweetsPage />}></Route>
             <Route path="/follow" element={<FollowPage />}></Route>
+            <Route path="/profile" element={<ProfilePage />}></Route>
           </Routes>
       </div>
     </div>

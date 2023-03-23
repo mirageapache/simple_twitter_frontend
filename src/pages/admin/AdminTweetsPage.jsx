@@ -1,6 +1,6 @@
 import { tweetsData } from "data/dummyAdminData";
 
-import AdminTweetsList from "components/AdminTweetsList";
+import AdminTweetsList from "components/admin/AdminTweetsList";
 
 // style
 import "styles/AdminTweets.css";
