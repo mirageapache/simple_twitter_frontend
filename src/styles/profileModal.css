@@ -1,0 +1,216 @@
+@import url("base.css");
+
+/* Tweet Modal */
+.reply_modal {
+  position: relative;
+}
+.reply_modal .gray_panel {
+  position: fixed;
+  z-index: 900;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(80, 80, 80, 0.5);
+}
+
+.reply_modal .modal_panel {
+  position: fixed;
+  z-index: 901;
+  top: 56px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  width: 634px;
+  height: auto;
+  min-height: 610px;
+  background-color: white;
+  border-radius: 14px;
+}
+/* header */
+.reply_modal .modal_header {
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e6ecf0;
+}
+
+.reply_modal .modal_header .header-left {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.reply_modal .close_btn {
+  display: block;
+  width: 24px;
+  margin-right: 36.5px;
+}
+.reply_modal .close_btn svg {
+  display: block;
+  cursor: pointer;
+}
+.reply_modal .close_btn svg path {
+  fill: var(--main-color);
+}
+
+.reply_modal .btn-save {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px 16px;
+  color: #ffffff;
+  background-color: var(--main-color);
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+/* cover*/
+.reply_modal .modal_body .cover-wrapper {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 200px;
+}
+.reply_modal .modal_body .cover-gray-panel {
+  position: absolute;
+  z-index: 890;
+  width: 100%;
+  height: 99%;
+  top: 0;
+  left: 0;
+  background-color: rgba(23, 23, 37, 0.5);
+}
+
+.reply_modal .modal_body .cover-gray-panel .edit-setting {
+  position: absolute;
+  z-index: 891;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 73.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* avatar */
+.reply_modal .modal_body .avatar-container {
+  position: relative;
+}
+.reply_modal .modal_body .avatar-gray-panel {
+  position: absolute;
+  z-index: 991;
+  width: 94%;
+  height: 94%;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  right: 4px;
+  border-radius: 50%;
+  background-color: rgba(23, 23, 37, 0.5);
+}
+.avatar-edit-setting {
+  position: absolute;
+  z-index: 996;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/* svg */
+.setting-icon-svg {
+  fill: #ffffff;
+  cursor: pointer;
+}
+
+.setting-icon-svg path {
+  fill: #ffffff;
+}
+
+.add-photo-icon {
+  height: 20px;
+  width: 20px;
+}
+/* modal_content */
+.reply_modal .modal_body .edit-profile-container {
+    margin: 80px 16px 16px 16px;
+}
+
+/* form  css設定從auth_form.css來*/
+.profile-info-form {
+    margin:0
+  }
+.form {
+    margin: 40px 0;
+  }
+
+  .form .input_div {
+    position: relative;
+    text-align: left;
+    margin-bottom: 32px;
+    border-radius: 2px;
+    padding-top: 6px;
+    background-color: #F5F8FA;;
+  }
+  
+  .form .input_div * {
+    background-color: #f5f8fa;
+    padding-left: 10px;
+  }
+  
+  .form .input_div label {
+    color: var(--gray-7);
+    font-size: var(--secondary-text-size);
+    margin-bottom: 5px;
+  }
+  
+  .form .input_div input {
+    border: 0;
+    border-bottom: 3px;
+    border-style: solid;
+    border-color: #657786;
+    border-radius: 2px;
+    width: 100%;
+    height: 30px;
+  }
+  
+  .form .input_div input::-moz-placeholder {
+    color: var(--gray-5);
+    font-size: var(--main-text-size);
+  }
+  
+  .form .input_div input::placeholder {
+    color: var(--gray-5);
+    font-size: var(--main-text-size);
+  }
+  
+  .form .input_div input:hover,
+  .form .input_div input:focus {
+    outline: none;
+    border-color: var(--light-blue-color);
+  }
+/* textarea */
+  .form .input_div textarea {
+    border: 0;
+    border-bottom: 3px;
+    border-style: solid;
+    border-color: #657786;
+    border-radius: 2px;
+    width: 100%;
+    height: 145px;
+  }
+  
+  .form .input_div textarea::-moz-placeholder {
+    color: var(--gray-5);
+    font-size: var(--main-text-size);
+  }
+  
+  .form .input_div textarea::placeholder {
+    color: var(--gray-5);
+    font-size: var(--main-text-size);
+  }
+  
+  .form .input_div textarea:hover,
+  .form .input_div textarea:focus {
+    outline: none;
+    border-color: var(--light-blue-color);
+  }

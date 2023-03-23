@@ -1,0 +1,121 @@
+/* @import url("styles/base.css"); */
+@import url("base.css");
+
+.user-cover {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 200px;
+}
+.avatar-wrapper {
+  position: absolute;
+  z-index: 10;
+  left: 16px;
+  bottom: 100;
+  transform: translate(0%, -50%);
+  z-index: 900;
+}
+.user-avatar {
+  height: 140px;
+  width: 140px;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+}
+.info-card {
+  position: relative;
+  padding: 16px 17px 16px 15px;
+}
+.setting-bar {
+  position: absolute;
+  top: 16px;
+  right: 17px;
+}
+
+.interactive {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.interact-icon {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  margin-right: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--main-color);
+  background-color: #ffffff;
+  fill: var(--main-color);
+  cursor: pointer;
+}
+
+.interact-icon path {
+  fill: var(--main-color);
+}
+
+.interact-icon-active {
+  background-color: var(--main-color);
+  fill: #ffffff;
+}
+
+.interact-icon-active path {
+  fill: #ffffff;
+}
+
+.btn-base {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px 16px;
+  color: var(--main-color);
+  background-color: #ffffff;
+  border-radius: 50px;
+  border: 1px solid var(--main-color);
+  cursor: pointer;
+}
+.btn-fill {
+  color: #ffffff;
+  background: var(--main-color);
+}
+
+.card-container {
+  margin-top: 72px;
+}
+
+.user-name {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  color: var(--main-text);
+}
+.user-account {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--secondary-color);
+}
+.user-introduction {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--main-text);
+}
+.follow-info {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-top: 8px;
+}
+.follow-info-item {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  margin-right: 6px;
+  color: var(--gray-9);
+}
+.follow-num {
+    color: var(--gray-9);
+  }
+  .follow-text {
+    color: var(--secondary-color);
+  }

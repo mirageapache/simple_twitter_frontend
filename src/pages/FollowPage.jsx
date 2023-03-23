@@ -1,7 +1,7 @@
 // components
-import ProfileGuide from "components/profile/ProfileGuide";
-import FollowList from "components/profile/FollowList";
-import TweetNavbar from "components/profile/TweetNavbar";
+import ProfileGuide from "components/Profile/ProfileGuide";
+import FollowList from "components/Profile/FollowList";
+import TweetNavbar from "components/Profile/TweetNavbar";
 
 //style
 import "styles/follow.css";

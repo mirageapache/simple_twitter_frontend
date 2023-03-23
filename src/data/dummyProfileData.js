@@ -1,5 +1,5 @@
 import dummyAvatar from "assets/images/userCard/avatar.jpeg";
-// import dummyCover from "assets/images/dummy_cover.jpg";
+import dummyCover from "assets/images/dummy_cover.jpg";
 
 export const userSelfData = {
   id: "user0001",
@@ -7,7 +7,7 @@ export const userSelfData = {
   account: "tina2023",
   name: "Tina",
   avatar: dummyAvatar,
-  // cover_img: dummyCover,
+  cover_img: dummyCover,
   tweet_count: 15000,
   following_count: 10,
   follower_count: 10,
