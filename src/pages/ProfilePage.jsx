@@ -33,7 +33,7 @@ function ProfilePage() {
         <div className="cover-wrapper">
           <img src={data.cover_img} alt="user cover" className="user-cover" />
           <div className="avatar-wrapper">
-            <img src={data.avatar} alt="user avatar" className="user-avatar" />
+            <img src={data.avatar} alt="user avatar" className="avatar-img" />
           </div>
         </div>
         <div className="info-card">

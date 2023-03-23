@@ -7,7 +7,10 @@ import ReplyList from './Main/ReplyList';
 import TweetModal from './Main/TweetModal';
 import ReplyModal from './Main/ReplyModal';
 import ReplyContent from './Main/ReplyContent';
+import AccountForm from './Form/AccountForm';
 
 export { Navbar, Recommend };
 
 export { MainContent, ReplyContent, TweetList, ReplyList, TweetModal, ReplyModal };
+
+export { AccountForm };
