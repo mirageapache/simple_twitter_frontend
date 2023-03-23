@@ -156,7 +156,7 @@
   .tweet_modal .modal_footer{
     margin: 0 16px;
     display: flex;
-    justify-content: end;
+    justify-content: right;
     align-items: center;
   }
   .tweet_modal .tip_text{

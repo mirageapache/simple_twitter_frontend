@@ -275,7 +275,7 @@
   .reply_modal .modal_footer{
     margin-bottom: 16px;
     display: flex;
-    justify-content: end;
+    justify-content: right;
     align-items: center;
   }
   .reply_modal .tip_text{
