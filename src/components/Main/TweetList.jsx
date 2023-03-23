@@ -1,4 +1,3 @@
-import 'styles/content.css';
 import { ReactComponent as IconAvatar } from 'assets/icons/avatar.svg';
 import { ReactComponent as IconReply } from 'assets/icons/reply.svg';
 import { ReactComponent as IconLikeLight } from 'assets/icons/like_light.svg';
