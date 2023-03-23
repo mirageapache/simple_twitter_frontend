@@ -1,5 +1,6 @@
 import { Navbar, Recommend, MainContent, ReplyContent } from "components";
 import FollowPage from "pages/profile/FollowPage.jsx";
+import ProfilePage from "pages/profile/ProfilePage";
 
 import "styles/main.css";
 
@@ -14,7 +15,11 @@ export default function MainPage({ path }) {
   } else if (path === "follow") {
     // 跟隨頁面
     contentBoard = <FollowPage />;
+  } else if (path === "profile") {
+    // 個人頁面
+    contentBoard = <ProfilePage />;
   }
+
   return (
     <div className="main_page">
       {/* 導覽列 */}
