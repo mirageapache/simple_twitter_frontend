@@ -5,8 +5,8 @@ import { RegisterPage, LoginPage, AdminLoginPage,
   // SettingPage
  } from 'pages';
 import { MainPage } from 'pages';
-import FollowPage from "pages/FollowPage.jsx";
-import ProfilePage from 'pages/ProfilePage';
+// import FollowPage from "pages/FollowPage";
+// import ProfilePage from 'pages/ProfilePage';
 // admin
 // import AdminNavbar from "components/Admin/AdminNavbar.jsx";
 import AdminTweetsPage from'pages/admin/AdminTweetsPage'
@@ -26,8 +26,10 @@ export default function App() {
             <Route path='/reply' element={<MainPage path='reply'/>} />
             <Route path='/admin_users' element={<AdminUsersPage />}></Route>
             <Route path='/admin_tweets' element={<AdminTweetsPage />}></Route>
-            <Route path="/follow" element={<FollowPage />}></Route>
-            <Route path="/profile" element={<ProfilePage />}></Route>
+            {/* <Route path="/follow" element={<FollowPage />}></Route>
+            <Route path="/profile" element={<ProfilePage />}></Route> */}
+            <Route path="/profile" element={<MainPage path='profile'/>}></Route> 
+            <Route path="/follow" element={<MainPage path='follow'/>}></Route>
           </Routes>
       </div>
     </div>

@@ -18,7 +18,7 @@ function FollowPage() {
     <>
       <ProfileGuide data={userSelfData} />
       {/* 選項 */}
-      <div className="guide-top-board">
+      <div className="border-top-line">
         <TweetNavbar navbarData={navbarData} />
       </div>
       {/* 清單共用元件：follow */}
