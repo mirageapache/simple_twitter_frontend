@@ -1,9 +1,12 @@
 import { RegisterPage, LoginPage, AdminLoginPage, SettingPage } from 'pages';
 import { MainPage } from 'pages';
-import { FollowPage } from 'pages';
-import { AdminUsersPage, AdminTweetsPage } from 'pages'
+import FollowPage from "pages/FollowPage.jsx";
+// import AdminNavbar from "components/Admin/AdminNavbar.jsx";
+import AdminTweetsPage from "pages/admin/AdminTweetsPage";
+import AdminUsersPage from "pages/admin/AdminUsersPage";
 import { Route, Routes } from 'react-router-dom';
 import 'styles/app.css';
+
 
 export default function App() {
   return (

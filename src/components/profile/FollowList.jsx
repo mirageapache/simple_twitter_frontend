@@ -4,7 +4,7 @@ function FollowItem(data) {
     <div className="follow-item" key={item.id}>
       <img src={item.avatar} alt="user avatar" className="avatar" />
       <div className="follow-container">
-        <div className="follow-info">
+        <div className="user-follow-info">
           <p className="tweet-name">{item.name}</p>
           <button type="button" className="follow-button">
             {item.is_followed ? "正在跟隨" : "跟隨"}
