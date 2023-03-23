@@ -20,7 +20,7 @@ function NavItem({ text, pathState, active }) {
       break;
     case "users":
       svg_item = <IconUser />;
-      routePath = "admin_users";
+      routePath = "/admin_users";
       break;
     default:
       break;
