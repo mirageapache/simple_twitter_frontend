@@ -1,18 +1,15 @@
 import 'styles/app.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 // user
 import { RegisterPage, LoginPage, AdminLoginPage, SettingPage } from 'pages';
 import { MainPage } from 'pages';
 // admin
 import AdminPage from 'pages/AdminPage';
 
-const basename = process.env.PUBLIC_URL;
-
 export default function App() {
   return (
     <div className="app">
       <div className='container'>
-        <BrowserRouter basename={basename}>
           <Routes>
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage />} />
@@ -25,7 +22,6 @@ export default function App() {
             <Route path='/admin_users' element={<AdminPage path='admin_users' />}></Route>
             <Route path='/admin_tweets' element={<AdminPage path='admin_tweets' />}></Route>
           </Routes>
-          </BrowserRouter>
       </div>
     </div>
   );
