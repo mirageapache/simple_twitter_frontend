@@ -5,10 +5,10 @@ import "styles/navbar.css";
 // SVG
 import { ReactComponent as IconLogo } from "assets/icons/logo.svg";
 import { ReactComponent as IconHome } from "assets/icons/home.svg";
-import { ReactComponent as IconHomeLight } from "assets/icons/home_light.svg";
-import { ReactComponent as IconUser } from "assets/icons/user.svg";
+// import { ReactComponent as IconHomeLight } from "assets/icons/home_light.svg";
+// import { ReactComponent as IconUser } from "assets/icons/user.svg";
 import { ReactComponent as IconUserLight } from "assets/icons/user_light.svg";
-import { ReactComponent as IconConfig } from "assets/icons/config.svg";
+// import { ReactComponent as IconConfig } from "assets/icons/config.svg";
 import { ReactComponent as IconConfigLight } from "assets/icons/config_light.svg";
 import { ReactComponent as IconLogout } from "assets/icons/logout.svg";
 
