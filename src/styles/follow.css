@@ -1,8 +1,8 @@
 /* @import url("styles/base.css"); */
 @import url("base.css");
 
-.guide-top-board {
-  border-top: 1px solid #E6ECF0;
+.border-top-line {
+  border-top-line: 1px solid #E6ECF0;
 }
 
 .follow-list {
@@ -10,7 +10,7 @@
   flex-flow: column;
   width: 100%;
 }
-.follow-item {
+.follow-list .follow-item {
   display: flex;
   justify-content: left;
   height: auto;
@@ -19,28 +19,28 @@
   padding: 16px 30px 16px 23px;
   border-top: 1px solid #e6ecf0;
 }
-.avatar {
+.follow-item-avatar {
   min-width: 50px;
   width: 50px;
   height: 50px;
   border-radius: 50px;
 }
-.follow-container {
-  margin: 8px 16px;
+.follow-item-container {
+  margin-left:8px;
 }
-.user-follow-info {
+.follow-item-user {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
 }
-.tweet-name {
+.follow-tweet-name {
   font-weight: 700;
   font-size: 16px;
   line-height: 26px;
   color: var(--main-text);
 }
-.follow-button {
+.follow-item-button {
   padding: 8px 16px;
   font-weight: 400;
   font-size: 16px;
@@ -61,7 +61,7 @@
   background: #ffffff;
   border-radius: 50px;
 } */
-.tweet-content {
+.follow-item-tweet {
   flex-grow: 1;
   font-weight: 400;
   font-size: 16px;
