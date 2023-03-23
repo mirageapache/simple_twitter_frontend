@@ -1,7 +1,7 @@
 // 登入、註冊
 import RegisterPage from './RegisterPage';
 import LoginPage from './LoginPage';
-import AdminLoginPage from './AdminLoginPage'
+import AdminLoginPage from './profile/AdminLoginPage'
 
 // 主頁面
 import MainPage from './MainPage'
