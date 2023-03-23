@@ -44,7 +44,7 @@ export default function ReplyModal({ onModalToggle }) {
           </button>
         </div>
         <div className="modal_body">
-          <div className="cover-wrapper">
+          <div className="modal-cover-image">
             <img
               src={dummy_cover}
               alt="user cover img-gray-panel"
@@ -57,11 +57,11 @@ export default function ReplyModal({ onModalToggle }) {
               </div>
             </span>
           </div>
-          <div className="avatar-wrapper">
+          <div className="modal-avatar-wrapper">
             <img
               src={dummy_avatar}
               alt="user avatar"
-              className="user-avatar avatar-container"
+              className=" modal-avatar-img avatar-container"
             />
             <span className="avatar-gray-panel">
               <div className="avatar-edit-setting">
