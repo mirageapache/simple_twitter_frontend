@@ -1,5 +1,5 @@
-function FollowItem(data) {
-  let followData = data.data;
+function FollowItem({ data }) {
+  let followData = data;
   return followData.map((item) => (
     <div className="follow-item" key={item.id}>
       <img src={item.avatar} alt="user avatar" className="follow-item-avatar" />
@@ -18,10 +18,10 @@ function FollowItem(data) {
   ));
 }
 
-function followList(data) {
+function followList({ data }) {
   return (
     <div className="follow-list">
-      <FollowItem data={data.data}></FollowItem>
+      <FollowItem data={data}></FollowItem>
     </div>
   );
 }
