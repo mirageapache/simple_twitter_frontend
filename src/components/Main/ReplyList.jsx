@@ -1,6 +1,6 @@
 import { ReactComponent as IconAvatar } from 'assets/icons/avatar.svg';
-import { ReactComponent as IconReply } from 'assets/icons/reply.svg';
-import { ReactComponent as IconLikeLight } from 'assets/icons/like_light.svg';
+// import { ReactComponent as IconReply } from 'assets/icons/reply.svg';
+// import { ReactComponent as IconLikeLight } from 'assets/icons/like_light.svg';
 
 const dummy_reply = [
   {account:'devon_lane',name:'Devon Lane',content:'reply1 content',create_at:'3小時',reply_to:'apple',like_count:'76'},
