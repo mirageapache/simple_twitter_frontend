@@ -1,5 +1,6 @@
 // components
-import ProfileGuide from "components/Profile/ProfileGuide";
+import ProfileGuide from "components/Profile/ProfileGuide.jsx";
+
 import FollowList from "components/Profile/FollowList";
 import TweetNavbar from "components/Profile/TweetNavbar";
 
