@@ -1,5 +1,6 @@
 import 'styles/app.css';
 import { Route, Routes } from 'react-router-dom';
+import HomePage from 'pages/HomePage';
 // user
 import { RegisterPage, LoginPage, AdminLoginPage, SettingPage } from 'pages';
 import { MainPage } from 'pages';
@@ -11,6 +12,7 @@ export default function App() {
     <div className="app">
       <div className='container'>
           <Routes>
+            <Route path="*" element={<HomePage />} />
             <Route path='register' element={<RegisterPage />} />
             <Route path='login' element={<LoginPage />} />
             <Route path='main' element={<MainPage path='main' />} />

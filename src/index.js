@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 // import style
 import 'styles/reset.css'
@@ -13,11 +13,9 @@ import App from "./App.js";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    {/* <BrowserRouter basename='/simple_twitter_frontend'> */}
-    <HashRouter>
+    <BrowserRouter basename='/simple_twitter_frontend'>
       <App />
-    </HashRouter>
-    {/* </BrowserRouter> */}
+    </BrowserRouter>
   </React.StrictMode>
 );
 
