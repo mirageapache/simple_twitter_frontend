@@ -10,13 +10,10 @@ import 'styles/base.css'
 import App from "./App.js";
 
 
-const basename = process.env.PUBLIC_URL;
-
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter basename={basename}>
+    <BrowserRouter basename='/simple_twitter_frontend'>
       <App />
     </BrowserRouter>
   </React.StrictMode>
