@@ -33,6 +33,7 @@
   width: 100%;
   height: 30px;
   margin-top: 5px;
+  outline: none;
 }
 
 .login_form .input_div input::-moz-placeholder {
@@ -45,21 +46,24 @@
   font-size: var(--main-text-size);
 }
 
-.login_form .input_div input:hover,
-.login_form .input_div input:focus {
-  outline: none;
+.input_div .input:hover,
+.input_div .input:focus {
   border-color: var(--light-blue-color);
 }
 
-.input_div .error_message{
+.input_div .input_error{
+  border-color: var(--error-color);
+}
+
+.input_div .err_msg{
   position: absolute;
-  color: var(--error-color);
   background-color: transparent;
+  color: var(--error-color);
+  font-size: 12px;
+  line-height: 20px;
   width: 100%;
   left: -10px;
   bottom: -24px;
-  font-size: 12px;
-  line-height: 20px;
 }
 
 .submit_btn {
