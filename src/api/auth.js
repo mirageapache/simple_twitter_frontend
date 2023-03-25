@@ -1,6 +1,8 @@
 import axios from 'axios';
-
+import  { userBaseUrl} from "api/baseApi"
 const authURL = 'https://mysterious-reaches-21389.herokuapp.com/api';
+
+
 
 // Login Method(前後台登入)
 export const loginAPI = async ({ account, password, role }) => {
@@ -39,4 +41,18 @@ export const AccountAPI = async ({ req_data }) => {
   // 回傳至Component
   return result;
 
+};
+
+// 狀態驗證
+export const checkLoginStatusAPI = async (authToken) => {
+  try {
+    const response = await axios.get(`${userBaseUrl}/token`, {
+      headers: {
+        Authorization: `Bearer ${authToken}`
+      },
+    });
+    return response.status === 200;
+  } catch (error) {
+    console.error('[Check Permission Failed]:', error);
+  }
 };
