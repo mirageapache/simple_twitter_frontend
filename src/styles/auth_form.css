@@ -51,7 +51,7 @@
   border-color: var(--light-blue-color);
 }
 
-.input_div .error_message{
+.login_form .input_div .error_message{
   position: absolute;
   color: var(--error-color);
   background-color: transparent;
@@ -62,7 +62,7 @@
   line-height: 20px;
 }
 
-.submit_btn {
+.login_form .submit_btn {
   position: relative;
   width: 100%;
   height: 46px;

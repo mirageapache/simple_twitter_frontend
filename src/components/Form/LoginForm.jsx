@@ -20,7 +20,7 @@ export default function LoginForm ({ current_page }){
   }
 
   // 登入功能
-  async function Login(role){
+  async function Login(){
     setErrorMessage(['','']);
     // 資料驗證
     if(account.length <= 0){
@@ -31,9 +31,9 @@ export default function LoginForm ({ current_page }){
       setErrorMessage(['password','密碼欄位必填！']);
       return
     }
-
+    
     // fetch Login API
-    const result = await loginAPI({account, password, role});
+    const result = await loginAPI({account, password, role:current_page});
     
     // 判斷登入是否成功
     if(result.status === 'success'){
@@ -43,7 +43,7 @@ export default function LoginForm ({ current_page }){
       localStorage.setItem('AuthToken', result.data.token)
       // 判斷前台登入or後台登入，指向不同頁面
       setTimeout(() => {
-        role === 'users'? navigate('/main') : navigate('/admin_tweets')
+        current_page === 'users'? navigate('/main') : navigate('/admin_tweets')
       }, 1500);
     }
     else{
@@ -56,8 +56,15 @@ export default function LoginForm ({ current_page }){
       }
       return
     }
-    
   }
+
+  // KeyDown 事件
+  function handleKeyDown(key){
+    if( key === 'Enter' ){
+      Login(current_page);
+    }
+  }
+
 
   return(
     <div className='login_form'>
@@ -73,6 +80,7 @@ export default function LoginForm ({ current_page }){
             placeholder: '請輸入帳號'
           }}
           onChange={accountChange}
+          onKeyDown={handleKeyDown}
           value={account}
           errmsg = {errorMessage}
         />
@@ -82,14 +90,15 @@ export default function LoginForm ({ current_page }){
             title:'密碼' ,
             name:'password' ,
             type:'password' ,
-            placeholder:'請輸入密碼' ,
+            placeholder:'請輸入密碼',
           }}
           onChange={passwordChange}
+          onKeyDown={handleKeyDown}
           value={password}
           errmsg = {errorMessage}
         />
       </div>
-      <button className='submit_btn' onClick={() => {Login(current_page)}}>登入</button>
+      <button className='submit_btn' onClick={() => {Login()}}>登入</button>
 
       {current_page === 'users' ?
         <div className='btn_group'>
@@ -112,7 +121,7 @@ export default function LoginForm ({ current_page }){
   );
 }
 
-function FormInput({ data, onChange, value, errmsg }){
+function FormInput({ data, onChange, onKeyDown, value, errmsg }){
   let message = '';
 
   if(errmsg[0] === data.name){
@@ -122,15 +131,16 @@ function FormInput({ data, onChange, value, errmsg }){
   return(
     <div className='input_div'>
       <label htmlFor={data.title}>{data.title}</label>
-      <input 
-        className='input'
-        id={data.title}
-        name={data.name} 
-        type={data.type} 
-        placeholder={data.placeholder} 
-        onChange={(e) => {onChange(e.target.value)}}
-        value={value}
-      />
+        <input 
+          className='input'
+          id={data.title}
+          name={data.name} 
+          type={data.type} 
+          placeholder={data.placeholder} 
+          onChange={(e) => {onChange(e.target.value)}}
+          onKeyDown={(e) => {onKeyDown(e.key)}}
+          value={value}
+        />
       {message}
     </div>
   );
