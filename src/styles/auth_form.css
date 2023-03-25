@@ -4,7 +4,7 @@
   margin: 40px 0;
 }
 
-.form .input_div {
+.login_form .input_div {
   position: relative;
   text-align: left;
   margin-bottom: 32px;
@@ -13,18 +13,18 @@
   background-color: #f5f8fa;
 }
 
-.form .input_div * {
+.login_form .input_div * {
   background-color: #f5f8fa;
   padding-left: 10px;
 }
 
-.form .input_div label {
+.login_form .input_div label {
   color: var(--gray-7);
   font-size: var(--secondary-text-size);
   margin-bottom: 5px;
 }
 
-.form .input_div input {
+.login_form .input_div input {
   border: 0;
   border-bottom: 3px;
   border-style: solid;
@@ -35,18 +35,18 @@
   margin-top: 5px;
 }
 
-.form .input_div input::-moz-placeholder {
+.login_form .input_div input::-moz-placeholder {
   color: var(--gray-5);
   font-size: var(--main-text-size);
 }
 
-.form .input_div input::placeholder {
+.login_form .input_div input::placeholder {
   color: var(--gray-5);
   font-size: var(--main-text-size);
 }
 
-.form .input_div input:hover,
-.form .input_div input:focus {
+.login_form .input_div input:hover,
+.login_form .input_div input:focus {
   outline: none;
   border-color: var(--light-blue-color);
 }
