@@ -1,10 +1,12 @@
 import { AccountAPI } from 'api/auth';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import 'styles/auth_form.css';
 
 const email_rule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 
 export default function AccountForm ({ current_page }){
+  const navigate = useNavigate();
   const [account, setAccount] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -77,10 +79,30 @@ export default function AccountForm ({ current_page }){
       return
     }
 
-    // const req_data = {account, name, email, password, confirm_password}
+    const req_data = {account, name, email, password, confirm_password}
     // fetch API 事件
-    const success = await AccountAPI({account, name, email, password, confirm_password});
-    console.log(success)
+    const result = await AccountAPI({ req_data });
+    console.log(result)
+    // 判斷登入是否成功
+    if(result.status === 'success'){
+      alert(result.message);
+      // 導向登入頁
+      navigate('/login');      
+    }
+    else{
+      if(result.message === 'Existing email or user account'){
+        alert('帳號或Email已存在！')
+      }
+      if(result.errors.password === 'Confirm password is incorrect'){
+        alert('確認密碼與密碼不相符！')
+      }
+      if(result.errors.password === 'Password length must be between 5 and 12 characters'){
+        alert('密碼長度應為5~12字元！')
+      }
+      return
+    }
+
+
   }
 
   // KeyDown 事件
