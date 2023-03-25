@@ -1,13 +1,16 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import 'styles/auth_form.css';
-import LoginAPI, { loginAPI } from 'api/auth';
+import { loginAPI } from 'api/auth';
+import Notification from 'components/Form/Notification'
 
 export default function LoginForm ({ current_page }){
+  const navigate = useNavigate();
   const [account,setAccount] = useState('') //帳號
   const [password,setPassword] = useState('') //密碼
-  const [errorMessage, setErrorMessage] = useState(['','']) //有錯誤訊息
-
+  const [errorMessage, setErrorMessage] = useState(['','']) //input錯誤訊息
+  const [notification, setNotification] = useState(['','']) //通知訊息
+  
   function accountChange(value){
     setAccount(value);
   }
@@ -29,13 +32,38 @@ export default function LoginForm ({ current_page }){
       return
     }
 
+    // fetch Login API
     const result = await loginAPI({account, password, role});
-    console.log(result);
+    
+    // 判斷登入是否成功
+    if(result.status === 'success'){
+      // alert(result.message);
+      setNotification(['success','登入成功！']);
+      // 將Token 存至localStorage
+      localStorage.setItem('AuthToken', result.data.token)
+      // 判斷前台登入or後台登入，指向不同頁面
+      setTimeout(() => {
+        role === 'users'? navigate('/main') : navigate('/admin_tweets')
+      }, 1500);
+    }
+    else{
+      if(result.message === 'Incorrect password'){
+        setErrorMessage('password','帳號或密碼錯誤！')
+        alert('帳號或密碼錯誤！')
+      }
+      if(result.errors.password === 'Password length must be between 5 and 12 characters'){
+        alert('密碼長度應為5~12字元！')
+      }
+      return
+    }
+    
   }
-
 
   return(
     <div className='login_form'>
+      {/* 通知訊息 */}
+      {notification[0].length > 0 && <Notification type={notification[0]} text={notification[1]} /> }
+    
       <div className='input_group'>
         <FormInput 
           data ={{
