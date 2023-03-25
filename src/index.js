@@ -5,7 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 // import style
 import 'styles/reset.css'
 import 'styles/base.css'
-// import 'bootstrap/dist/css/bootstrap-grid.min.css'
 
 import App from "./App.js";
 
