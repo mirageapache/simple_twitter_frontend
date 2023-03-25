@@ -12,7 +12,7 @@ export default function AdminLogin() {
           <SvgIconLogo />
         </span>
         <h3 className="title">登入後台</h3>
-        <LoginForm current_page="admin_login" />
+        <LoginForm current_page="admin" />
       </div>
     </div>
   );
