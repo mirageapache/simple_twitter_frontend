@@ -184,9 +184,8 @@ export default function AccountForm ({ current_page }){
       <button className='submit_btn' onClick={handleAccount}>註冊</button>
       <button className='cancel_btn'>取消</button>
     </div>
-  )
+  );
 }
-
 
 function FormInput({ data, onChange, onKeyDown, value, err_msg}){
   let input_style= 'input'; //正常的input樣式
@@ -228,5 +227,5 @@ function FormInput({ data, onChange, onKeyDown, value, err_msg}){
       {/* 錯誤訊息 */}
       {message}
     </div>
-  )
+  );
 }

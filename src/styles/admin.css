@@ -1,0 +1,45 @@
+.admin_page {
+  position: relative;
+  width: 100%;
+  height: 100%; 
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+/* 大螢幕 */
+@media screen and (min-width: 992px) {
+  .admin_page section {
+    height: 100%;
+  }
+  .admin_page .admin_nav_section {
+    width: 180px;
+    grid-column: 0/2;
+  }
+
+  .admin_page .admin_section {
+    grid-column: 2/13;
+    overflow-y: auto;
+  }
+  /* scroll bar style */
+  .admin_page .admin_section {
+    overflow-y: auto;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #fafafa;
+  }
+  ::-webkit-scrollbar-thumb {
+    z-index: 0;
+    background: #c1c1c1;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+  }
+}
+
+/* 小螢幕 */
+@media screen and (max-width: 992px) {
+}

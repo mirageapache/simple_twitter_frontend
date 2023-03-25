@@ -17,7 +17,6 @@ export const loginAPI = async ({ account, password, role }) => {
 
   // 回傳至Component
   return result;
-
 };
 
 
@@ -39,4 +38,5 @@ export const AccountAPI = async ({ req_data }) => {
 
   // 回傳至Component
   return result;
+
 };
