@@ -1,6 +1,6 @@
 @charset "UTF-8";
 @import url("styles/base.css");
-.form {
+.login_form {
   margin: 40px 0;
 }
 
@@ -51,7 +51,18 @@
   border-color: var(--light-blue-color);
 }
 
-.form .submit_btn {
+.input_div .error_message{
+  position: absolute;
+  color: var(--error-color);
+  background-color: transparent;
+  width: 100%;
+  left: -10px;
+  bottom: -24px;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.submit_btn {
   position: relative;
   width: 100%;
   height: 46px;

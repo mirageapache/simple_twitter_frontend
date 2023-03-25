@@ -13,7 +13,7 @@ export default function Login(){
           <SvgIconLogo />
         </span>
         <h3 className='title'>登入 Alphitter</h3>
-        <LoginForm current_page='login'/>
+        <LoginForm current_page='users'/>
 
       </div>
     </div>
