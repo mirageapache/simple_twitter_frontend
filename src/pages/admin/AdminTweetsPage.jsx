@@ -1,15 +1,42 @@
-import { tweetsData } from "data/dummyAdminData";
-
-import AdminTweetsList from "components/Admin/AdminTweetsList";
+import { useState, useEffect } from "react";
 
 // style
 import "styles/AdminTweets.css";
+// components
+import AdminTweetsList from "components/Admin/AdminTweetsList";
+// api
+import { getAdminTweetsAPI, delAdminTweetAPI } from "api/adminApi";
 
 function AdminTweetsPage() {
+  const [tweetsData, setTweetsData] = useState([]);
+
+  useEffect(() => {
+    const getTweetsData = async () => {
+      try {
+        const rawTweetsData = await getAdminTweetsAPI();
+        setTweetsData(rawTweetsData);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getTweetsData();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await delAdminTweetAPI(id);
+      setTweetsData((prevTweetsData) =>
+        prevTweetsData.filter((tweet) => tweet.id !== id)
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="page-wrapper">
       <h4 className="page-title">推文清單</h4>
-      <AdminTweetsList tweetsData={tweetsData} />
+      <AdminTweetsList tweetsData={tweetsData} onDelete={handleDelete} />
     </div>
   );
 }
