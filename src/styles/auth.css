@@ -1,5 +1,6 @@
 .register,
-.login {
+.login,
+.admin_login {
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -7,12 +8,14 @@
   align-items: center;
 }
 .register .content,
-.login .content {
+.login .content,
+.admin_login .content {
   margin-top: 64px;
   width: 360px;
 }
 .register .content .title,
-.login .content .title {
+.login .content .title,
+.admin_login .content .title {
   margin: 20px 0;
 }
 

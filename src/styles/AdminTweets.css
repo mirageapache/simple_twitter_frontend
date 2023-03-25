@@ -1,0 +1,70 @@
+/* @import url("styles/base.css"); */
+@import url("base.css");
+
+/* .page-wrapper {
+padding: 24px 21px;
+} */
+.page-title {
+  margin: 24px 21px;
+  font-weight: 700;
+}
+.tweets-list {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+}
+.tweet-item {
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+  min-height: 120px;
+  width: 100%;
+  padding: 16px 0px 16px 23px;
+  margin-right: 130px;
+  border-top: 1px solid #e6ecf0;
+}
+.avatar {
+  min-width: 50px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+}
+.del-icon-svg {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  fill: var(--gray-7);
+}
+
+.del-icon-svg path {
+  fill: var(--gray-7);
+}
+.item-container {
+  width: 100%;
+  text-align: left;
+  padding: 0px 8px;
+}
+.tweet-item-info {
+  margin-bottom: 8px;
+}
+.tweet-name {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--main-text);
+  margin-right: 8px;
+}
+.tweet-active-info {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  color: var(--secondary-color);
+}
+.tweet-content {
+  flex-grow: 1;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color:var(--main-text)
+  
+}

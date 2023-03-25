@@ -4,9 +4,7 @@ import LoginForm from 'components/Form/LoginForm'
 import 'styles/auth.css';
 import { ReactComponent as SvgIconLogo } from 'assets/icons/logo.svg';
 
-export default function Register(){
-
-  // 註冊 onclick eventhandle
+export default function Login(){
 
   return(
     <div className='login'>

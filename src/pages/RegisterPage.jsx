@@ -1,5 +1,4 @@
-import AccountForm from 'components/Form/AccountFrom'
-import { useNavigate } from 'react-router-dom';
+import AccountForm from 'components/Form/AccountForm';
 
 
 // import style
@@ -7,10 +6,6 @@ import 'styles/auth.css';
 import { ReactComponent as SvgIconLogo } from 'assets/icons/logo.svg';
 
 export default function Register(){
-  const navigate = useNavigate();
-
-  // 註冊 onclick eventhandle
-
   return(
     <div className='register'>
       <div className='content'>
@@ -18,7 +13,7 @@ export default function Register(){
           <SvgIconLogo />
         </span>
         <h3 className='title'>建立你的帳號</h3>
-        <AccountForm />
+        <AccountForm page='register' />
 
       </div>
     </div>

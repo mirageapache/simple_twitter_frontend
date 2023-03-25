@@ -97,22 +97,20 @@ export default function LoginForm ({ current_page }){
             <button className='link_btn register_btn'>註冊</button>
           </Link>
           <span>‧</span>
-          <Link to='/admin_login'>
-            <button className='link_btn admin_login_btn'>後台登入</button>
+          <Link to="/admin_login">
+            <button className="link_btn admin_login_btn">後台登入</button>
           </Link>
         </div>
-      :
-        <div className=''>
-          <Link to='/login'>
-            <button className='link_btn user_login_btn'>前台登入</button>
+      ) : (
+        <div className="btn_group">
+          <Link to="/login">
+            <button className="link_btn user_login_btn">前台登入</button>
           </Link>
         </div>
-      }
-      
+      )}
     </div>
-  )
+  );
 }
-
 
 function FormInput({ data, onChange, value, errmsg }){
   let message = '';
@@ -134,5 +132,5 @@ function FormInput({ data, onChange, value, errmsg }){
       />
       {message}
     </div>
-  )
+  );
 }
