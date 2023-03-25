@@ -101,13 +101,13 @@ export default function LoginForm ({ current_page }){
             <button className="link_btn admin_login_btn">後台登入</button>
           </Link>
         </div>
-      ) : (
+       : 
         <div className="btn_group">
           <Link to="/login">
             <button className="link_btn user_login_btn">前台登入</button>
           </Link>
         </div>
-      )}
+      }
     </div>
   );
 }
@@ -123,6 +123,7 @@ function FormInput({ data, onChange, value, errmsg }){
     <div className='input_div'>
       <label htmlFor={data.title}>{data.title}</label>
       <input 
+        className='input'
         id={data.title}
         name={data.name} 
         type={data.type} 
