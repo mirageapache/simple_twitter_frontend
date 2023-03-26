@@ -1,29 +1,49 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from 'react-router';
 
-const defaultTweetContext = {
+const defaultValue = {
+  tweet: {
+    id: '',
+    description: '',
+    createdAt: '',
+    updatedAt: '',
+    reply_count: 0,
+    like_count: 0,
+    is_liked: 0,
+    User: {
+      id: 0,
+      name: '',
+      account: '',
+      avatar: ''
+    },
+    Replies: []
+  },
   tweetList: [],
-  modalToggle: false,
 };
-const TweetContext = createContext(defaultTweetContext);
+
+const TweetContext = createContext(defaultValue);
 
 export const useTweet = () => useContext(TweetContext);
 
 export const TweetProvider = ({ children }) => {
+  const [tweet, setTweet] = useState({});
   const [tweetList, setTweetList] = useState([]);
-  const [modalToggle, setModalToggle] = useState(false);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if(!tweet){
+      navigate('/main');
+    }
+  },[tweet, navigate])
 
-  // useEffect(() => {
-    
-  // }, []);
 
   return (
-    <TweetContext.Provider
+    <TweetContext.Provider 
       value={{
-        tweetList,
-        setTweetList,
-        modalToggle,
-        setModalToggle
+        tweet,
+        setTweet,
+        tweetList, 
+        setTweetList 
       }}
     >
       {children}

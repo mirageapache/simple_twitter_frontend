@@ -24,7 +24,6 @@
   .main_content .posting .avatar_span .avatar{
     width: 50px;
     height: 50px;
-    border: 1px solid gray;
     border-radius: 100px;
   }
   
@@ -74,7 +73,6 @@
   .tweet_list .tweet_item .avatar_img{
     width: 50px;
     height: 50px;
-    border: 1px solid gray;
     border-radius: 100px;
     cursor: pointer;
   }
@@ -111,6 +109,7 @@
   
   .tweet_list .tweet_item .card_body{
     margin: 10px 0;
+    cursor: pointer;
   }
 
   .tweet_list .tweet_item .card_footer{
@@ -145,7 +144,7 @@
     fill: var(--error-color);
   }
   .like_span .like_icon:hover path{
-    fill: transparent;
+    fill: var(--gray-5)
   }
 
   .like_span .unlike_icon:hover path{
@@ -205,7 +204,6 @@
   }
 
   .tweet_modal .modal_body .avatar_div .avatar{
-    border: 1px solid gray;
     border-radius: 100px;
   }
   

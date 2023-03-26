@@ -24,7 +24,7 @@ export default function App() {
             <Route path="register" element={<RegisterPage />} />
             <Route path="login" element={<LoginPage />} />
               <Route path="main" element={<MainPage path="main" />} />
-              <Route path="reply" element={<MainPage path="reply" />} />
+              <Route path="tweet/:tweet_id" element={<MainPage path="tweet" />} />
               <Route path="profile" element={<MainPage path="profile" />}></Route>
             <Route path="follow" element={<MainPage path="follow" />}></Route>
             <Route path="setting" element={<SettingPage />} />

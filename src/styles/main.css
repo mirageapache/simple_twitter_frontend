@@ -53,9 +53,11 @@
     grid-column: 1/2;
   }
   .main_page .content_section {
-    border: 1px solid #e6ecf0;
+    border-left: 1px solid #e6ecf0;
+    border-right: 1px solid #e6ecf0;
     grid-column: 2/3;
     margin: 0 24px;
+    height: 100vh;
   }
   .main_page .recommend_section {
     width: 275px;
