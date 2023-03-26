@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "context/AuthContext";
 
-
 // style
 import "styles/navbar.css";
 // SVG
@@ -22,10 +21,10 @@ export default function Navbar() {
   // TweetModal toggle (開關事件)
   const [modal_toggle, setModalToggle] = useState(false);
 
-  function onModalToggle(){
+  function onModalToggle() {
     setModalToggle(!modal_toggle);
   }
-  
+
   // 登出事件
   const handleClick = () => {
     logout();
@@ -44,8 +43,10 @@ export default function Navbar() {
         <NavItem text="設定" svg_string="config" active="false" />
       </div>
 
-      <button className="tweet_btn" onClick={onModalToggle} >推文</button>
-      { modal_toggle && <TweetModal onModalToggle={onModalToggle} /> }
+      <button className="tweet_btn" onClick={onModalToggle}>
+        推文
+      </button>
+      {modal_toggle && <TweetModal onModalToggle={onModalToggle} />}
 
       {/* 登出 */}
       <div className="logout">
