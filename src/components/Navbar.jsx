@@ -11,8 +11,18 @@ import { ReactComponent as IconUserLight } from "assets/icons/user_light.svg";
 // import { ReactComponent as IconConfig } from "assets/icons/config.svg";
 import { ReactComponent as IconConfigLight } from "assets/icons/config_light.svg";
 import { ReactComponent as IconLogout } from "assets/icons/logout.svg";
+import { useState } from "react";
+import TweetModal from "./Main/TweetModal";
 
 export default function Navbar() {
+  // TweetModal toggle
+  const [modal_toggle, setModalToggle] = useState(false);
+
+  function onModalToggle(){
+    setModalToggle(!modal_toggle);
+  }
+
+
   return (
     <div className="navbar">
       {/* Logo */}
@@ -26,8 +36,10 @@ export default function Navbar() {
         <NavItem text="設定" svg_string="config" active="false" />
       </div>
 
-      <button className="tweet_btn">推文</button>
+      <button className="tweet_btn" onClick={onModalToggle} >推文</button>
+      { modal_toggle && <TweetModal onModalToggle={onModalToggle} /> }
 
+      {/* 登出 */}
       <div className="logout">
         <span className="logout_svg">
           <IconLogout />

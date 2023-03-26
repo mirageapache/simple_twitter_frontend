@@ -5,36 +5,47 @@
   .main_content .banner_div{
     display: flex;
     align-items: center;
-    padding: 24px;
     border-bottom: 1px solid #E6ECF0;
+    padding: 24px;
   }
   .main_content .back_btn{
     margin-right: 16px;
     cursor: pointer;
   }
+  
+  .post_div{
+    border-bottom: 10px solid #E6ECF0;
+  }
 
   .main_content .posting{
     display: flex;
-    align-items: center;
-    padding: 16px 24px;
+    padding: 16px 24px 0 24px;
   }
   .main_content .posting .avatar_span{
     width: 50px;
     height: 50px;
   }
-  .main_content .posting h5{
-    color: #6C757D;
+  .main_content .posting .posting_text{
     margin: 8px;
+    border: 0;
+    resize: none;
+    overflow: auto;
+    outline: none;
+  }
+
+  .main_content .posting .posting_text::placeholder{
+    color: #6C757D;
   }
   
   .main_content .btn_div{
     text-align: right;
-    border-bottom: 10px solid #E6ECF0;
+    /* border-bottom
+    border: 1px solid red;: 10px solid #E6ECF0; */
   }
   .main_content .post_btn{
     background-color: var(--main-color);
     color: white;
-    margin: 16px 24px;
+    margin: 0 24px 16px 24px;
     border-radius: 50px;
     padding: 8px 16px;
   }
@@ -45,9 +56,12 @@
     padding: 16px 24px;
     display: flex;
   }
-  .tweet_list .tweet_item .avatar_div{
+
+  .tweet_list .tweet_item .avatar_img{
     width: 50px;
     height: 50px;
+    border: 1px solid gray;
+    border-radius: 100px;
   }
   
   .tweet_list .tweet_item .text_div{
@@ -65,7 +79,7 @@
   }
   .tweet_list .tweet_item .user_account{
     font-size: 14px;
-    color: var(--secondary-text-color);
+    color: var(--secondary-color);
     cursor: pointer;
   }
   
@@ -75,7 +89,7 @@
 
   .tweet_list .tweet_item .card_footer{
     display:flex;
-    color: var(--secondary-text-color);
+    color: var(--secondary-color);
   }
   .tweet_list .tweet_item .card_footer span{
     display: flex;
@@ -98,7 +112,7 @@
 
   /* Tweet Modal */
   .tweet_modal{
-    position: relative;
+    position: fixed;
   }
   .tweet_modal .gray_panel{
     position: fixed;
@@ -117,11 +131,14 @@
     width: 635px;
     height: 300px;
     top: 56px;
-    border-radius: 14px;
+    margin-left: 204px;
+    /* border-radius
+    border: 1px solid red;: 14px; */
   }
 
   .tweet_modal .modal_header{
-    border-bottom: 1px solid #E6ECF0;
+    /* border-bottom
+    border: 1px solid red;: 1px solid #E6ECF0; */
     height: 56px;
     padding: 16px;
   }
@@ -141,11 +158,17 @@
     display: flex;
     padding: 16px 16px 0 24px;
   }
+
+  .tweet_modal .modal_body .avatar_div{
+    margin-right: 8px;
+  }
+
   .tweet_modal .modal_body .text_div{
     text-align: right;
   }
   .tweet_modal .content_text{
-    border: 0;
+    /* border: 0; */
+    border: 1px solid red;
     padding: 10px 0;
     resize: none;
     width: 535px;
@@ -167,7 +190,8 @@
   .tweet_modal .submit_btn{
     background-color: var(--main-color);
     color: white;
-    border-radius: 50px;
+    /* border-radius
+    border: 1px solid red;: 50px; */
     padding: 8px 16px;
   }
   .tweet_modal .submit_btn:disabled{
