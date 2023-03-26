@@ -22,7 +22,6 @@ function TweetItem(data) {
 }
 
 function AdminTweetsList(data) {
-  console.log(data);
   return <div className="tweets-list">{TweetItem(data.tweetsData)}</div>;
 }
 
