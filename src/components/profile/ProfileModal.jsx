@@ -5,8 +5,8 @@ import { ReactComponent as IconClose } from "assets/icons/close.svg";
 import { ReactComponent as IconAddPhoto } from "assets/icons/addphoto.svg";
 
 // data
-import dummyAvatar from "assets/images/userCard/avatar.jpeg";
-import dummyCover from "assets/images/dummy_cover.jpg";
+import dummyAvatar from "assets/images/dummy_images/userCard/avatar.jpeg";
+import dummyCover from "assets/images/dummy_images/dummy_cover.jpg";
 
 const dummy_cover = dummyCover;
 const dummy_avatar = dummyAvatar;

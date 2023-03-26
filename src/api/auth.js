@@ -1,13 +1,13 @@
 import axios from 'axios';
-import  { userBaseUrl } from "api/baseApi"
-
+import  { userBaseUrl} from "api/baseApi"
+const authURL = 'https://mysterious-reaches-21389.herokuapp.com/api';
 
 
 
 // Login Method(前後台登入)
 export const loginAPI = async ({ account, password, role }) => {
   // role 用來判斷是前台登入or後台登入
-  const result = await axios.post(`${userBaseUrl}/${role}/signin`, {
+  const result = await axios.post(`${authURL}/${role}/signin`, {
     account,
     password
   }).then((res) => {
@@ -24,7 +24,8 @@ export const loginAPI = async ({ account, password, role }) => {
 
 // Register Method(註冊)
 export const AccountAPI = async ({ req_data }) => {
-  const result = await axios.post(`${userBaseUrl}/users`, {
+
+  const result = await axios.post(`${authURL}/users`, {
     account: req_data.account,
     name: req_data.name,
     email: req_data.email,

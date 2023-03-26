@@ -1,4 +1,5 @@
-import dummyAvatar from 'assets/images/userCard/avatar.jpeg'
+import dummyAvatar from "assets/images/dummy_images/userCard/avatar.jpeg";
+
 
 export const followerData =[  
     {
