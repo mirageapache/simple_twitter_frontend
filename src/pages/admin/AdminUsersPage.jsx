@@ -1,11 +1,34 @@
-import { usersData } from "data/dummyAdminData";
+// react
+import { useState, useEffect } from "react";
 
-import AdminUsersList from "components/Admin/AdminUsersList";
+// api
+import { getAdminUsersAPI } from "api/adminApi";
+// context
 
 // style
 import "styles/AdminUsers.css";
 
+// components
+import AdminUsersList from "components/Admin/AdminUsersList";
+
 function AdminTweetsPage() {
+  const [usersData, setUsersData] = useState([]);
+
+  useEffect(() => {
+    const getUsersData = async () => {
+      try {
+        // 篩出user，排序依照推文數大>小
+        let rawUsersData = await getAdminUsersAPI();
+        let usersData = rawUsersData.filter((item) => item.role === "user");
+        usersData.sort((pre, next) => next["tweet_count"] - pre["tweet_count"]);
+        setUsersData(usersData);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUsersData();
+  }, []);
+
   return (
     <div className="admin-tweets">
       <h4 className="admin-page-title">使用者列表</h4>
