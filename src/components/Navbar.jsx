@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { useAuth } from "context/AuthContext";
 
 // style
 import "styles/navbar.css";
@@ -13,6 +14,12 @@ import { ReactComponent as IconConfigLight } from "assets/icons/config_light.svg
 import { ReactComponent as IconLogout } from "assets/icons/logout.svg";
 
 export default function Navbar() {
+  const { logout } = useAuth();
+
+  const handleClick = () => {
+    logout();
+  };
+
   return (
     <div className="navbar">
       {/* Logo */}
@@ -21,7 +28,7 @@ export default function Navbar() {
       </div>
       {/* Item group */}
       <div className="item_group">
-        <NavItem text="首頁" svg_string="home" active="ture" />
+        <NavItem text="首頁" svg_string="home" active="true" />
         <NavItem text="個人資料" svg_string="user" active="false" />
         <NavItem text="設定" svg_string="config" active="false" />
       </div>
@@ -32,7 +39,9 @@ export default function Navbar() {
         <span className="logout_svg">
           <IconLogout />
         </span>
-        <h5 className="logout_text">登出</h5>
+        <h5 className="logout_text" onClick={handleClick}>
+          登出
+        </h5>
       </div>
     </div>
   );

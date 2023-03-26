@@ -1,11 +1,24 @@
-// admin
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "context/AuthContext";
+
+// components
 import AdminNavbar from "components/Admin/AdminNavbar";
 import AdminTweetsPage from "pages/admin/AdminTweetsPage";
 import AdminUsersPage from "pages/admin/AdminUsersPage";
 
 import "styles/admin.css";
 
-export default function MainPage({ path }) {
+export default function AdminPage({ path }) {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/admin_login");
+    }
+  }, [navigate, isAuthenticated]);
+
   let content;
   if (path === "admin_users") {
     content = <AdminUsersPage />;
