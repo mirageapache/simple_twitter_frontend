@@ -1,9 +1,6 @@
 import "styles/app.css";
 import { ReactComponent as IconNotiSuccess } from "assets/icons/success.svg";
-import {
-  useEffect,
-  // useState
-} from "react";
+import { useEffect } from "react";
 
 export default function Notification({ type, text }) {
   // const [showNoti, setShowNoti] = useState(false);

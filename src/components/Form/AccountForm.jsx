@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "styles/auth_form.css";
 
-const email_rule =
-  /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+// email 驗證規則
+const email_rule= /^\w+((-\w+)|(.\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z]+$/;
 
 export default function AccountForm({ current_page }) {
   const navigate = useNavigate();
@@ -43,8 +43,8 @@ export default function AccountForm({ current_page }) {
     setConfirmPassword(value);
   }
 
-  // 註冊 or 修改帳號資料
-  async function handleAccount() {
+  // 註冊功能
+  async function Register() {
     setErrorMessate(["", ""]);
     // 資料驗證
     if (account.length === 0) {
@@ -109,7 +109,7 @@ export default function AccountForm({ current_page }) {
   // KeyDown 事件
   function handleKeyDown(key) {
     if (key === "Enter") {
-      handleAccount();
+      Register();
     }
   }
 
@@ -182,7 +182,7 @@ export default function AccountForm({ current_page }) {
           err_msg={errorMessage}
         />
       </div>
-      <button className="submit_btn" onClick={handleAccount}>
+      <button className="submit_btn" onClick={Register}>
         註冊
       </button>
       <button className="cancel_btn">取消</button>
