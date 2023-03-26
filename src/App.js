@@ -11,6 +11,7 @@ import AdminPage from "pages/AdminPage";
 import { useState } from "react";
 
 export default function App() {
+  console.clear()
   const [tweetList, setTweetList] = useState([])
 
   return (

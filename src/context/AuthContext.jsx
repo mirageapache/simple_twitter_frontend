@@ -52,10 +52,21 @@ export const AuthProvider = ({ children }) => {
           name: payload.name,
           role: payload.role,
           account: payload.account,
-          avatar: payload.avatar
+          avatar: payload.avatar,
+        },
+        setLoginState: (result) => {
+          const authToken = localStorage.getItem("AuthToken");
+          if (result) {
+            setIsAuthenticated(true);
+            const tempPayload = jwt_decode(authToken);
+            setPayload(tempPayload);
+          } else {
+            setIsAuthenticated(false);
+            setPayload(null);
+          }
         },
         logout: () => {
-          localStorage.removeItem("authToken");
+          localStorage.removeItem("AuthToken");
           setPayload(null);
           setIsAuthenticated(false);
         },

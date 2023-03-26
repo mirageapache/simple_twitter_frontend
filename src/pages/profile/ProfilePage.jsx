@@ -8,7 +8,7 @@ import { useState } from "react";
 import ProfileGuide from "components/Profile/ProfileGuide";
 // import Interactive from "components/profile/Interactive";
 import TweetNavbar from "components/Profile/TweetNavbar";
-import TweetList from "components/Main/TweetList.jsx";
+// import TweetList from "components/Main/TweetList.jsx";
 // import ReplyList from "components/Main/ReplyList";
 import ProfileModal from "components/Profile/ProfileModal.jsx";
 
@@ -62,7 +62,7 @@ function ProfilePage() {
           </div>
         </div>
         <TweetNavbar navbarData={navbarData} />
-        <TweetList />
+        {/* <TweetList /> */}
         {/* <ReplyList /> */}
         {/* like list 跟 tweetList共用版型 */}
       </div>
