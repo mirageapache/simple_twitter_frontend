@@ -13,7 +13,7 @@ import { ReactComponent as IconLikeLight } from 'assets/icons/like_light.svg';
 
 
 export default function Content() {
-  const {tweet, setTweet} = useTweet();
+  const { tweet } = useTweet();
   const [modal_toggle, setModalToggle] = useState(false); // Modal Toggle
 
     // 設定時間格式

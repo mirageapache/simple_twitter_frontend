@@ -10,7 +10,7 @@
 .register .content,
 .login .content,
 .admin_login .content {
-  margin-top: 64px;
+  margin-top: 40px;
   width: 360px;
 }
 .register .content .title,

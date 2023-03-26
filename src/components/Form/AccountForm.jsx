@@ -1,6 +1,6 @@
 import { AccountAPI } from "api/auth";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "styles/auth_form.css";
 
 // email 驗證規則
@@ -114,7 +114,7 @@ export default function AccountForm({ current_page }) {
   }
 
   return (
-    <div className="form">
+    <div className="account_form">
       <div className="input_group">
         {/* Account */}
         <FormInput
@@ -125,6 +125,7 @@ export default function AccountForm({ current_page }) {
             placeholder: "請輸入帳號",
           }}
           onChange={accountChange}
+          onKeyDown={handleKeyDown}
           value={account}
           err_msg={errorMessage}
         />
@@ -138,6 +139,7 @@ export default function AccountForm({ current_page }) {
             placeholder: "請輸入使用者名稱",
           }}
           onChange={nameChange}
+          onKeyDown={handleKeyDown}
           value={name}
           err_msg={errorMessage}
         />
@@ -151,6 +153,7 @@ export default function AccountForm({ current_page }) {
             placeholder: "請輸入Email",
           }}
           onChange={emailChange}
+          onKeyDown={handleKeyDown}
           value={email}
           err_msg={errorMessage}
         />
@@ -164,6 +167,7 @@ export default function AccountForm({ current_page }) {
             placeholder: "請設定密碼",
           }}
           onChange={passwordChange}
+          onKeyDown={handleKeyDown}
           value={password}
           err_msg={errorMessage}
         />
@@ -182,10 +186,10 @@ export default function AccountForm({ current_page }) {
           err_msg={errorMessage}
         />
       </div>
-      <button className="submit_btn" onClick={Register}>
-        註冊
-      </button>
-      <button className="cancel_btn">取消</button>
+      <button className="submit_btn" onClick={Register}>註冊</button>
+      <Link to='/login'>
+        <button className="cancel_btn">取消</button>
+      </Link>
     </div>
   );
 }
@@ -196,15 +200,12 @@ function FormInput({ data, onChange, onKeyDown, value, err_msg }) {
 
   if (err_msg[0] === data.name) {
     input_style = "input_error"; //有error時修改樣式
-    message = <label className="err_msg">{err_msg[1]}</label>;
+    message = <label className="error_message">{err_msg[1]}</label>;
   }
 
   return (
     <div className="input_div">
       <label htmlFor={data.title}> {data.title}</label>
-
-      {data.name === "confirm_password" ? (
-        // 是confrim password 在input多加keypress事件
         <input
           className={input_style}
           id={data.title}
@@ -214,25 +215,9 @@ function FormInput({ data, onChange, onKeyDown, value, err_msg }) {
           onChange={(e) => {
             onChange(e.target.value);
           }}
-          onKeyDown={(e) => {
-            onKeyDown(e.key);
-          }}
+          onKeyDown={(e) => {onKeyDown(e.key)}}
           value={value}
         />
-      ) : (
-        // 正常的input
-        <input
-          className={input_style}
-          id={data.title}
-          name={data.name}
-          type={data.type}
-          placeholder={data.placeholder}
-          onChange={(e) => {
-            onChange(e.target.value);
-          }}
-          value={value}
-        />
-      )}
       {/* 錯誤訊息 */}
       {message}
     </div>
