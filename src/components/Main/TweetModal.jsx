@@ -27,7 +27,7 @@ export default function TweetModal({onModalToggle}) {
             </span>
           </div>
           <div className='text_div'>
-            <textarea className='content_text' name="" id="" cols="60" rows="5" placeholder='有什麼新鮮事？' onChange={e=>{wordsChange(e)}}></textarea>
+            <textarea className='content_text' name="" cols="60" rows="5" placeholder='有什麼新鮮事？' onChange={e=>{wordsChange(e)}}></textarea>
           </div>
         </div>
         <div className='modal_footer'>

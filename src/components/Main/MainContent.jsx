@@ -1,17 +1,37 @@
-import { TweetList,TweetModal } from 'components';
-import { useState } from 'react';
+import { TweetList } from 'components';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getTweetListAPI } from 'api/main'
 
 import 'styles/main_content.css';
 
 import { ReactComponent as IconAvatar } from 'assets/icons/avatar.svg'
 
 export default function MainContent() {
-  // TweetModal toggle
-  const [modal_toggle, setModalToggle] = useState(false);
+  const navigate = useNavigate();
+  // 使用者的資料(頭貼、id等)
+  const [userData, setUserData] = useState([]);
+  const [tweetList, setTweetList] = useState([]);
 
-  function onModalToggle(){
-    setModalToggle(!modal_toggle);
-  }
+  async function getTweetList(){
+      const result = await getTweetListAPI();
+      console.log(result)
+      if(result.status === 'error'){
+        // AuthToken 驗證失敗
+        localStorage.removeItem('AuthToken');
+        alert('身分驗證失敗，請重新登入！')
+        navigate('/login')
+      }else{
+        setTweetList(result)
+      }
+
+    }
+
+    getTweetList()
+
+  useEffect(() => {
+    
+  })
 
   return(
     <div className='main_content'>
@@ -24,15 +44,16 @@ export default function MainContent() {
             {/* <img className='avatar' src="" alt="" /> */}
             <IconAvatar />
           </span>
-          <h5 className='posting_text'>有什麼新鮮事？</h5>
+          <textarea className='posting_text' placeholder='有什麼新鮮事？' cols="60" rows="3"></textarea>
+        
         </div>
         <div className='btn_div'>
-          <button className='post_btn' onClick={onModalToggle} >推文</button>
+          <button className='post_btn' >推文</button>
         </div>
       </div>
-      <TweetList />
+      <TweetList list_data={tweetList} />
 
-      { modal_toggle && <TweetModal onModalToggle={onModalToggle} /> }
+      
     </div>
   )
 }
