@@ -1,3 +1,7 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "context/AuthContext";
+
 import { Navbar, Recommend, MainContent, ReplyContent } from "components";
 import FollowPage from "pages/profile/FollowPage.jsx";
 import ProfilePage from "pages/profile/ProfilePage";
@@ -5,6 +9,15 @@ import ProfilePage from "pages/profile/ProfilePage";
 import "styles/main.css";
 
 export default function MainPage({ path }) {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [navigate, isAuthenticated]);
+
   let contentBoard;
   if (path === "main") {
     // 主頁面內容

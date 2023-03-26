@@ -1,10 +1,21 @@
+// svg
 import { ReactComponent as IconLikeLight } from "assets/icons/like_light.svg";
 import { ReactComponent as IconPost } from "assets/icons/post.svg";
 
-function UserCard(users) {
-  return users.map((user) => (
+function AdminUsersList({ usersData }) {
+  return (
+    <div className="admin-user-list">
+      {usersData.map((user) => {
+        return <UserCard key={user.id} user={user} />;
+      })}
+    </div>
+  );
+}
+
+function UserCard({ user }) {
+  return (
     <div className="admin-user-card" key={user.id}>
-      <img src={user.cover_img} className="admin-card-cover" alt="user cover" />
+      <img src={user.cover} className="admin-card-cover" alt="user cover" />
       <img src={user.avatar} className="admin-card-avatar" alt="user avatar" />
       <div className="card-body">
         <p className="user-card-name">{user.name}</p>
@@ -39,11 +50,7 @@ function UserCard(users) {
         </div>
       </div>
     </div>
-  ));
-}
-
-function AdminUsersList(data) {
-  return <div className="admin-user-list">{UserCard(data.usersData)}</div>;
+  );
 }
 
 export default AdminUsersList;

@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { useAuth } from "context/AuthContext";
 
 // style
 import "styles/navbar.css";
@@ -15,13 +16,19 @@ import { useState } from "react";
 import TweetModal from "./Main/TweetModal";
 
 export default function Navbar() {
-  // TweetModal toggle
+  const { logout } = useAuth();
+
+  // TweetModal toggle (開關事件)
   const [modal_toggle, setModalToggle] = useState(false);
 
   function onModalToggle(){
     setModalToggle(!modal_toggle);
   }
-
+  
+  // 登出事件
+  const handleClick = () => {
+    logout();
+  };
 
   return (
     <div className="navbar">
@@ -31,7 +38,7 @@ export default function Navbar() {
       </div>
       {/* Item group */}
       <div className="item_group">
-        <NavItem text="首頁" svg_string="home" active="ture" />
+        <NavItem text="首頁" svg_string="home" active="true" />
         <NavItem text="個人資料" svg_string="user" active="false" />
         <NavItem text="設定" svg_string="config" active="false" />
       </div>
@@ -44,7 +51,9 @@ export default function Navbar() {
         <span className="logout_svg">
           <IconLogout />
         </span>
-        <h5 className="logout_text">登出</h5>
+        <h5 className="logout_text" onClick={handleClick}>
+          登出
+        </h5>
       </div>
     </div>
   );
