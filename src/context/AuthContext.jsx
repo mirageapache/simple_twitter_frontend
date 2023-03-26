@@ -52,6 +52,7 @@ export const AuthProvider = ({ children }) => {
           name: payload.name,
           role: payload.role,
           account: payload.account,
+          avatar: payload.avatar
         },
         logout: () => {
           localStorage.removeItem("authToken");

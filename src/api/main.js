@@ -1,20 +1,18 @@
 import axios from 'axios';
 import { baseUrl } from 'api/baseApi.js'
 
-// Get TweetList (主頁面取得推文資料)
-export const getTweetListAPI = async () => {
-  const token = localStorage.getItem('AuthToken')
 
+const token = localStorage.getItem('AuthToken')
+
+// Get TweetList (主頁面-取得推文資料)
+export const getTweetListAPI = async () => {
   const result = await axios.get(`${baseUrl}/tweets`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
-  }).then((res) => {
-    return res.data;
-  }).catch((err => {
-    return err.response.data
-  }))
-
-  // 回傳至Component
+  })
+  .then((res) => { return res.data; })
+  .catch((err) => { return err.response.data })
   return result;
 };
+

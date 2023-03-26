@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   position: relative;
+  cursor: default;
   /*
     螢幕尺寸
     (L) ≧1200px：Container 寬width=1140px;

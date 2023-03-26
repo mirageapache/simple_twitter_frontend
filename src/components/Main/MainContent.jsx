@@ -1,37 +1,31 @@
 import { TweetList } from 'components';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getTweetListAPI } from 'api/main'
+import { getTweetListAPI } from 'api/main';
+import { useAuth } from "context/AuthContext";
 
 import 'styles/main_content.css';
 
 import { ReactComponent as IconAvatar } from 'assets/icons/avatar.svg'
 
 export default function MainContent() {
-  const navigate = useNavigate();
-  // 使用者的資料(頭貼、id等)
-  const [userData, setUserData] = useState([]);
   const [tweetList, setTweetList] = useState([]);
+  const { currentMember } = useAuth();
 
-  async function getTweetList(){
+  useEffect(() => {
+
+    // get TweetList
+    async function getTweetList(){
+
       const result = await getTweetListAPI();
       console.log(result)
       if(result.status === 'error'){
-        // AuthToken 驗證失敗
-        localStorage.removeItem('AuthToken');
-        alert('身分驗證失敗，請重新登入！')
-        navigate('/login')
       }else{
         setTweetList(result)
       }
 
     }
-
     getTweetList()
-
-  useEffect(() => {
-    
-  })
+  },[])
 
   return(
     <div className='main_content'>
@@ -41,8 +35,11 @@ export default function MainContent() {
       <div className="post_div">
         <div className='posting'>
           <span className='avatar_span'>
-            {/* <img className='avatar' src="" alt="" /> */}
-            <IconAvatar />
+            { currentMember?
+              <img className='avatar' src={currentMember.avatar} alt="user_avatar" />
+            :
+              <IconAvatar />
+            }
           </span>
           <textarea className='posting_text' placeholder='有什麼新鮮事？' cols="60" rows="3"></textarea>
         
@@ -51,9 +48,7 @@ export default function MainContent() {
           <button className='post_btn' >推文</button>
         </div>
       </div>
-      <TweetList list_data={tweetList} />
-
-      
+      <TweetList list_data={tweetList} />      
     </div>
   )
 }
