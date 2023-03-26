@@ -1,5 +1,5 @@
-import dummyAvatar from "assets/images/userCard/avatar.jpeg";
-import dummyCover from "assets/images/dummy_cover.jpg";
+import dummyAvatar from "assets/images/dummy_images/userCard/avatar.jpeg";
+import dummyCover from "assets/images/dummy_images/dummy_cover.jpg";
 
 export const userSelfData = {
   id: "user0001",

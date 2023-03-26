@@ -3,13 +3,12 @@ import { useEffect, useState } from 'react';
 import { getTweetListAPI, addTweetAPI } from 'api/main';
 import { useAuth } from "context/AuthContext";
 import { useTweet } from 'context/TweetContext';
-
-import 'styles/main_content.css';
-
-import { ReactComponent as IconAvatar } from 'assets/icons/avatar.svg'
+// style
+import "styles/main_content.css";
+// svg
+import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
 
 export default function MainContent() {
-  // const [tweetList, setTweetList] = useState([]);
   const { tweetList, setTweetList } = useTweet();
   const [postContent, setPostContent] = useState('')
   const { currentMember } = useAuth();
@@ -71,10 +70,9 @@ export default function MainContent() {
     }
   }
 
-
-  return(
-    <div className='main_content'>
-      <div className='banner_div'>
+  return (
+    <div className="main_content">
+      <div className="banner_div">
         <h4 className="banner">首頁</h4>
       </div>
       <div className="post_div">
@@ -110,5 +108,5 @@ export default function MainContent() {
       </div>
       <TweetList list_data={tweetList} />      
     </div>
-  )
+  );
 }

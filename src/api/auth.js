@@ -1,7 +1,6 @@
 import axios from 'axios';
 import  { userBaseUrl, baseUrl } from "api/baseApi"
 
-
 // Login Method(前後台登入)
 export const loginAPI = async ({ account, password, role }) => {
   // role 用來判斷是前台登入or後台登入
