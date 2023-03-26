@@ -31,7 +31,7 @@ npm start
 4.瀏覽網頁
 
 ```
-開啟瀏覽器並輸入http://localhost:3000/login，即可登入系統
+開啟瀏覽器並輸入http://localhost:3000/simple_twitter_frontend/login，即可依照權限登入系統使用
 ```
 
 5.終止程式
