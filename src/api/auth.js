@@ -11,6 +11,7 @@ export const loginAPI = async ({ account, password, role }) => {
   }).then((res) => {
     return res.data;
   }).catch((err => {
+    console.log(err)
     return err.response.data
   }))
 
@@ -21,7 +22,7 @@ export const loginAPI = async ({ account, password, role }) => {
 
 // Register Method(註冊)
 export const AccountAPI = async ({ req_data }) => {
-  const result = await axios.post(`${baseUrl}/users`, {
+  const result = await axios.post({userBaseUrl}, {
     account: req_data.account,
     name: req_data.name,
     email: req_data.email,
@@ -30,12 +31,12 @@ export const AccountAPI = async ({ req_data }) => {
   }).then((res) => {
     return res.data;
   }).catch((err => {
-    return err.response.data
+    console.log(err)
+    return err.response.data;
   }))
 
   // 回傳至Component
   return result;
-
 };
 
 // 狀態驗證
