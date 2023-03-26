@@ -17,7 +17,6 @@ export default function MainContent() {
     // get TweetList
     async function getTweetList(){
       const result = await getTweetListAPI();
-      console.log(result)
       if(result.status === 'error'){
       }else{
         setTweetList(result)

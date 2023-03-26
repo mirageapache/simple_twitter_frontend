@@ -1,20 +1,12 @@
 import { ReactComponent as IconAvatar } from 'assets/icons/avatar.svg';
+import moment from 'moment';
 // import { ReactComponent as IconReply } from 'assets/icons/reply.svg';
 // import { ReactComponent as IconLikeLight } from 'assets/icons/like_light.svg';
 
-const dummy_reply = [
-  {account:'devon_lane',name:'Devon Lane',content:'reply1 content',create_at:'3小時',reply_to:'apple',like_count:'76'},
-  {account:'iamjane1999',name:'Jane Cathy',content:'reply2 cofgergvdzgr etewfv gwet3ewfffdadfdsf dsaf dsfsdaf sdfds fdsfsafs fds afdfntent',create_at:'3小時',reply_to:'apple',like_count:'76'},
-  {account:'MMCK',name:'Marvin McKinney',content:'reply3 content',create_at:'3小時',reply_to:'apple',like_count:'76'},
-  {account:'LeslieAlex',name:'Leslie Alexander',content:'reply4 content',create_at:'3小時',reply_to:'apple',like_count:'76'},
-  {account:'JaneCoooo',name:'Jane Cooper',content:'reply5 content',create_at:'3小時',reply_to:'apple',like_count:'76'}
-]
 
-
-export default function ReplyList() {
-
-  const reply = dummy_reply.map((item, index) => {
-    return <ReplyItem key={index} data={item}/>
+export default function ReplyList({ reply_data , reply_to}) {
+  const reply = reply_data.map((item) => {
+    return <ReplyItem key={item.id} data={item} reply_to={reply_to} />
   })
 
   return(
@@ -25,28 +17,40 @@ export default function ReplyList() {
 }
 
 
-function ReplyItem({data}) {
+function ReplyItem({ data, reply_to }) {
+  // 設定時間格式
+  let rowRelativeTime = moment(data.updatedAt).endOf("day").fromNow().trim();
+  let hourIndex = rowRelativeTime.indexOf("h");
+  let relativeTime =
+    rowRelativeTime.slice(0, hourIndex) <= 24
+      ? rowRelativeTime
+      : moment(data.updatedAt).format("LLL");
 
   return(
     <div className="reply_item">
       {/* Avatar */}
       <div className='avatar_div'>
-        <IconAvatar />
+        { data.User.avatar?
+          <img className='avatar_img' src={data.User.avatar} alt="user_avatar" />
+        :
+          <IconAvatar className='avatar_img' />
+        }
       </div>
       <div className='text_div'>
         {/* Item Header */}
         <div className='card_header'>
-          <p className='user_name'>{data.name}</p>
-          <p className='user_account'>@{data.account}‧{data.create_at}</p>
+          <p className='user_name'>{data.User.name}</p>
+          <p className='user_account'>@{data.User.account}</p>
+          <p className='reply_time'>‧{relativeTime}</p>
         </div>
 
         {/* Item Body */}
         <div className='card_body'>
           <span className='reply_to'>
             回覆
-            <p className='post_owner'>@{data.reply_to}</p>
+            <p className='post_owner'>@{reply_to}</p>
           </span>
-          <p className='reply_text'>{data.content}</p>
+          <p className='reply_text'>{data.comment}</p>
         </div>
 
       </div>

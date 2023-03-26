@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { baseUrl } from 'api/baseApi.js'
 
-
 const axiosInstance = axios.create({
     baseUrl: baseUrl,
 });
@@ -28,6 +27,17 @@ export const getTweetListAPI = async () => {
     const response = await axiosInstance.get(`${baseUrl}/tweets`);
     return response.data;
   } catch (error) { 
+    return error
+  }
+};
+
+// Get Single Tweet (主頁面-取得單一筆推文資料)
+export const getTweetAPI = async (tweet_id) => {
+  try {
+    const response = await axiosInstance.get(`${baseUrl}/tweets/${tweet_id}`);
+    return { status: 200, data: {...response.data} };
+  } catch (error) { 
+    console.log(error)
     return error
   }
 };

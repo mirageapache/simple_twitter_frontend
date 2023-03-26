@@ -6,11 +6,11 @@ import TweetList from './Main/TweetList';
 import ReplyList from './Main/ReplyList';
 import TweetModal from './Main/TweetModal';
 import ReplyModal from './Main/ReplyModal';
-import ReplyContent from './Main/ReplyContent';
+import TweetContent from './Main/TweetContent';
 import AccountForm from './Form/AccountForm';
 
 export { Navbar, Recommend };
 
-export { MainContent, ReplyContent, TweetList, ReplyList, TweetModal, ReplyModal };
+export { MainContent, TweetContent, TweetList, ReplyList, TweetModal, ReplyModal };
 
 export { AccountForm };

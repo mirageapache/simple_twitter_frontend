@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "context/AuthContext";
 
-import { Navbar, Recommend, MainContent, ReplyContent } from "components";
+import { Navbar, Recommend, MainContent, TweetContent } from "components";
 import FollowPage from "pages/profile/FollowPage.jsx";
 import ProfilePage from "pages/profile/ProfilePage";
 
@@ -22,9 +22,9 @@ export default function MainPage({ path }) {
   if (path === "main") {
     // 主頁面內容
     contentBoard = <MainContent />;
-  } else if (path === "reply") {
+  } else if (path === "tweet") {
     // 回覆頁面內容;
-    contentBoard = <ReplyContent />;
+    contentBoard = <TweetContent />;
   } else if (path === "follow") {
     // 跟隨頁面
     contentBoard = <FollowPage />;

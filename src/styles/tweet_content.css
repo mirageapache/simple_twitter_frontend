@@ -1,80 +1,83 @@
 @import url('styles/base.css');
 
+.tweet_content{
+  height: 100%;
+}
+
 /* 大螢幕 */
 @media screen and (min-width: 992px) {
-  /* MainPage Content style */
-  .reply_content{
-    cursor: default;
-  }
-  
-  .reply_content .banner_div{
+  /* MainPage Content style */  
+  .tweet_content .banner_div{
     display: flex;
     align-items: center;
     padding: 24px;
     border-bottom: 1px solid #E6ECF0;
   }
-  .reply_content .back_btn{
+  .tweet_content .back_btn{
     margin-right: 16px;
     cursor: pointer;
   }
   
-  .reply_content .post_div{
+  .tweet_content .post_div{
     padding: 16px;
     border-bottom: 1px solid #E6ECF0;
   }
 
-  .reply_content .post_header{
+  .tweet_content .post_header{
     display: flex;
     align-items: center;
     
   }
-  .reply_content .post_header .avatar_span{
+  .tweet_content .post_header .avatar_img{
     width: 50px;
     height: 50px;
     margin-right: 8px;
+    cursor: pointer;
   }
 
-  .reply_content .user_info .name{
+  .tweet_content .user_info .name{
     font-size: 16px;
     line-height: 26px;
     font-weight: 700;
     color: var(--main-text-color);
-    cursor: pointer;
   }
 
-  .reply_content .user_info .account{
+  .tweet_content .user_info .account{
     font-size: 14px;
     line-height: 22px;
     color: var(--secondary-color);
     cursor: pointer;
   }
+  .tweet_content .user_info .account:hover{
+    color: var(--primary-color);
+  }
 
-  .reply_content .post_body{
+  .tweet_content .post_body{
     margin: 8px 0;
   }
 
-  .reply_content .post_body .post_content{
+  .tweet_content .post_body .post_content{
     font-size: 24px;
     line-height: 36px;
     margin-bottom: 8px;
   }
-  .reply_content .post_datetime {
+  .tweet_content .post_datetime {
     display: flex;
     margin-bottom: 8px;
   }
-  .reply_content .post_datetime p{
+  .tweet_content .post_datetime p{
     font-size: 14px;
     line-height: 22px;
     color: var(--secondary-color);
   }
 
-  .reply_content .post_info{
+  .tweet_content .post_info{
     display: flex;
     border-top: 1px solid #E6ECF0;
     border-bottom: 1px solid #E6ECF0;
     padding: 16px 0;
   }
-  .reply_content .post_info span{
+  .tweet_content .post_info span{
     color: var(--secondary-color);
     font-size: 19px;
     line-height: 23px;
@@ -82,7 +85,7 @@
     margin-right:24px;
   }
 
-  .reply_content .post_info span p{
+  .tweet_content .post_info span p{
     color: black;
     font-size: 19px;
     line-height: 23px;
@@ -90,18 +93,38 @@
     margin-right: 5px;
   }
 
-  .reply_content .icon_div{
+  .tweet_content .icon_div{
     padding-top: 16px;
     padding-bottom: 3px;
   }
 
-  .reply_content .icon_div span{
+  .tweet_content .icon_div span{
     cursor: pointer;
   }
-  .reply_content .icon_div .reply_icon{
+  .tweet_content .icon_div .reply_icon{
     margin-right: 120px;
   }
 
+  .tweet_content .icon_div .reply_icon svg:hover path{
+    fill: var(--light-blue-color);
+  }
+  
+  .tweet_content .icon_div .like_icon path{
+    fill: var(--error-color);
+  }
+  .tweet_content .icon_div .like_icon:hover path{
+    fill: var(--gray-5)
+  }
+
+  .tweet_content .icon_div .unlike_icon:hover path{
+    fill: var(--error-color);
+  }
+
+  .tweet_content .reply_msg{
+    padding: 20px 0;
+    text-align: center;
+    color: var(--gray-6);
+  }
 
 
   /* ReplyList style */
@@ -110,9 +133,10 @@
     padding: 16px;
     display: flex;
   }
-  .reply_list .reply_item .avatar_div{
+  .reply_list .reply_item .avatar_img{
     width: 50px;
     height: 50px;
+    cursor: pointer;
   }
   
   .reply_list .reply_item .text_div{
@@ -128,9 +152,17 @@
     line-height: 26px;
     font-weight: 700;
     margin-right: 8px;
-    cursor: pointer;
   }
   .reply_list .reply_item .user_account{
+    font-size: 14px;
+    color: var(--secondary-color);
+    cursor: pointer;
+  }
+  .reply_list .reply_item .user_account:hover{
+    color: var(--primary-color);
+  }
+
+  .reply_list .reply_item .reply_time{
     font-size: 14px;
     color: var(--secondary-color);
   }
@@ -151,7 +183,6 @@
     margin-left: 3px;
     font-size: 14px;
     line-height: 22px;
-    cursor: pointer;
   }
 
 

@@ -1,24 +1,32 @@
 import moment from "moment";
+import { useNavigate } from "react-router";
+import { getTweetAPI } from 'api/main'
 
 // svg
 import { ReactComponent as IconAvatar } from 'assets/icons/avatar.svg';
 import { ReactComponent as IconReply } from 'assets/icons/reply.svg';
 import { ReactComponent as IconLike } from 'assets/icons/like.svg';
 import { ReactComponent as IconLikeLight } from 'assets/icons/like_light.svg';
+import { useTweet } from "context/TweetContext";
 
 export default function TweetList({list_data}) {
-  const tweet = list_data.map((item) => {
+  
+
+  const tweet_data = list_data.map((item) => {
     return <TweetItem key={item.id} data={item} />
   })
 
   return(
     <div className="tweet_list">
-      {tweet}
+      {tweet_data}
     </div>
   )
 }
 
 function TweetItem({ data }) {
+  const navigate = useNavigate();
+  const { setTweet } = useTweet();
+
   // 設定時間格式
   let rowRelativeTime = moment(data.updatedAt).endOf("day").fromNow().trim();
   let hourIndex = rowRelativeTime.indexOf("h");
@@ -26,6 +34,20 @@ function TweetItem({ data }) {
     rowRelativeTime.slice(0, hourIndex) <= 24
       ? rowRelativeTime
       : moment(data.updatedAt).format("LLL");
+
+  // 取得單一筆Tweet
+  async function readTweetDetail(tweet_id){
+    const result = await getTweetAPI(tweet_id)
+    if(result.status === 200){
+      setTweet(result.data)
+      // 導至TweetPage
+      navigate(`/tweet/:tweet_id=${tweet_id}`);
+    }
+    else if(result.response.status === 404){
+      alert('找不到推文！')
+      return
+    }
+  }
 
 
   return(
@@ -45,12 +67,12 @@ function TweetItem({ data }) {
             <p className="post_time">‧{relativeTime}</p>
           </span>
         </div>
-        <div className='card_body'>
-          <p className='tweet_content'>{data.description}</p>
+        <div className='card_body' onClick={() => {readTweetDetail(data.id)}}>
+          <p className='post_content'>{data.description}</p>
         </div>
         <div className='card_footer'>
           <span className='reply_span'>
-            <IconReply className='reply_icon' />
+            <IconReply className='reply_icon' onClick={() => {}} />
             <p>{data.reply_count}</p>
           </span>
           <span className='like_span'>
