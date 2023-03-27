@@ -1,60 +1,102 @@
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useAuth } from "context/AuthContext";
+// import { useNavigate } from "react-router-dom";
+
+// api
+import { getUserDataAPI } from "api/userProfile";
+
 // style
 import "styles/profile.css";
 
-// methods
-import { useState } from "react";
-
 // components
 import ProfileGuide from "components/Profile/ProfileGuide";
-// import Interactive from "components/profile/Interactive";
+import Interactive from "components/Profile/Interactive";
 import TweetNavbar from "components/Profile/TweetNavbar";
 // import TweetList from "components/Main/TweetList.jsx";
 // import ReplyList from "components/Main/ReplyList";
 import ProfileModal from "components/Profile/ProfileModal.jsx";
 
-// data
-import { userSelfData } from "data/dummyProfileData";
 const navbarData = ["推文", "回覆", "喜歡"];
 
 // function
 function ProfilePage() {
-  let data = userSelfData;
+  const { currentMember } = useAuth();
+  const { user_id } = useParams();
+  const apiId = Number(user_id);
+  const selfId = Number(currentMember.id);
+
+  //判斷顯示
+  const identity = selfId === apiId ? "self" : "other";
+
+  // 取資料
+  const [profileData, setProfileData] = useState([]);
+
+  useEffect(() => {
+    const getProfileData = async () => {
+      try {
+        let rawProfileData = await getUserDataAPI(apiId);
+        setProfileData(rawProfileData);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getProfileData();
+  }, [apiId]);
+
   // Modal toggle
   const [modal_toggle, setModalToggle] = useState(false);
-
-  // Modal toggle Function
   function onModalToggle() {
     setModalToggle(!modal_toggle);
   }
   return (
     <>
-      <ProfileGuide data={userSelfData} />
+      <ProfileGuide data={profileData} />
       <div className="user-board">
         <div className="cover-wrapper">
-          <img src={data.cover_img} alt="user cover" className="user-cover" />
+          <img
+            src={profileData.cover}
+            alt="user cover"
+            className="user-cover"
+          />
           <div className="avatar-wrapper">
-            <img src={data.avatar} alt="user avatar" className="avatar-img" />
+            <img
+              src={profileData.avatar}
+              alt="user avatar"
+              className="avatar-img"
+            />
           </div>
         </div>
         <div className="info-card">
           <div className="setting-bar">
-            {/* <Interactive /> */}
-            <button type="button" className="btn-base" onClick={onModalToggle}>
-              編輯個人資料
-            </button>
+            {identity === "self" ? (
+              <button
+                type="button"
+                className="btn-base"
+                onClick={onModalToggle}
+              >
+                編輯個人資料
+              </button>
+            ) : (
+              <Interactive />
+            )}
           </div>
           <div className="card-container">
             <div className="user-info">
-              <h5 className="user-name">{data.name}</h5>
-              <p className="user-account">@{data.account}</p>
-              <p className="user-introduction">{data.introduction}</p>
+              <h5 className="user-name">{profileData.name}</h5>
+              <p className="user-account">@{profileData.account}</p>
+              <p className="user-introduction">{profileData.introduction}</p>
               <div className="follow-info">
                 <span className="follow-info-item">
-                  <span className="follow-num">{data.following_count}個</span>
+                  <span className="follow-num">
+                    {profileData.following_count}個
+                  </span>
                   <span className="follow-text">跟隨中</span>
                 </span>
                 <span className="follow-info-item">
-                  <span className="follow-num">{data.follower_count}個</span>
+                  <span className="follow-num">
+                    {profileData.follower_count}個
+                  </span>
                   <span className="follow-text">跟隨者</span>
                 </span>
               </div>
@@ -66,6 +108,7 @@ function ProfilePage() {
         {/* <ReplyList /> */}
         {/* like list 跟 tweetList共用版型 */}
       </div>
+
       {modal_toggle && <ProfileModal onModalToggle={onModalToggle} />}
     </>
   );

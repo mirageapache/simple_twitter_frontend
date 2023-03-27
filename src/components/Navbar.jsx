@@ -16,7 +16,8 @@ import { useState } from "react";
 import TweetModal from "./Main/TweetModal";
 
 export default function Navbar() {
-  const { logout } = useAuth();
+  const { logout, currentMember } = useAuth();
+  const selfId = currentMember.id;
 
   // TweetModal toggle (開關事件)
   const [modal_toggle, setModalToggle] = useState(false);
@@ -38,9 +39,14 @@ export default function Navbar() {
       </div>
       {/* Item group */}
       <div className="item_group">
-        <NavItem text="首頁" svg_string="home" active="true" />
-        <NavItem text="個人資料" svg_string="user" active="false" />
-        <NavItem text="設定" svg_string="config" active="false" />
+        <NavItem text="首頁" svg_string="home" active="true" selfId={null} />
+        <NavItem
+          text="個人資料"
+          svg_string="user"
+          active="false"
+          selfId={selfId}
+        />
+        <NavItem text="設定" svg_string="config" active="false" selfId={null} />
       </div>
 
       <button className="tweet_btn" onClick={onModalToggle}>
@@ -61,21 +67,21 @@ export default function Navbar() {
   );
 }
 
-function NavItem({ text, svg_string, active }) {
+function NavItem({ text, svg_string, active, selfId }) {
   let svg_item;
   let routePath;
   switch (svg_string) {
     case "home":
       svg_item = <IconHome />;
-      routePath = "/main";
+      routePath = "index";
       break;
     case "user":
       svg_item = <IconUserLight />;
-      routePath = "/profile";
+      routePath = `profile/${selfId}`;
       break;
     case "config":
       svg_item = <IconConfigLight />;
-      routePath = "/setting";
+      routePath = "setting";
       break;
     default:
       break;

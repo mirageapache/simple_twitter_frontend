@@ -1,15 +1,10 @@
-import { Navbar, AccountForm } from "components";
+import { AccountForm } from "components";
 
 import "styles/setting.css";
 
 export default function SettingPage() {
   return (
-    <div className="setting_page">
-      {/* 導覽列 */}
-      <section className="nav_section">
-        <Navbar />
-      </section>
-
+    <div>
       {/* 設定表單 */}
       <section className="setting_section">
         <div className="banner">

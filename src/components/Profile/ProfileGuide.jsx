@@ -3,8 +3,8 @@ import { ReactComponent as IconBack } from "assets/icons/left_arrow.svg";
 // style
 import "styles/profileGuide.css";
 
-function ProfileGuide(data) {
-  let user = data.data;
+function ProfileGuide({ data }) {
+  let user = data;
   return (
     <div className="guide-container">
       <IconBack className="icon-svg-left" />

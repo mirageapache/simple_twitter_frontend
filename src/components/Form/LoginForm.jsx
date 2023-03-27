@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "styles/auth_form.css";
 import { loginAPI } from "api/auth";
@@ -7,18 +7,18 @@ import Notification from "components/Form/Notification";
 
 export default function LoginForm({ current_page }) {
   const navigate = useNavigate();
-  const { setLoginState, isAuthenticated } = useAuth();
+  const { setLoginState } = useAuth();
   const [account, setAccount] = useState(""); //帳號
   const [password, setPassword] = useState(""); //密碼
   const [errorMessage, setErrorMessage] = useState(["", ""]); //input錯誤訊息
   const [notification, setNotification] = useState(["", ""]); //通知訊息
 
-  // 如果已登入過，自動跳轉
-  useEffect(() => {
-    if (isAuthenticated) {
-      current_page === "users" ? navigate("/main") : navigate("/admin_tweets");
-    }
-  }, [current_page, navigate, isAuthenticated]);
+  // // 待確認：如果已登入過，自動跳轉
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     current_page === "users" ? navigate("/main") : navigate("/admin_tweets");
+  //   }
+  // }, [current_page, navigate, isAuthenticated]);
 
   function accountChange(value) {
     setAccount(value);
@@ -53,9 +53,7 @@ export default function LoginForm({ current_page }) {
       setLoginState(true);
       // 判斷前台登入or後台登入，指向不同頁面
       setTimeout(() => {
-        current_page === "users"
-          ? navigate("/main")
-          : navigate("/admin_tweets");
+        current_page === "users" ? navigate("/main") : navigate("/admin");
       }, 1500);
     } else {
       setLoginState(false);
@@ -63,16 +61,13 @@ export default function LoginForm({ current_page }) {
       if (result.status === 400) {
         setErrorMessage("password", "密碼長度應為5~12字元！");
         alert("密碼長度應為5~12字元！");
-      }
-      else if (result.status === 401) {
+      } else if (result.status === 401) {
         setErrorMessage("password", "密碼錯誤！");
         alert("密碼錯誤！");
-      }
-      else if (result.status === 404) {
+      } else if (result.status === 404) {
         setErrorMessage("account", "帳號未註冊！");
         alert("帳號未註冊！");
-      }
-      else if (result.status === 500) {
+      } else if (result.status === 500) {
         alert("伺服器流量過載！請稍後再試！");
       }
       return;
