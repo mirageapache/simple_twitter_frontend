@@ -48,11 +48,11 @@ function NavItem({ text, pathState, active }) {
   switch (pathState) {
     case "tweets":
       svg_item = <IconHomeLight />;
-      routePath = "/admin_tweets";
+      routePath = "tweets";
       break;
     case "users":
       svg_item = <IconUser />;
-      routePath = "/admin_users";
+      routePath = "users";
       break;
     default:
       break;
