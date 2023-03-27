@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useAuth } from "context/AuthContext";
 import { useTweet } from "context/TweetContext";
 // import { useNavigate } from "react-router-dom";
@@ -35,7 +35,7 @@ function ProfilePage() {
   const identity = selfId === apiId ? "self" : "other";
 
   // 取資料
-  const [profileData, setProfileData] = useState([]);
+  const [profileData, setProfileData] = useState({});
 
   //判斷分頁
   const [currentView, setCurrentView] = useState('tweet');
@@ -157,18 +157,40 @@ function ProfilePage() {
               <p className="user-account">@{profileData.account}</p>
               <p className="user-introduction">{profileData.introduction}</p>
               <div className="follow-info">
-                <span className="follow-info-item">
+                <NavLink
+                  className="follow-info-item"
+                  to={{
+                    pathname: `/follow/${apiId}/followers`,
+                  }}
+                  state={{
+                    user: {
+                      name: `${profileData.name}`,
+                      tweet_count: `${profileData.tweet_count}`,
+                    },
+                  }}
+                >
                   <span className="follow-num">
                     {profileData.following_count}個
                   </span>
                   <span className="follow-text">跟隨中</span>
-                </span>
-                <span className="follow-info-item">
+                </NavLink>
+                <NavLink
+                  className="follow-info-item"
+                  to={{
+                    pathname: `/follow/${apiId}/followings`,
+                  }}
+                  state={{
+                    user: {
+                      name: `${profileData.name}`,
+                      tweet_count: `${profileData.tweet_count}`,
+                    },
+                  }}
+                >
                   <span className="follow-num">
                     {profileData.follower_count}個
                   </span>
                   <span className="follow-text">跟隨者</span>
-                </span>
+                </NavLink>
               </div>
             </div>
           </div>

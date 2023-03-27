@@ -117,6 +117,7 @@
   line-height: 22px;
   margin-right: 6px;
   color: var(--gray-9);
+  cursor: pointer;
 }
 .follow-num {
     color: var(--gray-9);
