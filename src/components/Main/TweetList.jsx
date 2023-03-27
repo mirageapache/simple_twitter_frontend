@@ -14,9 +14,8 @@ import { ReactComponent as IconLikeLight } from 'assets/icons/like_light.svg';
 export default function TweetList({list_data}) {
   // const [modal_toggle, setModalToggle] = useState(false); // Modal Toggle 
   const { replyModal } = useReply();
-  
 
-  
+  console.log(list_data)
 
   const tweet_data = list_data.map((item) => {
     return <TweetItem key={item.id} data={item} />
@@ -36,13 +35,18 @@ function TweetItem({ data }) {
   const { setReplyList, setReplyModal } = useReply();
 
   // 取得單一筆Tweet
-  async function readTweetDetail(tweet_id){
+  async function readTweetDetail(tweet_id, type){
     const result = await getTweetAPI(tweet_id)
     if(result.status === 200){
       setTweet(result.data) //設定推文資料
       setReplyList(result.data.Replies) //設定該則推文的回覆列表
-      // 導至TweetPage
-      navigate(`/tweet/:tweet_id=${tweet_id}`);
+      if(type === 'content'){
+        // 導至TweetPage
+        navigate(`/tweet/:tweet_id=${tweet_id}`);
+      }
+      else{
+        setReplyModal(true)
+      }
     }
     else if(result.response.status === 404){
       alert('找不到推文！')
@@ -75,12 +79,12 @@ function TweetItem({ data }) {
             <p className="post_time">‧{relativeTime}</p>
           </span>
         </div>
-        <div className='card_body' onClick={() => {readTweetDetail(data.id)}}>
+        <div className='card_body' onClick={() => {readTweetDetail(data.id, 'content')}}>
           <p className='post_content'>{data.description}</p>
         </div>
         <div className='card_footer'>
           <span className='reply_span'>
-            <IconReply className='reply_icon' onClick={() => {setReplyModal(true)}} />
+            <IconReply className='reply_icon' onClick={() => {readTweetDetail(data.id, 'reply')}} />
             <p>{data.reply_count}</p>
           </span>
           <span className='like_span'>

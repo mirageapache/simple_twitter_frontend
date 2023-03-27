@@ -12,8 +12,9 @@ import { useReply } from 'context/ReplyContext';
 export default function ReplyModal() {
   const [comment, setComment] = useState('');
   const { currentMember } = useAuth();
-  const { tweet, setTweet } = useTweet();
+  const { tweet, setTweet, setTweetList } = useTweet();
   const { setReplyList, setReplyModal } = useReply();
+
 
   // 設定時間格式
   let rowRelativeTime = moment(tweet.updatedAt).endOf("day").fromNow().trim();
@@ -45,6 +46,20 @@ export default function ReplyModal() {
           ...prevData,
           reply_count: prevData.reply_count + 1
         }
+      })
+      setTweetList((prevData) => {
+        return prevData.map((item) => {
+          if(item.id.toString() === new_reply.TweetId){
+            console.log({...item})
+            return {
+              ...item,
+              reply_count: (item.reply_count + 1)
+            }
+          }
+          else{
+            return item
+          }
+        });
       })
 
       setReplyList((prevData) => {

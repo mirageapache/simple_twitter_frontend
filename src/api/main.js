@@ -19,8 +19,6 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-
-
 // Get TweetList (主頁面-取得推文資料)
 export const getTweetListAPI = async () => {
   try {
@@ -72,7 +70,6 @@ export const addReplyAPI = async ({ tweet_id, comment}) => {
     const response = await axiosInstance.post(`${baseUrl}/tweets/${tweet_id}/replies`,{
       comment
     });
-    console.log(response)
     return response;
   } catch (error) {
     return error
