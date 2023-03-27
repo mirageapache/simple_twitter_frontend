@@ -19,8 +19,6 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-
-
 // Get TweetList (主頁面-取得推文資料)
 export const getTweetListAPI = async () => {
   try {
@@ -55,3 +53,25 @@ export const addTweetAPI = async ({description}) => {
   }
 };
 
+
+// Get ReplyList (取得推文的回覆列表)
+export const getReplyListAPI = async ({ tweet_id }) => {
+  try {
+    const response = await axiosInstance.get(`${baseUrl}/tweets/${tweet_id}/replies`);
+    return response.data;
+  } catch (error) { 
+    return error
+  }
+};
+
+// Add New Reply (新增回覆)
+export const addReplyAPI = async ({ tweet_id, comment}) => {
+  try {
+    const response = await axiosInstance.post(`${baseUrl}/tweets/${tweet_id}/replies`,{
+      comment
+    });
+    return response;
+  } catch (error) {
+    return error
+  }
+};
