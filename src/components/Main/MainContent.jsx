@@ -17,9 +17,9 @@ export default function MainContent() {
     // get TweetList (取得推文列表)
     async function getTweetList() {
       const result = await getTweetListAPI();
-      if(result.status === 'error'){
-      }else{
-        setTweetList(result)
+      if (result.status === "error") {
+      } else {
+        setTweetList(result);
       }
     }
     getTweetList();
@@ -111,7 +111,7 @@ export default function MainContent() {
           )}
         </div>
       </div>
-      <TweetList list_data={tweetList} />
+      {/* <TweetList list_data={tweetList} /> */}
     </div>
   );
 }

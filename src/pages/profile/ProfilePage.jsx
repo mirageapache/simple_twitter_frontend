@@ -30,7 +30,7 @@ function ProfilePage() {
   const identity = selfId === apiId ? "self" : "other";
 
   // 取資料
-  const [profileData, setProfileData] = useState([]);
+  const [profileData, setProfileData] = useState({});
 
   useEffect(() => {
     const getProfileData = async () => {
