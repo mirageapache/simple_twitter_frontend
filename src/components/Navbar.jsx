@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "context/AuthContext";
 
@@ -12,12 +13,26 @@ import { ReactComponent as IconUserLight } from "assets/icons/user_light.svg";
 // import { ReactComponent as IconConfig } from "assets/icons/config.svg";
 import { ReactComponent as IconConfigLight } from "assets/icons/config_light.svg";
 import { ReactComponent as IconLogout } from "assets/icons/logout.svg";
-import { useState } from "react";
+
 import TweetModal from "./Main/TweetModal";
 
 export default function Navbar() {
   const { logout, currentMember } = useAuth();
-  const selfId = currentMember.id;
+
+  const [selfId, setSelfId] = useState(null);
+
+  // 這段要確認一下
+  useEffect(() => {
+    const checkSelf = async () => {
+      const currentMemberId = await currentMember.id;
+      if (!currentMemberId) {
+        return logout();
+      }
+      setSelfId(Number(currentMemberId));
+    };
+
+    checkSelf();
+  }, []);
 
   // TweetModal toggle (開關事件)
   const [modal_toggle, setModalToggle] = useState(false);
