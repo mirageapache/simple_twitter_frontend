@@ -11,11 +11,11 @@ import { ReactComponent as IconReply } from 'assets/icons/reply.svg';
 import { ReactComponent as IconLike } from 'assets/icons/like.svg';
 import { ReactComponent as IconLikeLight } from 'assets/icons/like_light.svg';
 
-export default function TweetList({list_data}) {
-  // const [modal_toggle, setModalToggle] = useState(false); // Modal Toggle 
+export default function TweetList({source}) {
   const { replyModal } = useReply();
+  const { tweetList } = useTweet();
 
-  const tweet_data = list_data.map((item) => {
+  const tweet_data = tweetList.map((item) => {
     return <TweetItem key={item.id} data={item} />
   })
 
@@ -86,7 +86,7 @@ function TweetItem({ data }) {
             <p>{data.reply_count}</p>
           </span>
           <span className='like_span'>
-            {data.is_like?
+            {data.is_like === 1?
               <IconLike className='like_icon' />
             :
               <IconLikeLight className='unlike_icon' />

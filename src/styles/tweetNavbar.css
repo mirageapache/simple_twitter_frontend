@@ -19,7 +19,7 @@
   }
   
   /* 狀態切換 */
-  .tweet-navbar-item-active  {
-      color: var(--main-color);
-      border-bottom:  2px solid var(--main-color)
+  .tweet-navbar .active  {
+    color: var(--main-color);
+    border-bottom:  2px solid var(--main-color)
   }

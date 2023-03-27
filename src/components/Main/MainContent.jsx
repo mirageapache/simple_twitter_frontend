@@ -19,7 +19,7 @@ export default function MainContent() {
       const result = await getTweetListAPI();
       if(result.status === 'error'){
       }else{
-        setTweetList(result)
+        setTweetList(result);
       }
     }
     getTweetList();

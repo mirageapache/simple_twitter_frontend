@@ -1,27 +1,22 @@
-import { useState } from "react";
-
 import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "context/AuthContext";
 import { TweetProvider } from "context/TweetContext";
 import { ReplyProvider } from "context/ReplyContext";
+// style
 import "styles/app.css";
+// page
 import HomePage from "pages/HomePage";
-// user
 import { RegisterPage, LoginPage, AdminLoginPage, SettingPage } from "pages";
 import { MainPage } from "pages"; 
 import {MainContent, TweetContent} from "components"
 import FollowPage from "pages/profile/FollowPage.jsx";
 import ProfilePage from "pages/profile/ProfilePage";
-
-// admin
 import AdminPage from "pages/AdminPage";
 import AdminTweetsPage from "pages/admin/AdminTweetsPage";
 import AdminUsersPage from "pages/admin/AdminUsersPage";
 
-
 export default function App() {
-  console.clear();
-
+  // console.clear();
   return (
     <div className="app">
       <div className="container">

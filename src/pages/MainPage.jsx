@@ -10,7 +10,6 @@ export default function MainPage({ path }) {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const { pathname } = useLocation();
-  // console.log("pathname", pathname);
 
   useEffect(() => {
     if (!isAuthenticated) {

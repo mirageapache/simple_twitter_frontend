@@ -5,9 +5,15 @@ import "styles/profileGuide.css";
 
 function ProfileGuide({ data }) {
   let user = data;
+
+  // Back to last page
+  function backToLastPage(){
+    window.history.back();
+  }
+
   return (
     <div className="guide-container">
-      <IconBack className="icon-svg-left" />
+      <IconBack className="icon-svg-left" onClick={()=>{backToLastPage()}}/>
       <div className="user-summary">
         <h5 className="user-name">{user.name}</h5>
         <p className="user-tweet">{user.tweet_count}推文</p>
