@@ -55,3 +55,26 @@ export const addTweetAPI = async ({description}) => {
   }
 };
 
+
+// Get ReplyList (取得推文的回覆列表)
+export const getReplyListAPI = async ({ tweet_id }) => {
+  try {
+    const response = await axiosInstance.get(`${baseUrl}/tweets/${tweet_id}/replies`);
+    return response.data;
+  } catch (error) { 
+    return error
+  }
+};
+
+// Add New Reply (新增回覆)
+export const addReplyAPI = async ({ tweet_id, comment}) => {
+  try {
+    const response = await axiosInstance.post(`${baseUrl}/tweets/${tweet_id}/replies`,{
+      comment
+    });
+    console.log(response)
+    return response;
+  } catch (error) {
+    return error
+  }
+};

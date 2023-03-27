@@ -1,15 +1,21 @@
 import moment from "moment";
 import { useNavigate } from "react-router";
 import { getTweetAPI } from 'api/main'
+import { useTweet } from "context/TweetContext";
+import { useReply } from "context/ReplyContext";
+import ReplyModal from "./ReplyModal";
 
 // svg
 import { ReactComponent as IconAvatar } from 'assets/icons/avatar.svg';
 import { ReactComponent as IconReply } from 'assets/icons/reply.svg';
 import { ReactComponent as IconLike } from 'assets/icons/like.svg';
 import { ReactComponent as IconLikeLight } from 'assets/icons/like_light.svg';
-import { useTweet } from "context/TweetContext";
 
 export default function TweetList({list_data}) {
+  // const [modal_toggle, setModalToggle] = useState(false); // Modal Toggle 
+  const { replyModal } = useReply();
+  
+
   
 
   const tweet_data = list_data.map((item) => {
@@ -19,6 +25,7 @@ export default function TweetList({list_data}) {
   return(
     <div className="tweet_list">
       {tweet_data}
+      { replyModal && <ReplyModal /> }
     </div>
   )
 }
@@ -26,20 +33,14 @@ export default function TweetList({list_data}) {
 function TweetItem({ data }) {
   const navigate = useNavigate();
   const { setTweet } = useTweet();
-
-  // 設定時間格式
-  let rowRelativeTime = moment(data.updatedAt).endOf("day").fromNow().trim();
-  let hourIndex = rowRelativeTime.indexOf("h");
-  let relativeTime =
-    rowRelativeTime.slice(0, hourIndex) <= 24
-      ? rowRelativeTime
-      : moment(data.updatedAt).format("LLL");
+  const { setReplyList, setReplyModal } = useReply();
 
   // 取得單一筆Tweet
   async function readTweetDetail(tweet_id){
     const result = await getTweetAPI(tweet_id)
     if(result.status === 200){
-      setTweet(result.data)
+      setTweet(result.data) //設定推文資料
+      setReplyList(result.data.Replies) //設定該則推文的回覆列表
       // 導至TweetPage
       navigate(`/tweet/:tweet_id=${tweet_id}`);
     }
@@ -49,6 +50,13 @@ function TweetItem({ data }) {
     }
   }
 
+  // 設定時間格式
+  let rowRelativeTime = moment(data.updatedAt).endOf("day").fromNow().trim();
+  let hourIndex = rowRelativeTime.indexOf("h");
+  let relativeTime =
+    rowRelativeTime.slice(0, hourIndex) <= 24
+      ? rowRelativeTime
+      : moment(data.updatedAt).format("LLL");
 
   return(
     <div className="tweet_item">
@@ -72,7 +80,7 @@ function TweetItem({ data }) {
         </div>
         <div className='card_footer'>
           <span className='reply_span'>
-            <IconReply className='reply_icon' onClick={() => {}} />
+            <IconReply className='reply_icon' onClick={() => {setReplyModal(true)}} />
             <p>{data.reply_count}</p>
           </span>
           <span className='like_span'>

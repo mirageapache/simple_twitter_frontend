@@ -1,6 +1,5 @@
 import { ReplyList, ReplyModal } from 'components';
 import { useTweet } from 'context/TweetContext';
-import { useState } from 'react';
 import moment from 'moment';
 // style
 import 'styles/tweet_content.css';
@@ -10,13 +9,14 @@ import { ReactComponent as IconLeftArrow } from 'assets/icons/left_arrow.svg';
 import { ReactComponent as IconReply } from 'assets/icons/reply.svg';
 import { ReactComponent as IconLike } from 'assets/icons/like.svg';
 import { ReactComponent as IconLikeLight } from 'assets/icons/like_light.svg';
+import { useReply } from 'context/ReplyContext';
 
 
 export default function Content() {
   const { tweet } = useTweet();
-  const [modal_toggle, setModalToggle] = useState(false); // Modal Toggle
+  const { replyModal, setReplyModal } = useReply();
 
-    // 設定時間格式
+  // 設定時間格式
   let rowRelativeTime = moment(tweet.updatedAt).endOf("day").fromNow().trim();
   let hourIndex = rowRelativeTime.indexOf("h");
   let relativeTime =
@@ -27,11 +27,6 @@ export default function Content() {
   // Back to last page
   function backToLastPage(){
     window.history.back();
-  }
-
-  // Modal toggle Function
-  function onModalToggle(){
-    setModalToggle(!modal_toggle);
   }
 
   return(
@@ -82,7 +77,7 @@ export default function Content() {
           </div>
           <div className='icon_div'>
             <span className='reply_icon' >
-              <IconReply onClick={onModalToggle}/>
+              <IconReply onClick={() => {setReplyModal(true)}}/>
             </span>
             <span>
               {tweet.is_liked?
@@ -95,7 +90,7 @@ export default function Content() {
         </div>
       </div>
 
-      {tweet.Replies.length === '0'?
+      {tweet.Replies.length !== 0?
         <ReplyList reply_data={tweet.Replies} reply_to={tweet.User.account}/>
       :
         <div className='reply_msg'>
@@ -103,7 +98,7 @@ export default function Content() {
         </div>
       }
       
-      { modal_toggle && <ReplyModal onModalToggle={onModalToggle} /> }
+      { replyModal && <ReplyModal /> }
     </div>
   )
 }
