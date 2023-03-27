@@ -59,15 +59,21 @@ export default function LoginForm({ current_page }) {
       }, 1500);
     } else {
       setLoginState(false);
-      if (result.message === "Incorrect password") {
-        setErrorMessage("password", "帳號或密碼錯誤！");
-        alert("帳號或密碼錯誤！");
-      }
-      if (
-        result.errors.password ===
-        "Password length must be between 5 and 12 characters"
-      ) {
+
+      if (result.status === 400) {
+        setErrorMessage("password", "密碼長度應為5~12字元！");
         alert("密碼長度應為5~12字元！");
+      }
+      else if (result.status === 401) {
+        setErrorMessage("password", "密碼錯誤！");
+        alert("密碼錯誤！");
+      }
+      else if (result.status === 404) {
+        setErrorMessage("account", "帳號未註冊！");
+        alert("帳號未註冊！");
+      }
+      else if (result.status === 500) {
+        alert("伺服器流量過載！請稍後再試！");
       }
       return;
     }
