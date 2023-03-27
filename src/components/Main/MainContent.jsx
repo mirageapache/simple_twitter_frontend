@@ -14,7 +14,7 @@ export default function MainContent() {
   const { currentMember } = useAuth();
 
   useEffect(() => {
-    // get TweetList
+    // get TweetList (取得推文列表)
     async function getTweetList() {
       const result = await getTweetListAPI();
       if(result.status === 'error'){
@@ -25,7 +25,7 @@ export default function MainContent() {
     getTweetList();
   }, [setTweetList]);
 
-  // 新增推文
+  // add new Tweet (新增推文)
   async function addTweet() {
     // 資料驗證
     if (postContent.length === 0) {

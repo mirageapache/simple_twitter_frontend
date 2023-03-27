@@ -1,11 +1,11 @@
 import { ReactComponent as IconAvatar } from 'assets/icons/avatar.svg';
+import { useReply } from 'context/ReplyContext';
 import moment from 'moment';
-// import { ReactComponent as IconReply } from 'assets/icons/reply.svg';
-// import { ReactComponent as IconLikeLight } from 'assets/icons/like_light.svg';
 
+export default function ReplyList({ reply_to }) {
+  const { replyList } = useReply();
 
-export default function ReplyList({ reply_data , reply_to}) {
-  const reply = reply_data.map((item) => {
+  const reply = replyList.map((item) => {
     return <ReplyItem key={item.id} data={item} reply_to={reply_to} />
   })
 
