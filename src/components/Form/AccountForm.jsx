@@ -83,7 +83,6 @@ export default function AccountForm({ current_page }) {
     const req_data = { account, name, email, password, confirm_password };
     // fetch API 事件
     const result = await AccountAPI({ req_data });
-    console.log(result);
     // 判斷登入是否成功
     if (result.status === "success") {
       alert(result.message);

@@ -50,7 +50,6 @@ export default function ReplyModal() {
       setTweetList((prevData) => {
         return prevData.map((item) => {
           if(item.id.toString() === new_reply.TweetId){
-            console.log({...item})
             return {
               ...item,
               reply_count: (item.reply_count + 1)

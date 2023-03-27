@@ -15,8 +15,6 @@ export default function TweetList({list_data}) {
   // const [modal_toggle, setModalToggle] = useState(false); // Modal Toggle 
   const { replyModal } = useReply();
 
-  console.log(list_data)
-
   const tweet_data = list_data.map((item) => {
     return <TweetItem key={item.id} data={item} />
   })
