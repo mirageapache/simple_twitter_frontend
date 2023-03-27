@@ -38,14 +38,12 @@ export default function App() {
                 <Route index element={<MainContent />}  />
                 <Route path="index" element={<MainContent />}  />
                 <Route path="tweet/:tweet_id" element={<TweetContent />} />
-                <Route path="profile" 
+                <Route path="profile/:user_id" 
                 element={<ProfilePage />} />
                 <Route path="follow" 
                 element={<FollowPage />} ></Route>
-                {/* <Route path="profile/:user_id" 
-                element={<AdminTweetsPage />} />
-                <Route path="follow/:user_id" 
-                element={<AdminTweetsPage />} ></Route> */}
+                {/* <Route path="follow/:user_id" 
+                element={<FollowPage />} ></Route> */}
                 <Route path="setting" element={<SettingPage />} />
               </Route>
               
