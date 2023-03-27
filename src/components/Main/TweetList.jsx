@@ -15,6 +15,8 @@ export default function TweetList({source}) {
   const { replyModal } = useReply();
   const { tweetList } = useTweet();
 
+  console.log(tweetList)
+
   const tweet_data = tweetList.map((item) => {
     return <TweetItem key={item.id} data={item} />
   })
@@ -86,7 +88,7 @@ function TweetItem({ data }) {
             <p>{data.reply_count}</p>
           </span>
           <span className='like_span'>
-            {data.is_like === 1?
+            {data.is_liked === 1?
               <IconLike className='like_icon' />
             :
               <IconLikeLight className='unlike_icon' />

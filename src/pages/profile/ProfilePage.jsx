@@ -95,7 +95,10 @@ function ProfilePage() {
       const result = await getUserLikeListAPI(selfId);
       if(result.status === 'error'){
       }else{
-        setTweetList(result);
+        const new_data = result.map((item) => {
+          return item.Tweet
+        })
+        setTweetList(new_data);
       }
     }
 

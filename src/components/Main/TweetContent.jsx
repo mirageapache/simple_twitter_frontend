@@ -91,7 +91,7 @@ export default function Content() {
       </div>
 
       {tweet.Replies.length !== 0?
-        <ReplyList reply_data={tweet.Replies} reply_to={tweet.User.account}/>
+        <ReplyList reply_data={tweet.Replies} />
       :
         <div className='reply_msg'>
           <h3>還沒有人來留言~</h3>
