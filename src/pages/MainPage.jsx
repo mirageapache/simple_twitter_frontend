@@ -7,16 +7,15 @@ import { Navbar, Recommend } from "components";
 import "styles/main.css";
 
 export default function MainPage({ path }) {
-  const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const { pathname } = useLocation();
   // console.log("pathname", pathname);
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/login");
+      logout();
     }
-  }, [navigate, isAuthenticated]);
+  }, [logout, isAuthenticated]);
 
   return (
     <div className="main_page">
@@ -25,7 +24,7 @@ export default function MainPage({ path }) {
         <Navbar />
       </section>
 
-      {pathname === "/main/setting" ? (
+      {pathname === "/setting" ? (
         <Outlet />
       ) : (
         <>
