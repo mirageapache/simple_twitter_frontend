@@ -1,37 +1,22 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "context/AuthContext";
 
-import { Navbar, Recommend, MainContent, TweetContent } from "components";
-import FollowPage from "pages/profile/FollowPage.jsx";
-import ProfilePage from "pages/profile/ProfilePage";
+import { Navbar, Recommend } from "components";
 
 import "styles/main.css";
 
 export default function MainPage({ path }) {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const { pathname } = useLocation();
+  // console.log("pathname", pathname);
 
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login");
     }
   }, [navigate, isAuthenticated]);
-
-  let contentBoard;
-  if (path === "main") {
-    // 主頁面內容
-    contentBoard = <MainContent />;
-  } else if (path === "tweet") {
-    // 回覆頁面內容;
-    contentBoard = <TweetContent />;
-  } else if (path === "follow") {
-    // 跟隨頁面
-    contentBoard = <FollowPage />;
-  } else if (path === "profile") {
-    // 個人頁面
-    contentBoard = <ProfilePage />;
-  }
 
   return (
     <div className="main_page">
@@ -40,13 +25,19 @@ export default function MainPage({ path }) {
         <Navbar />
       </section>
 
-      {/* 內容區塊 */}
-      <section className="content_section">{contentBoard}</section>
+      {pathname === "/main/setting" ? (
+        <Outlet />
+      ) : (
+        <>
+          <section className="content_section">
+            <Outlet />
+          </section>
 
-      {/* 推薦跟隨 */}
-      <section className="recommend_section">
-        <Recommend />
-      </section>
+          <section className="recommend_section">
+            <Recommend />
+          </section>
+        </>
+      )}
     </div>
   );
 }
