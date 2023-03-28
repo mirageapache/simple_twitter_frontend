@@ -11,7 +11,10 @@ import FollowList from "components/Profile/FollowList";
 import TweetNavbar from "components/Profile/TweetNavbar";
 
 // data
-const navbarData = ["追隨者", "正在追隨"];
+const navbarData = [
+  { title: "追隨者", view: "followers" },
+  { title: "正在追隨", view: "followings" },
+];
 
 // function
 function FollowPage() {
@@ -32,12 +35,11 @@ function FollowPage() {
   useEffect(() => {
     const getFollowData = async (apiId) => {
       try {
-        let rawfollowData =
+        let rawFollowData =
           followMode === "followers"
             ? await getFollowersDataAPI(apiId)
             : await getFollowingsDataAPI(apiId);
-        console.log("rawfollowData", rawfollowData);
-        setFollowData(rawfollowData);
+        setFollowData(rawFollowData);
       } catch (err) {
         console.log(err);
       }
@@ -45,12 +47,33 @@ function FollowPage() {
     getFollowData(apiId);
   }, []);
 
+  // 更換分頁
+  function onViewChange(followMode) {
+    async function getFollowData() {
+      try {
+        let rawFollowData =
+          followMode === "followers"
+            ? await getFollowersDataAPI(apiId)
+            : await getFollowingsDataAPI(apiId);
+        setFollowData(rawFollowData);
+        setFollowMode(followMode);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getFollowData();
+  }
+
   return (
     <>
       <ProfileGuide data={user} />
       {/* 選項 */}
       <div className="border-top-line">
-        <TweetNavbar navbarData={navbarData} />
+        <TweetNavbar
+          navbarData={navbarData}
+          currentView={followMode}
+          onViewChange={onViewChange}
+        />
       </div>
       {/* 清單 */}
       <FollowList followData={followData} followMode={followMode} />

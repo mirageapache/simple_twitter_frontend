@@ -11,7 +11,17 @@ import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
 export default function MainContent() {
   const { tweetList, setTweetList } = useTweet();
   const [postContent, setPostContent] = useState("");
-  const { currentMember } = useAuth();
+  const { isAuthenticated, currentMember, logout } = useAuth();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setTweetList(null);
+      return logout();
+    } else if (!currentMember.id) {
+      setTweetList(null);
+      return logout();
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
     // get TweetList (取得推文列表)
@@ -111,7 +121,7 @@ export default function MainContent() {
           )}
         </div>
       </div>
-      {/* <TweetList list_data={tweetList} /> */}
+      <TweetList list_data={tweetList} />
     </div>
   );
 }
