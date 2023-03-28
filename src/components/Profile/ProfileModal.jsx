@@ -58,7 +58,6 @@ export default function ReplyModal({ onModalToggle }) {
 
     const data = {name, introduction }
     const result = await editUserDataAPI(currentMember.id, data)
-    console.log(result);
     if(result.status === 200){
       alert('資料已更新！');
       onModalToggle();

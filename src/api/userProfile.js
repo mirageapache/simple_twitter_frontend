@@ -26,7 +26,6 @@ export const getUserDataAPI = async(user_id)=>{
     const response = await axiosInstance.get(userUrl(user_id));
     return response;
   } catch (error) {
-    console.log(error);
     console.error("[Get user data failed]: ", error);
   }
 }
@@ -40,7 +39,6 @@ export const editUserDataAPI = async(user_id, data)=>{
     });
     return response;
   } catch (error) {
-    console.log(error);
     console.error("[Get user data failed]: ", error);
   }
 }
