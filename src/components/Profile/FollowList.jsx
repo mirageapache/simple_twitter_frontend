@@ -17,7 +17,7 @@ function FollowItem({ follow, followMode }) {
           </button>
         </div>
         <div className="follow-item-tweet">
-          <p>這裡要放個人簡介otherUserInfo.introduction</p>
+          <p>{otherUserInfo.introduction}</p>
         </div>
       </div>
     </div>

@@ -14,11 +14,14 @@ export default function MainContent() {
   const { isAuthenticated, currentMember, logout } = useAuth();
 
   useEffect(() => {
-    if (!isAuthenticated || !currentMember.id) {
+    if (!isAuthenticated) {
+      setTweetList(null);
+      return logout();
+    } else if (!currentMember.id) {
       setTweetList(null);
       return logout();
     }
-  }, [isAuthenticated, currentMember.id]);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     // get TweetList (取得推文列表)
