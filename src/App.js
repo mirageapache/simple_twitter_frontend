@@ -27,14 +27,13 @@ export default function App() {
                 <Route path="*" element={<HomePage />} />
                 <Route path="register" element={<RegisterPage />} />
                 <Route path="login" element={<LoginPage />} />
-                <Route path="/" element={<MainPage />}>
+                <Route path="/main" element={<MainPage />}>
                   <Route index element={<MainContent />} />
-                  <Route path="main" element={<MainContent />} />
+                  <Route path="index" element={<MainContent />} />
                   <Route path="tweet/:tweet_id" element={<TweetContent />} />
                   <Route path="profile/:user_id" element={<ProfilePage />} />
-                  <Route path="follow" element={<FollowPage />}></Route>
-                  <Route path="follow/:user_id/followers" element={<FollowPage />}></Route>
-                  <Route path="follow/:user_id/followings" element={<FollowPage />} ></Route>
+                  <Route path="profile/:user_id/follow/:user_id/followers" element={<FollowPage />}></Route>
+                  <Route path="profile/:user_id/follow/:user_id/followings" element={<FollowPage />} ></Route>
                   <Route path="setting" element={<SettingPage />} />
                 </Route>
                 

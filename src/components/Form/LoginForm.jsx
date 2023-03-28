@@ -45,7 +45,7 @@ export default function LoginForm({ current_page }) {
       setLoginState(true);
       // 判斷前台登入or後台登入，指向不同頁面
       setTimeout(() => {
-        current_page === "users" ? navigate("/") : navigate("/admin");
+        current_page === "users" ? navigate("/main") : navigate("/admin");
       }, 1500);
     } else {
       setLoginState(false);

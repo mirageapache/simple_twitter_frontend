@@ -88,7 +88,7 @@ function NavItem({ text, svg_string, active, selfId }) {
   switch (svg_string) {
     case "home":
       svg_item = <IconHome />;
-      routePath = "main";
+      routePath = "index";
       break;
     case "user":
       svg_item = <IconUserLight />;
