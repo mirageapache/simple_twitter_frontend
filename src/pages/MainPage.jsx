@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate, Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "context/AuthContext";
 
 import { Navbar, Recommend } from "components";

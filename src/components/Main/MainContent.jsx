@@ -47,7 +47,6 @@ export default function MainContent() {
     }
     const result = await addTweetAPI({ description: postContent });
     if (result.status === 200) {
-      console.log(result)
       const newTweet = result.data.data.tweet;
       setTweetList((prevTweet) => {
         return [
