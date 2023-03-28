@@ -56,7 +56,7 @@ export const getUserLikeListAPI = async (id) => {
 export const getTweetAPI = async (tweet_id) => {
   try {
     const response = await axiosInstance.get(`${baseUrl}/tweets/${tweet_id}`);
-    return { status: 200, data: {...response.data} };
+    return response;
   } catch (error) { 
     console.log(error)
     return error
@@ -113,10 +113,8 @@ export const addReplyAPI = async ({ tweet_id, comment}) => {
 
 // Get User Account (取得使用者帳號資料)
 export const getAccountAPI = async (id) => {
-  console.log(id)
   try {
     const response = await axiosInstance.get(`${baseUrl}/users/${id}/setting`);
-    console.log(response)
     return response;
   } catch (error) { 
     console.log(error)
@@ -135,6 +133,28 @@ export const editAccountAPI = async (id, data) => {
     });
     return response;
   } catch (error) { 
+    console.log(error)
+    return error
+  }
+};
+
+// Like Tweet (喜歡推文)
+export const LikeTweetAPI = async (id) => {
+  try {
+    const response = await axiosInstance.post(`${baseUrl}/tweets/${id}/like`);
+    return response;
+  } catch (error) {
+    console.log(error)
+    return error
+  }
+};
+
+// Unlike Tweet (取消喜歡推文)
+export const UnlikeTweetAPI = async (id) => {
+  try {
+    const response = await axiosInstance.post(`${baseUrl}/tweets/${id}/unlike`);
+    return response;
+  } catch (error) {
     console.log(error)
     return error
   }

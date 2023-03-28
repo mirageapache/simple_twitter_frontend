@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useAuth } from "context/AuthContext";
 import { useTweet } from "context/TweetContext";
-// import { useNavigate } from "react-router-dom";
 
 // api
 import { getUserDataAPI } from "api/userProfile";
