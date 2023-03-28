@@ -7,8 +7,8 @@ import { Navbar, Recommend } from "components";
 import "styles/main.css";
 
 export default function MainPage({ path }) {
-  const { isAuthenticated, logout } = useAuth();
   const { pathname } = useLocation();
+  const { isAuthenticated, logout } = useAuth();
 
   useEffect(() => {
     if (!isAuthenticated) {

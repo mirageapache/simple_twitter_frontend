@@ -59,7 +59,6 @@ export const AuthProvider = ({ children }) => {
             setIsAuthenticated(true);
             const tempPayload = jwt_decode(authToken);
             setPayload(tempPayload);
-            console.log("tempPayload", tempPayload);
           } else {
             setIsAuthenticated(false);
             setPayload(null);
