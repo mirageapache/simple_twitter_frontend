@@ -17,7 +17,7 @@ function FollowItem({ follow, followMode }) {
           </button>
         </div>
         <div className="follow-item-tweet">
-          <p>item.latestTweet</p>
+          <p>這裡要放個人簡介otherUserInfo.introduction</p>
         </div>
       </div>
     </div>
@@ -30,7 +30,11 @@ function followList({ followData, followMode }) {
       {followData.map((follow) => {
         return (
           <FollowItem
-            key={follow.followerId}
+            key={
+              followMode === "followers"
+                ? follow.followerId
+                : follow.followingId
+            }
             follow={follow}
             followMode={followMode}
           />

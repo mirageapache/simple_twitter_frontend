@@ -6,7 +6,11 @@ import { useTweet } from "context/TweetContext";
 
 // api
 import { getUserDataAPI } from "api/userProfile";
-import { getUserTweetListAPI, getUserReplyListAPI, getUserLikeListAPI } from "api/main";
+import {
+  getUserTweetListAPI,
+  getUserReplyListAPI,
+  getUserLikeListAPI,
+} from "api/main";
 
 // style
 import "styles/profile.css";
@@ -20,7 +24,11 @@ import ReplyList from "components/Main/ReplyList";
 import ProfileModal from "components/Profile/ProfileModal.jsx";
 import { useReply } from "context/ReplyContext";
 
-const navbarData = [{title:"推文",view:'tweet'}, {title:"回覆",view:'reply'}, {title:"喜歡",view:'like'}];
+const navbarData = [
+  { title: "推文", view: "tweet" },
+  { title: "回覆", view: "reply" },
+  { title: "喜歡", view: "like" },
+];
 
 // function
 function ProfilePage() {
@@ -38,25 +46,23 @@ function ProfilePage() {
   const [profileData, setProfileData] = useState({});
 
   //判斷分頁
-  const [currentView, setCurrentView] = useState('tweet');
+  const [currentView, setCurrentView] = useState("tweet");
   let partialView;
-  if(currentView === 'tweet'){
+  if (currentView === "tweet") {
     // 推文分頁
-    partialView = <TweetList list_data={tweetList}/>
-  }
-  else if(currentView === 'reply'){
+    partialView = <TweetList list_data={tweetList} />;
+  } else if (currentView === "reply") {
     // 回覆分頁
-    partialView = <ReplyList list_data={replyList}/>
-  }
-  else{
+    partialView = <ReplyList list_data={replyList} />;
+  } else {
     //喜歡分頁
-    partialView = <TweetList list_data={tweetList}/>
+    partialView = <TweetList list_data={tweetList} />;
   }
 
   async function getUserTweetList() {
     const result = await getUserTweetListAPI(selfId);
-    if(result.status === 'error'){
-    }else{
+    if (result.status === "error") {
+    } else {
       setTweetList(result);
     }
   }
@@ -75,43 +81,41 @@ function ProfilePage() {
   }, [apiId]);
 
   // 取得使用者推文
-  useEffect(()=>{
+  useEffect(() => {
     getUserTweetList();
-  },[selfId])
+  }, [selfId]);
 
   // 更換分頁
-  function onViewChange(view){
-    // 取得個人回覆 function 
+  function onViewChange(view) {
+    // 取得個人回覆 function
     async function getUserReplyList() {
       const result = await getUserReplyListAPI(selfId);
-      if(result.status === 'error'){
-      }else{
+      if (result.status === "error") {
+      } else {
         setReplyList(result);
       }
     }
 
-    //取得喜歡的推文 function 
+    //取得喜歡的推文 function
     async function getUserLikeList() {
       const result = await getUserLikeListAPI(selfId);
-      if(result.status === 'error'){
-      }else{
+      if (result.status === "error") {
+      } else {
         const new_data = result.map((item) => {
-          return item.Tweet
-        })
+          return item.Tweet;
+        });
         setTweetList(new_data);
       }
     }
 
-    if(view === 'reply'){ 
-      getUserReplyList() // 取得個人回覆
+    if (view === "reply") {
+      getUserReplyList(); // 取得個人回覆
+    } else if (view === "like") {
+      getUserLikeList(); // 取得喜歡的推文
+    } else {
+      getUserTweetList(); // 取得個人推文
     }
-    else if(view === 'like'){ 
-      getUserLikeList() // 取得喜歡的推文
-    }
-    else{ 
-      getUserTweetList() // 取得個人推文
-    }
-    setCurrentView(view)
+    setCurrentView(view);
   }
 
   // Modal toggle
@@ -195,8 +199,12 @@ function ProfilePage() {
             </div>
           </div>
         </div>
-        <TweetNavbar navbarData={navbarData} currentView={currentView} onViewChange={onViewChange} />
-        
+        <TweetNavbar
+          navbarData={navbarData}
+          currentView={currentView}
+          onViewChange={onViewChange}
+        />
+
         {/* 分頁 */}
         {partialView}
       </div>

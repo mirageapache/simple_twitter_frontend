@@ -2,7 +2,7 @@
 @import url("base.css");
 
 .border-top-line {
-  border-top-line: 1px solid #E6ECF0;
+  border-top-line: 1px solid #e6ecf0;
 }
 
 .follow-list {
@@ -26,7 +26,8 @@
   border-radius: 50px;
 }
 .follow-item-container {
-  margin-left:8px;
+  margin-left: 8px;
+  width: 100%;
 }
 .follow-item-user {
   display: flex;
@@ -40,27 +41,25 @@
   line-height: 26px;
   color: var(--main-text);
 }
+
+/* 狀態切換 */
 .follow-item-button {
   padding: 8px 16px;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #ffffff;
-  background: var(--main-color);
   border-radius: 50px;
   cursor: pointer;
-}
-/* 沒有跟隨的樣式 */
-/* .follow-button {
-  padding: 8px 16px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
   color: var(--main-color);
-  border: 1px solid var(--main-color);
   background: #ffffff;
-  border-radius: 50px;
-} */
+  border: 1px solid var(--main-color);
+}
+
+.follow-item-button .active {
+  color: #ffffff;
+  background: var(--main-color);
+}
+
 .follow-item-tweet {
   flex-grow: 1;
   font-weight: 400;
