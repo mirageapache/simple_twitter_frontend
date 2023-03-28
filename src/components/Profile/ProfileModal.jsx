@@ -1,20 +1,12 @@
 import { useEffect, useState } from "react";
 import { getUserDataAPI, editUserDataAPI } from 'api/userProfile';
+import { useAuth } from "context/AuthContext";
 
 // style
 import "styles/profileModal.css";
-
+// svg
 import { ReactComponent as IconClose } from "assets/icons/close.svg";
 import { ReactComponent as IconAddPhoto } from "assets/icons/addphoto.svg";
-
-// data
-// import dummyAvatar from "assets/images/dummy_images/userCard/avatar.jpeg";
-// import dummyCover from "assets/images/dummy_images/dummy_cover.jpg";
-import { useAuth } from "context/AuthContext";
-
-
-// const dummy_cover = dummyCover;
-// const dummy_avatar = dummyAvatar;
 
 export default function ReplyModal({ onModalToggle }) {
   const [name, setName] = useState('');
