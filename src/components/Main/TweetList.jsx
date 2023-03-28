@@ -1,6 +1,6 @@
 import moment from "moment";
 import { useNavigate } from "react-router";
-import { getTweetAPI } from "api/main";
+import { getTweetAPI, LikeTweetAPI, UnlikeTweetAPI } from "api/main";
 import { useTweet } from "context/TweetContext";
 import { useReply } from "context/ReplyContext";
 import ReplyModal from "./ReplyModal";
@@ -29,7 +29,7 @@ export default function TweetList({ source }) {
 
 function TweetItem({ data }) {
   const navigate = useNavigate();
-  const { setTweet } = useTweet();
+  const { setTweet, setTweetList } = useTweet();
   const { setReplyList, setReplyModal } = useReply();
 
   // 取得單一筆Tweet
@@ -49,6 +49,36 @@ function TweetItem({ data }) {
       return;
     }
   }
+
+  // like/unlike Tweet
+  async function LikeToggle(tweet_id, type){
+    let result;
+    if(type === 'like'){
+      result = await LikeTweetAPI(tweet_id);
+    }
+    else{
+      result = await UnlikeTweetAPI(tweet_id);
+    }
+    if (result.status === 200) {
+      const new_data = result.data.data.tweet
+      console.log(new_data)
+      setTweetList((prevData) => {
+        return prevData.map((item) => {
+          if(item.id === new_data.id){
+            return {
+              ...item,
+              like_count: (type === 'like'? item.like_count + 1 : item.like_count -1),
+              is_liked: (type === 'like'? 1 : 0)
+            }
+          }
+          else{
+            return item
+          }
+        });
+      })
+    } 
+  }
+
 
   // 設定時間格式
   let rowRelativeTime = moment(data.updatedAt).endOf("day").fromNow().trim();
@@ -98,11 +128,11 @@ function TweetItem({ data }) {
             <p>{data.reply_count}</p>
           </span>
           <span className="like_span">
-            {data.is_liked === 1 ? (
-              <IconLike className="like_icon" />
-            ) : (
-              <IconLikeLight className="unlike_icon" />
-            )}
+            {data.is_liked === 1 ? 
+              <IconLike className="like_icon" onClick={() => {LikeToggle(data.id, 'unlike')}} />
+            : 
+              <IconLikeLight className="unlike_icon" onClick={() => {LikeToggle(data.id, 'like')}} />
+            }
             <p>{data.like_count}</p>
           </span>
         </div>

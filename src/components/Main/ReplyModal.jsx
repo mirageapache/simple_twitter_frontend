@@ -81,10 +81,7 @@ export default function ReplyModal() {
       })
       setComment('');
       setReplyModal(false);
-    }else{
-      console.log(result)
     }
-
   }
 
   return(
