@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useAuth } from "context/AuthContext";
+import { useTweet } from "context/TweetContext";
 // import { useNavigate } from "react-router-dom";
 
 // api
 import { getUserDataAPI } from "api/userProfile";
+import { getUserTweetListAPI, getUserReplyListAPI, getUserLikeListAPI } from "api/main";
 
 // style
 import "styles/profile.css";
@@ -13,11 +15,12 @@ import "styles/profile.css";
 import ProfileGuide from "components/Profile/ProfileGuide";
 import Interactive from "components/Profile/Interactive";
 import TweetNavbar from "components/Profile/TweetNavbar";
-// import TweetList from "components/Main/TweetList.jsx";
-// import ReplyList from "components/Main/ReplyList";
+import TweetList from "components/Main/TweetList.jsx";
+import ReplyList from "components/Main/ReplyList";
 import ProfileModal from "components/Profile/ProfileModal.jsx";
+import { useReply } from "context/ReplyContext";
 
-const navbarData = ["推文", "回覆", "喜歡"];
+const navbarData = [{title:"推文",view:'tweet'}, {title:"回覆",view:'reply'}, {title:"喜歡",view:'like'}];
 
 // function
 function ProfilePage() {
@@ -25,6 +28,8 @@ function ProfilePage() {
   const { user_id } = useParams();
   const apiId = Number(user_id);
   const selfId = Number(currentMember.id);
+  const { tweetList, setTweetList } = useTweet();
+  const { replyList, setReplyList } = useReply();
 
   //判斷顯示
   const identity = selfId === apiId ? "self" : "other";
@@ -32,6 +37,31 @@ function ProfilePage() {
   // 取資料
   const [profileData, setProfileData] = useState({});
 
+  //判斷分頁
+  const [currentView, setCurrentView] = useState('tweet');
+  let partialView;
+  if(currentView === 'tweet'){
+    // 推文分頁
+    partialView = <TweetList list_data={tweetList}/>
+  }
+  else if(currentView === 'reply'){
+    // 回覆分頁
+    partialView = <ReplyList list_data={replyList}/>
+  }
+  else{
+    //喜歡分頁
+    partialView = <TweetList list_data={tweetList}/>
+  }
+
+  async function getUserTweetList() {
+    const result = await getUserTweetListAPI(selfId);
+    if(result.status === 'error'){
+    }else{
+      setTweetList(result);
+    }
+  }
+
+  // 取得使用者資訊
   useEffect(() => {
     const getProfileData = async () => {
       try {
@@ -43,6 +73,46 @@ function ProfilePage() {
     };
     getProfileData();
   }, [apiId]);
+
+  // 取得使用者推文
+  useEffect(()=>{
+    getUserTweetList();
+  },[selfId])
+
+  // 更換分頁
+  function onViewChange(view){
+    // 取得個人回覆 function 
+    async function getUserReplyList() {
+      const result = await getUserReplyListAPI(selfId);
+      if(result.status === 'error'){
+      }else{
+        setReplyList(result);
+      }
+    }
+
+    //取得喜歡的推文 function 
+    async function getUserLikeList() {
+      const result = await getUserLikeListAPI(selfId);
+      if(result.status === 'error'){
+      }else{
+        const new_data = result.map((item) => {
+          return item.Tweet
+        })
+        setTweetList(new_data);
+      }
+    }
+
+    if(view === 'reply'){ 
+      getUserReplyList() // 取得個人回覆
+    }
+    else if(view === 'like'){ 
+      getUserLikeList() // 取得喜歡的推文
+    }
+    else{ 
+      getUserTweetList() // 取得個人推文
+    }
+    setCurrentView(view)
+  }
 
   // Modal toggle
   const [modal_toggle, setModalToggle] = useState(false);
@@ -125,10 +195,10 @@ function ProfilePage() {
             </div>
           </div>
         </div>
-        <TweetNavbar navbarData={navbarData} />
-        {/* <TweetList /> */}
-        {/* <ReplyList /> */}
-        {/* like list 跟 tweetList共用版型 */}
+        <TweetNavbar navbarData={navbarData} currentView={currentView} onViewChange={onViewChange} />
+        
+        {/* 分頁 */}
+        {partialView}
       </div>
 
       {modal_toggle && <ProfileModal onModalToggle={onModalToggle} />}

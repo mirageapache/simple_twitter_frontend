@@ -9,7 +9,6 @@ import "styles/main.css";
 export default function MainPage({ path }) {
   const { isAuthenticated, logout } = useAuth();
   const { pathname } = useLocation();
-  // console.log("pathname", pathname);
 
   useEffect(() => {
     if (!isAuthenticated) {

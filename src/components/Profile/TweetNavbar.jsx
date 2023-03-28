@@ -1,20 +1,29 @@
 // style
 import "styles/tweetNavbar.css";
 
-function NavItem(data) {
-  let navData = data.data;
-  return navData.map((item, index) => (
-    <li className="tweet-navbar-item" key={`nav-${index}`}>
-      {item}
-    </li>
-  ));
+function NavItem({ className, navbarData, onViewChange}) {
+  return(
+    <>
+      <li className={className} onClick={()=>{onViewChange(navbarData.view)}}>
+        {navbarData.title}
+      </li>
+    </>
+  )
 }
 
-function TweetNavbar(data) {
-  let navData = data.navbarData;
+function TweetNavbar({navbarData, currentView, onViewChange}) {
+  const nav_item = navbarData.map((item, index) => {
+    if(currentView === item.view){
+      return <NavItem className='tweet-navbar-item active' key={index} navbarData={item} onViewChange={onViewChange}/>
+    }
+    else{
+      return <NavItem className='tweet-navbar-item' key={index} navbarData={item} onViewChange={onViewChange}/>
+    }
+  })
+
   return (
     <ul className="tweet-navbar">
-      <NavItem data={navData} />
+      {nav_item}
     </ul>
   );
 }

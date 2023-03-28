@@ -19,12 +19,35 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// Get TweetList (主頁面-取得推文資料)
+// Get TweetList (主頁面-取得推文列表)
 export const getTweetListAPI = async () => {
   try {
     const response = await axiosInstance.get(`${baseUrl}/tweets`);
     return response.data;
   } catch (error) { 
+    console.log(error)
+    return error
+  }
+};
+
+// Get User TweetList (使用者頁面-取得該使用者推文列表)
+export const getUserTweetListAPI = async (id) => {
+  try {
+    const response = await axiosInstance.get(`${baseUrl}/users/${id}/tweets`);
+    return response.data;
+  } catch (error) { 
+    console.log(error)
+    return error
+  }
+};
+
+// Get User LikeList (使用者頁面-取得該使用者喜歡的推文列表)
+export const getUserLikeListAPI = async (id) => {
+  try {
+    const response = await axiosInstance.get(`${baseUrl}/users/${id}/likes`);
+    return response.data;
+  } catch (error) { 
+    console.log(error)
     return error
   }
 };
@@ -49,6 +72,7 @@ export const addTweetAPI = async ({description}) => {
     });
     return response.data;
   } catch (error) {
+    console.log(error)
     return error
   }
 };
@@ -60,6 +84,18 @@ export const getReplyListAPI = async ({ tweet_id }) => {
     const response = await axiosInstance.get(`${baseUrl}/tweets/${tweet_id}/replies`);
     return response.data;
   } catch (error) { 
+    console.log(error)
+    return error
+  }
+};
+
+// Get User ReplyList (使用者頁面-取得該使用者回覆列表)
+export const getUserReplyListAPI = async (id) => {
+  try {
+    const response = await axiosInstance.get(`${baseUrl}/users/${id}/replied_tweets`);
+    return response.data;
+  } catch (error) { 
+    console.log(error)
     return error
   }
 };
@@ -72,6 +108,7 @@ export const addReplyAPI = async ({ tweet_id, comment}) => {
     });
     return response;
   } catch (error) {
+    console.log(error)
     return error
   }
 };
