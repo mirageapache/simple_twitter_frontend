@@ -21,16 +21,24 @@ axiosInstance.interceptors.request.use(
 );
 
 // get取得個人資料
-export const getUserDataAPI =async(user_id)=>{
-    try {
-        const response = await axiosInstance.get(userUrl(user_id));
-        return response.data;
-      } catch (error) {
-        console.error("[Get user data failed]: ", error);
-      }
+export const getUserDataAPI = async(user_id)=>{
+  try {
+    const response = await axiosInstance.get(userUrl(user_id));
+    return response;
+  } catch (error) {
+    console.error("[Get user data failed]: ", error);
+  }
 }
 
 // put修改個人資料
-// export const EditUserDataAPI = async (payload) => {
-
-//   };
+export const editUserDataAPI = async(user_id, data)=>{
+  try {
+    const response = await axiosInstance.put(userUrl(user_id),{
+      name: data.name,
+      introduction: data.introduction
+    });
+    return response;
+  } catch (error) {
+    console.error("[Get user data failed]: ", error);
+  }
+}

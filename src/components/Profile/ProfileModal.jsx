@@ -1,22 +1,62 @@
+import { useEffect, useState } from "react";
+import { getUserDataAPI, editUserDataAPI } from 'api/userProfile';
+import { useAuth } from "context/AuthContext";
+
 // style
 import "styles/profileModal.css";
-
+// svg
 import { ReactComponent as IconClose } from "assets/icons/close.svg";
 import { ReactComponent as IconAddPhoto } from "assets/icons/addphoto.svg";
 
-// data
-import dummyAvatar from "assets/images/dummy_images/userCard/avatar.jpeg";
-import dummyCover from "assets/images/dummy_images/dummy_cover.jpg";
-
-const dummy_cover = dummyCover;
-const dummy_avatar = dummyAvatar;
-// const dummy_userData = {
-//   name: "Tina",
-//   introduction:
-//     "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. ",
-// };
-
 export default function ReplyModal({ onModalToggle }) {
+  const [name, setName] = useState('');
+  const [introduction, setIntroduction] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const [cover, setCover] = useState('');
+  const { currentMember } = useAuth();
+
+  // 取得使用者資料
+  useEffect(() => {
+    async function getUserData(){
+      const result = await getUserDataAPI(currentMember.id);
+      if(result.status === 200){
+        setName(result.data.name);
+        setIntroduction(result.data.introduction);
+        setAvatar(result.data.avatar);
+        setCover(result.data.cover);
+      }
+    }
+    getUserData();
+  },[currentMember])
+
+  async function editUserData(){
+    // 資料驗證
+    if(name.length === 0){
+      alert('名稱不可空白！');
+      return;
+    }
+    if(name.length > 50){
+      alert('名稱字數不可超過50字！');
+      return;
+    }
+    if(introduction.length === 0){
+      alert('自我介紹不可空白！');
+      return;
+    }
+    if(introduction.length > 50){
+      alert('自我介紹字數不可超過50字！');
+      return;
+    }
+
+    const data = {name, introduction }
+    const result = await editUserDataAPI(currentMember.id, data)
+    if(result.status === 200){
+      alert('資料已更新！');
+      onModalToggle();
+    }
+
+  }
+
   return (
     <div className="reply_modal">
       <div
@@ -39,14 +79,14 @@ export default function ReplyModal({ onModalToggle }) {
             <h5>編輯個人資料</h5>
           </div>
 
-          <button type="button" className="btn-save">
+          <button type="button" className="btn-save" onClick={() => {editUserData()}}>
             儲存
           </button>
         </div>
         <div className="modal_body">
           <div className="modal-cover-image">
             <img
-              src={dummy_cover}
+              src={cover}
               alt="user cover img-gray-panel"
               className="user-cover"
             />
@@ -59,7 +99,7 @@ export default function ReplyModal({ onModalToggle }) {
           </div>
           <div className="modal-avatar-wrapper">
             <img
-              src={dummy_avatar}
+              src={avatar}
               alt="user avatar"
               className=" modal-avatar-img avatar-container"
             />
@@ -79,7 +119,8 @@ export default function ReplyModal({ onModalToggle }) {
                     name="name"
                     type="text"
                     placeholder="請輸入名稱"
-                    // value={dummy_userData.name}
+                    value={name}
+                    onChange={(e)=>{setName(e.target.value)}}
                   />
                 </div>
                 <div className="input_div">
@@ -88,7 +129,8 @@ export default function ReplyModal({ onModalToggle }) {
                     id="名稱"
                     name="自我介紹"
                     placeholder="請輸入自我介紹"
-                    // value={dummy_userData.introduction}
+                    value={introduction}
+                    onChange={(e)=>{setIntroduction(e.target.value)}}
                   />
                 </div>
               </div>
