@@ -43,6 +43,21 @@ function ProfilePage() {
 
   // 取資料
   const [profileData, setProfileData] = useState({});
+  // 取得使用者資訊
+  useEffect(() => {
+    const getProfileData = async () => {
+      try {
+        const result = await getUserDataAPI(apiId);
+        if (result.status === 200) {
+          const rawProfileData = result.data;
+          setProfileData(rawProfileData);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getProfileData();
+  }, [apiId]);
 
   //判斷分頁
   const [currentView, setCurrentView] = useState("tweet");
@@ -60,23 +75,10 @@ function ProfilePage() {
 
   async function getUserTweetList() {
     const result = await getUserTweetListAPI(selfId);
-    if(result.status === 200){
+    if (result.status === 200) {
       setTweetList(result.data);
     }
   }
-
-  // 取得使用者資訊
-  useEffect(() => {
-    const getProfileData = async () => {
-      try {
-        let rawProfileData = await getUserDataAPI(apiId);
-        setProfileData(rawProfileData);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getProfileData();
-  }, [apiId]);
 
   // 取得使用者推文
   useEffect(() => {
@@ -88,7 +90,7 @@ function ProfilePage() {
     // 取得個人回覆 function
     async function getUserReplyList() {
       const result = await getUserReplyListAPI(selfId);
-      if(result.status === 200){
+      if (result.status === 200) {
         setReplyList(result.data);
       }
     }
@@ -96,10 +98,10 @@ function ProfilePage() {
     //取得喜歡的推文 function
     async function getUserLikeList() {
       const result = await getUserLikeListAPI(selfId);
-      if(result.status === 200){
+      if (result.status === 200) {
         const new_data = result.data.map((item) => {
-          return item.Tweet
-        })
+          return item.Tweet;
+        });
         setTweetList(new_data);
       }
     }
@@ -160,7 +162,7 @@ function ProfilePage() {
                 <NavLink
                   className="follow-info-item"
                   to={{
-                    pathname: `/follow/${apiId}/followers`,
+                    pathname: `/follow/${apiId}/followings`,
                   }}
                   state={{
                     user: {
@@ -177,7 +179,7 @@ function ProfilePage() {
                 <NavLink
                   className="follow-info-item"
                   to={{
-                    pathname: `/follow/${apiId}/followings`,
+                    pathname: `/follow/${apiId}/followers`,
                   }}
                   state={{
                     user: {
