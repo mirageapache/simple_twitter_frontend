@@ -51,42 +51,58 @@ function TweetItem({ data }) {
   }
 
   // like/unlike Tweet
-  async function LikeToggle(tweet_id, type){
+  async function LikeToggle(tweet_id, type) {
     let result;
-    if(type === 'like'){
+    if (type === "like") {
       result = await LikeTweetAPI(tweet_id);
-    }
-    else{
+    } else {
       result = await UnlikeTweetAPI(tweet_id);
     }
     if (result.status === 200) {
-      const new_data = result.data.data.tweet
-      console.log(new_data)
+      const new_data = result.data.data.tweet;
       setTweetList((prevData) => {
         return prevData.map((item) => {
-          if(item.id === new_data.id){
+          if (item.id === new_data.id) {
             return {
               ...item,
-              like_count: (type === 'like'? item.like_count + 1 : item.like_count -1),
-              is_liked: (type === 'like'? 1 : 0)
-            }
-          }
-          else{
-            return item
+              like_count:
+                type === "like" ? item.like_count + 1 : item.like_count - 1,
+              is_liked: type === "like" ? 1 : 0,
+            };
+          } else {
+            return item;
           }
         });
-      })
-    } 
+      });
+    }
   }
 
-
   // 設定時間格式
-  let rowRelativeTime = moment(data.updatedAt).endOf("day").fromNow().trim();
+  let rowRelativeTime = moment(data.updatedAt)
+    .startOf("second")
+    .fromNow()
+    .trim();
   let hourIndex = rowRelativeTime.indexOf("h");
-  let relativeTime =
-    rowRelativeTime.slice(0, hourIndex) <= 24
-      ? rowRelativeTime
-      : moment(data.updatedAt).format("LLL");
+  let minIndex = rowRelativeTime.indexOf("m");
+  let secondIndex = rowRelativeTime.indexOf("seconds");
+  let relativeTime;
+  if (secondIndex > 0) {
+    relativeTime = "now";
+  } else if (minIndex > 0) {
+    if (rowRelativeTime.includes("a minute ago")) {
+      relativeTime = "now";
+    } else {
+      relativeTime = `${rowRelativeTime.slice(0, minIndex)}分鐘`;
+    }
+  } else if (hourIndex > 0) {
+    if (rowRelativeTime.includes("an hour ago")) {
+      relativeTime = "1小時";
+    } else {
+      relativeTime = `${rowRelativeTime.slice(0, hourIndex)}小時`;
+    }
+  } else {
+    relativeTime = moment(data.updatedAt).format("LLL");
+  }
 
   return (
     <div className="tweet_item">
@@ -128,11 +144,21 @@ function TweetItem({ data }) {
             <p>{data.reply_count}</p>
           </span>
           <span className="like_span">
-            {data.is_liked === 1 ? 
-              <IconLike className="like_icon" onClick={() => {LikeToggle(data.id, 'unlike')}} />
-            : 
-              <IconLikeLight className="unlike_icon" onClick={() => {LikeToggle(data.id, 'like')}} />
-            }
+            {data.is_liked === 1 ? (
+              <IconLike
+                className="like_icon"
+                onClick={() => {
+                  LikeToggle(data.id, "unlike");
+                }}
+              />
+            ) : (
+              <IconLikeLight
+                className="unlike_icon"
+                onClick={() => {
+                  LikeToggle(data.id, "like");
+                }}
+              />
+            )}
             <p>{data.like_count}</p>
           </span>
         </div>

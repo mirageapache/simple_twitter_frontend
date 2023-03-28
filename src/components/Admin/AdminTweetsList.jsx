@@ -20,12 +20,33 @@ function AdminTweetsList({ tweetsData, onDelete }) {
 }
 
 function TweetItem({ tweet, onDelete }) {
-  let rowRelativeTime = moment(tweet.updatedAt).endOf("day").fromNow().trim();
+  // 時間轉換
+  let rowRelativeTime = moment(tweet.updatedAt)
+    .startOf("second")
+    .fromNow()
+    .trim();
   let hourIndex = rowRelativeTime.indexOf("h");
-  let relativeTime =
-    rowRelativeTime.slice(0, hourIndex) <= 24
-      ? rowRelativeTime
-      : moment(tweet.updatedAt).format("LLL");
+  let minIndex = rowRelativeTime.indexOf("m");
+  let secondIndex = rowRelativeTime.indexOf("seconds");
+  let relativeTime;
+  if (secondIndex > 0) {
+    relativeTime = "now";
+  } else if (minIndex > 0) {
+    if (rowRelativeTime.includes("a minute ago")) {
+      relativeTime = "now";
+    } else {
+      relativeTime = `${rowRelativeTime.slice(0, minIndex)}分鐘`;
+    }
+  } else if (hourIndex > 0) {
+    if (rowRelativeTime.includes("an hour ago")) {
+      relativeTime = "1小時";
+    } else {
+      relativeTime = `${rowRelativeTime.slice(0, hourIndex)}小時`;
+    }
+  } else {
+    relativeTime = moment(tweet.updatedAt).format("LLL");
+  }
+
   return (
     <div className="tweet-item" key={tweet.id}>
       <img src={tweet.User.avatar} alt="user avatar" className="avatar" />
