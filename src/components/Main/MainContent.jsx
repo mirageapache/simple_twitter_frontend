@@ -27,7 +27,7 @@ export default function MainContent() {
     // get TweetList (取得推文列表)
     async function getTweetList() {
       const result = await getTweetListAPI();
-      if(result.status === 200){
+      if (result.status === 200) {
         setTweetList(result.data);
       }
     }
@@ -47,6 +47,7 @@ export default function MainContent() {
     }
     const result = await addTweetAPI({ description: postContent });
     if (result.status === 200) {
+      console.log(result);
       const newTweet = result.data.data.tweet;
       setTweetList((prevTweet) => {
         return [
@@ -120,7 +121,7 @@ export default function MainContent() {
           )}
         </div>
       </div>
-      <TweetList list_data={tweetList} />
+      {/* <TweetList list_data={tweetList} /> */}
     </div>
   );
 }

@@ -6,7 +6,7 @@ const userFollowersUrl = (user_id) => `${userUrl(`${user_id}`)}/followers`;
 const userFollowingsUrl = (user_id) => `${userUrl(`${user_id}`)}/followings`;
 
 const followShipsUrl = `${baseUrl}/followships`
-const delFollowShipUrl =(following_id) => `${followShipsUrl}/${following_id}`
+const unFollowUrl =(following_id) => `${followShipsUrl}/${following_id}`
 
 const axiosInstance = axios.create({
   baseUrl: baseUrl,
@@ -28,7 +28,6 @@ axiosInstance.interceptors.request.use(
 // user取得自己的follower
 export const getFollowersDataAPI =async(user_id)=>{
     try {
-      console.log("getFollowersDataAPI" , userFollowersUrl(user_id))
         const response = await axiosInstance.get(userFollowersUrl(user_id));
         return response.data;
       } catch (error) {
@@ -39,7 +38,6 @@ export const getFollowersDataAPI =async(user_id)=>{
 
 export const getFollowingsDataAPI =async(user_id)=>{
   try {
-    console.log("getFollowingsDataAPI" , userFollowingsUrl(user_id))
       const response = await axiosInstance.get(userFollowingsUrl(user_id));
       return response.data;
     } catch (error) {
@@ -47,28 +45,25 @@ export const getFollowingsDataAPI =async(user_id)=>{
     }
 }
 
+// 刪除跟隨，帶入對方id
+export const unFollowAPI = async (followingId) => {
+  try {
+    const response = await axiosInstance.delete(unFollowUrl(followingId));
+    return response.data
+  } catch (error) {
+    console.error("[user delete follow ship failed]:", error);
+  }
+};
+
 
 // 跟隨，帶入對方id
-export const createFollowShipAPI = async (other_id) => {
-    // 要確認需要帶入什麼資料傳送
-    const { data } = other_id;
+  export const createFollowShipAPI = async (other_id) => {
     try {
-      const res = await axiosInstance.post(followShipsUrl, {
-        data,
+      const response = await axiosInstance.post(followShipsUrl,{
+        id:other_id
       });
-      return res.data;
+      return response.data;
     } catch (error) {
       console.error('[User create follow ship failed]: ', error);
     }
   };
-
-// 刪除跟隨，帶入對方id
-export const delFollowShipAPI = async (followingId) => {
-    try {
-      const res = await delete delFollowShipUrl(followingId);
-      return res.data;
-    } catch (error) {
-      console.error("[user delete follow ship failed]:", error);
-    }
-  };
-  

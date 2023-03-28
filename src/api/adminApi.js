@@ -48,7 +48,7 @@ export const getAdminTweetsAPI = async () => {
 export const delAdminTweetAPI = async (id) => {
   try {
     const response = await delete adminTweetDataUrl(id);
-    return response.data;
+    return response
   } catch (error) {
     console.error("[Admin delete tweet failed]:", error);
   }
