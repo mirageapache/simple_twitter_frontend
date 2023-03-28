@@ -43,13 +43,12 @@ export default function LoginForm({ current_page }) {
 
     // fetch Login API
     const result = await loginAPI({ account, password, role: current_page });
-
     // 判斷登入是否成功
-    if (result.status === "success") {
+    if (result.status === 200) {
       // alert(result.message);
       setNotification(["success", "登入成功！"]);
       // 將Token 存至localStorage
-      localStorage.setItem("AuthToken", result.data.token);
+      localStorage.setItem("AuthToken", result.data.data.token);
       setLoginState(true);
       // 判斷前台登入or後台登入，指向不同頁面
       setTimeout(() => {
@@ -57,17 +56,16 @@ export default function LoginForm({ current_page }) {
       }, 1500);
     } else {
       setLoginState(false);
-
-      if (result.status === 400) {
+      if (result.response.status === 400) {
         setErrorMessage("password", "密碼長度應為5~12字元！");
         alert("密碼長度應為5~12字元！");
-      } else if (result.status === 401) {
+      } else if (result.response.status === 401) {
         setErrorMessage("password", "密碼錯誤！");
         alert("密碼錯誤！");
-      } else if (result.status === 404) {
+      } else if (result.response.status === 404) {
         setErrorMessage("account", "帳號未註冊！");
         alert("帳號未註冊！");
-      } else if (result.status === 500) {
+      } else if (result.response.status === 500) {
         alert("伺服器流量過載！請稍後再試！");
       }
       return;

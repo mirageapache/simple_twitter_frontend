@@ -15,8 +15,6 @@ export default function TweetList({source}) {
   const { replyModal } = useReply();
   const { tweetList } = useTweet();
 
-  console.log(tweetList)
-
   const tweet_data = tweetList.map((item) => {
     return <TweetItem key={item.id} data={item} />
   })

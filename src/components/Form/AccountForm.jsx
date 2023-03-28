@@ -1,12 +1,14 @@
-import { AccountAPI } from "api/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { RegisterAPI } from "api/auth";
+import { editAccountAPI } from 'api/main';
 import "styles/auth_form.css";
+import { useAuth } from "context/AuthContext";
 
 // email 驗證規則
 const email_rule= /^\w+((-\w+)|(.\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z]+$/;
 
-export default function AccountForm({ current_page }) {
+export default function AccountForm({ userData, current_page }) {
   const navigate = useNavigate();
   const [account, setAccount] = useState("");
   const [name, setName] = useState("");
@@ -14,6 +16,17 @@ export default function AccountForm({ current_page }) {
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessate] = useState(["", ""]);
+  const { currentMember } = useAuth();
+
+  useEffect(()=> {
+    // Setting 設定帳號資料
+    if(userData !== undefined && current_page === 'setting'){
+      setAccount(userData.account);
+      setName(userData.name);
+      setEmail(userData.email);
+    }
+  },[userData, current_page])
+
 
   function accountChange(value) {
     setErrorMessate(["", ""]);
@@ -43,72 +56,116 @@ export default function AccountForm({ current_page }) {
     setConfirmPassword(value);
   }
 
-  // 註冊功能
-  async function Register() {
-    setErrorMessate(["", ""]);
-    // 資料驗證
+
+  // 資料驗證
+  function checkData(){
     if (account.length === 0) {
       setErrorMessate(["account", "帳號欄位必填！"]);
-      return;
+      return false;
     }
     if (name.length === 0) {
       setErrorMessate(["name", "名稱欄位必填！"]);
-      return;
+      return false;
     }
     if (name.length > 50) {
       setErrorMessate(["name", "名稱字數上限為50字！"]);
-      return;
+      return false;
     }
     if (email.length === 0) {
       setErrorMessate(["email", "Email欄位必填！"]);
-      return;
+      return false;
     }
     if (email.search(email_rule) === -1) {
       setErrorMessate(["email", "Email格式不正確！"]);
-      return;
+      return false;
     }
     if (password.length === 0) {
       setErrorMessate(["password", "密碼欄位必填！"]);
-      return;
+      return false;
     }
     if (confirm_password.length === 0) {
       setErrorMessate(["confirm_password", "確認密碼欄位必填！"]);
-      return;
+      return false;
     }
     if (confirm_password !== password) {
       setErrorMessate(["confirm_password", "確認密碼與密碼不相符！"]);
-      return;
+      return false;
+    }
+    return true;
+  }
+
+  // 註冊功能 (RegisterPage)
+  async function Register() {
+    setErrorMessate(["", ""]);
+    const is_check = checkData()
+    if(is_check){
+      const req_data = { account, name, email, password, confirm_password };
+      // fetch API 事件
+      const result = await RegisterAPI({ req_data });
+      // 判斷登入是否成功
+      if (result.status === 200) {
+        alert('註冊成功！');
+        // 導向登入頁
+        navigate("/login");
+      } else {
+        if (result.response.data.message === "Existing email or user account") {
+          alert("帳號或Email已存在！");
+        }
+        if (result.response.data.message === "Confirm password is incorrect") {
+          alert("確認密碼與密碼不相符！");
+        }
+        if (
+          result.response.data.message ===
+          "Password length must be between 5 and 12 characters"
+        ) {
+          alert("密碼長度應為5~12字元！");
+        }
+        return;
+      }
+    }
+  }
+
+  // 設定帳號 (SettingPage)
+  async function Setting(){
+    setErrorMessate(["", ""]);
+    const is_check = checkData()
+    if(is_check){
+      const req_data = { account, name, email, password, confirm_password };
+      // fetch API 事件
+      const result = await editAccountAPI(currentMember.id, req_data);
+      // 判斷登入是否成功
+      if (result.status === 200) {
+        const new_data = result.data.data.user;
+        alert('修改成功！');
+        setPassword('')
+        setConfirmPassword('')
+        setAccount(new_data.account)
+        setName(new_data.name)
+        setEmail(new_data.email)
+       
+      } else {
+        if (result.response.data.message === "Existing email or user account") {
+          alert("帳號或Email已存在！");
+        }
+        if (result.response.data.message === "Confirm password is incorrect") {
+          alert("確認密碼與密碼不相符！");
+        }
+        if (
+          result.response.data.message ===
+          "Password length must be between 5 and 12 characters"
+        ) {
+          alert("密碼長度應為5~12字元！");
+        }
+        return;
+      }
     }
 
-    const req_data = { account, name, email, password, confirm_password };
-    // fetch API 事件
-    const result = await AccountAPI({ req_data });
-    // 判斷登入是否成功
-    if (result.status === "success") {
-      alert(result.message);
-      // 導向登入頁
-      navigate("/login");
-    } else {
-      if (result.message === "Existing email or user account") {
-        alert("帳號或Email已存在！");
-      }
-      if (result.errors.password === "Confirm password is incorrect") {
-        alert("確認密碼與密碼不相符！");
-      }
-      if (
-        result.errors.password ===
-        "Password length must be between 5 and 12 characters"
-      ) {
-        alert("密碼長度應為5~12字元！");
-      }
-      return;
-    }
   }
 
   // KeyDown 事件
   function handleKeyDown(key) {
     if (key === "Enter") {
-      Register();
+      current_page === 'register'? Register() : Setting()
     }
   }
 
@@ -185,10 +242,22 @@ export default function AccountForm({ current_page }) {
           err_msg={errorMessage}
         />
       </div>
-      <button className="submit_btn" onClick={Register}>註冊</button>
-      <Link to='/login'>
-        <button className="cancel_btn">取消</button>
-      </Link>
+
+      { current_page === 'register'?
+        <div className="register_btn_div">
+          <button className="submit_btn" onClick={Register}>註冊</button>
+          <Link to='/login'>
+            <button className="cancel_btn">取消</button>
+          </Link>
+        </div>
+      :
+
+        <div className="setting_btn_div">
+          <button className="edit_btn" onClick={Setting}>儲存</button>
+        </div>
+      }
+
+      
     </div>
   );
 }

@@ -55,9 +55,8 @@ function ProfilePage() {
 
   async function getUserTweetList() {
     const result = await getUserTweetListAPI(selfId);
-    if(result.status === 'error'){
-    }else{
-      setTweetList(result);
+    if(result.status === 200){
+      setTweetList(result.data);
     }
   }
 
@@ -84,18 +83,16 @@ function ProfilePage() {
     // 取得個人回覆 function 
     async function getUserReplyList() {
       const result = await getUserReplyListAPI(selfId);
-      if(result.status === 'error'){
-      }else{
-        setReplyList(result);
+      if(result.status === 200){
+        setReplyList(result.data);
       }
     }
 
     //取得喜歡的推文 function 
     async function getUserLikeList() {
       const result = await getUserLikeListAPI(selfId);
-      if(result.status === 'error'){
-      }else{
-        const new_data = result.map((item) => {
+      if(result.status === 200){
+        const new_data = result.data.map((item) => {
           return item.Tweet
         })
         setTweetList(new_data);
