@@ -13,13 +13,6 @@ export default function LoginForm({ current_page }) {
   const [errorMessage, setErrorMessage] = useState(["", ""]); //input錯誤訊息
   const [notification, setNotification] = useState(["", ""]); //通知訊息
 
-  // // 待確認：如果已登入過，自動跳轉
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     current_page === "users" ? navigate("/main") : navigate("/admin_tweets");
-  //   }
-  // }, [current_page, navigate, isAuthenticated]);
-
   function accountChange(value) {
     setAccount(value);
   }
@@ -52,7 +45,7 @@ export default function LoginForm({ current_page }) {
       setLoginState(true);
       // 判斷前台登入or後台登入，指向不同頁面
       setTimeout(() => {
-        current_page === "users" ? navigate("/main") : navigate("/admin");
+        current_page === "users" ? navigate("/") : navigate("/admin");
       }, 1500);
     } else {
       setLoginState(false);

@@ -111,7 +111,7 @@ export default function MainContent() {
           )}
         </div>
       </div>
-      <TweetList list_data={tweetList} />
+      {/* <TweetList list_data={tweetList} /> */}
     </div>
   );
 }

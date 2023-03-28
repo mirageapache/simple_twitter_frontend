@@ -1,27 +1,41 @@
-function FollowItem({ data }) {
-  let followData = data;
-  return followData.map((item) => (
-    <div className="follow-item" key={item.id}>
-      <img src={item.avatar} alt="user avatar" className="follow-item-avatar" />
+function FollowItem({ follow, followMode }) {
+  let otherUserInfo =
+    followMode === "followers" ? follow["Followers"] : follow["Followings"];
+
+  return (
+    <div className="follow-item">
+      <img
+        src={otherUserInfo.avatar}
+        alt="user avatar"
+        className="follow-item-avatar"
+      />
       <div className="follow-item-container">
         <div className="follow-item-user">
-          <p className="follow-tweet-name">{item.name}</p>
+          <p className="follow-tweet-name">{otherUserInfo.name}</p>
           <button type="button" className="follow-item-button">
-            {item.is_followed ? "正在跟隨" : "跟隨"}
+            {otherUserInfo.is_followed ? "正在跟隨" : "跟隨"}
           </button>
         </div>
         <div className="follow-item-tweet">
-          <p>{item.latestTweet}</p>
+          <p>item.latestTweet</p>
         </div>
       </div>
     </div>
-  ));
+  );
 }
 
-function followList({ data }) {
+function followList({ followData, followMode }) {
   return (
     <div className="follow-list">
-      <FollowItem data={data}></FollowItem>
+      {followData.map((follow) => {
+        return (
+          <FollowItem
+            key={follow.followerId}
+            follow={follow}
+            followMode={followMode}
+          />
+        );
+      })}
     </div>
   );
 }

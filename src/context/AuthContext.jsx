@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import { checkLoginStatusAPI } from "api/auth";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 const defaultAuthContext = {
@@ -17,9 +17,8 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [payload, setPayload] = useState(null);
-
   const { pathname } = useLocation();
-
+  const navigate = useNavigate();
   useEffect(() => {
     const checkTokenIsValid = async () => {
       const authToken = localStorage.getItem("AuthToken");
@@ -60,6 +59,7 @@ export const AuthProvider = ({ children }) => {
             setIsAuthenticated(true);
             const tempPayload = jwt_decode(authToken);
             setPayload(tempPayload);
+            console.log("tempPayload", tempPayload);
           } else {
             setIsAuthenticated(false);
             setPayload(null);
@@ -69,6 +69,7 @@ export const AuthProvider = ({ children }) => {
           localStorage.removeItem("AuthToken");
           setPayload(null);
           setIsAuthenticated(false);
+          navigate("/login");
         },
       }}
     >
