@@ -7,10 +7,10 @@ import "styles/navbar.css";
 // SVG
 import { ReactComponent as IconLogo } from "assets/icons/logo.svg";
 import { ReactComponent as IconHome } from "assets/icons/home.svg";
-// import { ReactComponent as IconHomeLight } from "assets/icons/home_light.svg";
-// import { ReactComponent as IconUser } from "assets/icons/user.svg";
+import { ReactComponent as IconHomeLight } from "assets/icons/home_light.svg";
+import { ReactComponent as IconUser } from "assets/icons/user.svg";
 import { ReactComponent as IconUserLight } from "assets/icons/user_light.svg";
-// import { ReactComponent as IconConfig } from "assets/icons/config.svg";
+import { ReactComponent as IconConfig } from "assets/icons/config.svg";
 import { ReactComponent as IconConfigLight } from "assets/icons/config_light.svg";
 import { ReactComponent as IconLogout } from "assets/icons/logout.svg";
 
@@ -18,8 +18,9 @@ import TweetModal from "./Main/TweetModal";
 
 export default function Navbar() {
   const { logout, currentMember } = useAuth();
-
   const [selfId, setSelfId] = useState(null);
+  const [activeitem, setActiveItem] = useState('main');
+  const [modal_toggle, setModalToggle] = useState(false);
 
   // 這段要確認一下
   useEffect(() => {
@@ -34,8 +35,6 @@ export default function Navbar() {
     checkSelf();
   }, []);
 
-  // TweetModal toggle (開關事件)
-  const [modal_toggle, setModalToggle] = useState(false);
 
   function onModalToggle() {
     setModalToggle(!modal_toggle);
@@ -46,6 +45,7 @@ export default function Navbar() {
     logout();
   };
 
+
   return (
     <div className="navbar">
       {/* Logo */}
@@ -54,14 +54,15 @@ export default function Navbar() {
       </div>
       {/* Item group */}
       <div className="item_group">
-        <NavItem text="首頁" svg_string="home" active="true" selfId={null} />
+        <NavItem text="首頁" svg_string="home" active={activeitem} setActive={()=>{setActiveItem('main')}} />
         <NavItem
           text="個人資料"
           svg_string="user"
-          active="false"
+          active={activeitem}
           selfId={selfId}
+          setActive={()=>{setActiveItem('profile')}}
         />
-        <NavItem text="設定" svg_string="config" active="false" selfId={null} />
+        <NavItem text="設定" svg_string="config" active={activeitem} setActive={()=>{setActiveItem('setting')}} />
       </div>
 
       <button className="tweet_btn" onClick={onModalToggle}>
@@ -82,20 +83,37 @@ export default function Navbar() {
   );
 }
 
-function NavItem({ text, svg_string, active, selfId }) {
+function NavItem({ text, svg_string, active, selfId , setActive}) {
+  let style = 'nav_item';
   let svg_item;
   let routePath;
+
   switch (svg_string) {
     case "home":
-      svg_item = <IconHome />;
+      if(active === 'main'){
+        svg_item = <IconHome />
+        style = 'nav_item active'
+      }else{
+        svg_item = <IconHomeLight />
+      }
       routePath = "main";
       break;
     case "user":
-      svg_item = <IconUserLight />;
+      if(active === 'profile'){
+        svg_item = <IconUser />
+        style = 'nav_item active'
+      }else{
+        svg_item = <IconUserLight />
+      }
       routePath = `profile/${selfId}`;
       break;
     case "config":
-      svg_item = <IconConfigLight />;
+      if(active === 'setting'){
+        svg_item = <IconConfig />
+        style = 'nav_item active'
+      }else{
+        svg_item = <IconConfigLight />
+      }
       routePath = "setting";
       break;
     default:
@@ -103,7 +121,7 @@ function NavItem({ text, svg_string, active, selfId }) {
   }
 
   return (
-    <NavLink className="nav_item" data-active={active} to={routePath}>
+    <NavLink className={style} to={routePath} onClick={setActive}>
       <span className="item_svg">{svg_item}</span>
       <h5 className="item_text">{text}</h5>
     </NavLink>

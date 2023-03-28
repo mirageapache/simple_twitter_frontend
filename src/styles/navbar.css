@@ -29,16 +29,14 @@
   fill: var(--gray-8);
 }
 
-.nav_item[data-active=ture] {
-  color: var(--main-color);
+.item_group .active{
+  color:var(--main-color);
 }
-
-.nav_item[data-active=ture] .item_svg svg path {
+.item_group .active svg path {
   fill: var(--main-color);
 }
 
 .tweet_btn {
-  border: 1px solid red;
   background-color: var(--main-color);
   width: 100%;
   color: white;
