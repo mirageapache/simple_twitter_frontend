@@ -47,8 +47,8 @@ export const getAdminTweetsAPI = async () => {
 // tweetData刪除單筆
 export const delAdminTweetAPI = async (id) => {
   try {
-    const response = await delete adminTweetDataUrl(id);
-    return response
+    const response = await axiosInstance.delete(adminTweetDataUrl(id));
+    return response.data
   } catch (error) {
     console.error("[Admin delete tweet failed]:", error);
   }
