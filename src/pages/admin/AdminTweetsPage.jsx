@@ -24,10 +24,12 @@ function AdminTweetsPage() {
 
   const handleDelete = async (id) => {
     try {
-      await delAdminTweetAPI(id);
-      setTweetsData((prevTweetsData) =>
-        prevTweetsData.filter((tweet) => tweet.id !== id)
-      );
+      const result = await delAdminTweetAPI(id);
+      if (result.status === "success") {
+        setTweetsData((prevTweetsData) =>
+          prevTweetsData.filter((tweet) => tweet.id !== id)
+        );
+      }
     } catch (error) {
       console.error(error);
     }
