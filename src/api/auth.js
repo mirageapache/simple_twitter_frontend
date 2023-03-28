@@ -8,10 +8,10 @@ export const loginAPI = async ({ account, password, role }) => {
     account,
     password
   }).then((res) => {
-    return res.data;
+    return res;
   }).catch((err => {
     console.log(err)
-    return err.response.data
+    return err;
   }))
 
   // 回傳至Component
@@ -20,18 +20,18 @@ export const loginAPI = async ({ account, password, role }) => {
 
 
 // Register Method(註冊)
-export const AccountAPI = async ({ req_data }) => {
-  const result = await axios.post({userBaseUrl}, {
+export const RegisterAPI = async ({ req_data }) => {
+  const result = await axios.post(userBaseUrl, {
     account: req_data.account,
     name: req_data.name,
     email: req_data.email,
     password: req_data.password,
     checkPassword: req_data.confirm_password
   }).then((res) => {
-    return res.data;
+    return res;
   }).catch((err => {
     console.log(err)
-    return err.response.data;
+    return err;
   }))
 
   // 回傳至Component

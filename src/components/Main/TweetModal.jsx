@@ -10,7 +10,7 @@ import { ReactComponent as IconAvatar } from 'assets/icons/avatar.svg'
 export default function TweetModal({onModalToggle}) {
   const [postContent, setPostContent] = useState('');
   const { currentMember } = useAuth();
-  const { tweetList, setTweetList } = useTweet();
+  const { setTweetList } = useTweet();
 
   // 新增推文
   async function addTweet(){
@@ -24,8 +24,8 @@ export default function TweetModal({onModalToggle}) {
       return
     }
     const result = await addTweetAPI({description:postContent});
-    if(result.status === 'success'){
-      const newTweet = result.data.tweet;
+    if(result.status === 200){
+      const newTweet = result.data.data.tweet;
       setTweetList((tweetList) => {
         return [
           {

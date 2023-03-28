@@ -23,7 +23,7 @@ axiosInstance.interceptors.request.use(
 export const getTweetListAPI = async () => {
   try {
     const response = await axiosInstance.get(`${baseUrl}/tweets`);
-    return response.data;
+    return response;
   } catch (error) { 
     console.log(error)
     return error
@@ -34,7 +34,7 @@ export const getTweetListAPI = async () => {
 export const getUserTweetListAPI = async (id) => {
   try {
     const response = await axiosInstance.get(`${baseUrl}/users/${id}/tweets`);
-    return response.data;
+    return response;
   } catch (error) { 
     console.log(error)
     return error
@@ -45,7 +45,7 @@ export const getUserTweetListAPI = async (id) => {
 export const getUserLikeListAPI = async (id) => {
   try {
     const response = await axiosInstance.get(`${baseUrl}/users/${id}/likes`);
-    return response.data;
+    return response;
   } catch (error) { 
     console.log(error)
     return error
@@ -63,26 +63,24 @@ export const getTweetAPI = async (tweet_id) => {
   }
 };
 
-
 // Add New Tweet (新增推文)
 export const addTweetAPI = async ({description}) => {
   try {
     const response = await axiosInstance.post(`${baseUrl}/tweets`,{
       description
     });
-    return response.data;
+    return response;
   } catch (error) {
     console.log(error)
     return error
   }
 };
 
-
 // Get ReplyList (取得推文的回覆列表)
 export const getReplyListAPI = async ({ tweet_id }) => {
   try {
     const response = await axiosInstance.get(`${baseUrl}/tweets/${tweet_id}/replies`);
-    return response.data;
+    return response;
   } catch (error) { 
     console.log(error)
     return error
@@ -93,7 +91,7 @@ export const getReplyListAPI = async ({ tweet_id }) => {
 export const getUserReplyListAPI = async (id) => {
   try {
     const response = await axiosInstance.get(`${baseUrl}/users/${id}/replied_tweets`);
-    return response.data;
+    return response;
   } catch (error) { 
     console.log(error)
     return error
@@ -108,6 +106,35 @@ export const addReplyAPI = async ({ tweet_id, comment}) => {
     });
     return response;
   } catch (error) {
+    console.log(error)
+    return error
+  }
+};
+
+// Get User Account (取得使用者帳號資料)
+export const getAccountAPI = async (id) => {
+  console.log(id)
+  try {
+    const response = await axiosInstance.get(`${baseUrl}/users/${id}/setting`);
+    console.log(response)
+    return response;
+  } catch (error) { 
+    console.log(error)
+    return error
+  }
+};
+
+// Edit User Account (修改使用者帳號資料)
+export const editAccountAPI = async (id, data) => {
+  try {
+    const response = await axiosInstance.put(`${baseUrl}/users/${id}/setting`,{
+      account: data.account,
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    });
+    return response;
+  } catch (error) { 
     console.log(error)
     return error
   }
