@@ -16,7 +16,6 @@ export default function MainContent() {
   const [loading, setLoading] = useState(false);
   const { tweetList, setTweetList } = useTweet([]);
   const [postContent, setPostContent] = useState("");
-  const { currentMember, isAuthenticated, logout } = useAuth();
   const { isAuthenticated, currentMember, logout } = useAuth();
   const { setIsAlert, setNotiMessage } = useNoti();
 
