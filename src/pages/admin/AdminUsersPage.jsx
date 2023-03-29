@@ -13,6 +13,7 @@ import AdminUsersList from "components/Admin/AdminUsersList";
 
 function AdminTweetsPage() {
   const [usersData, setUsersData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getUsersData = async () => {
@@ -22,6 +23,7 @@ function AdminTweetsPage() {
         let usersData = rawUsersData.filter((item) => item.role === "user");
         usersData.sort((pre, next) => next["tweet_count"] - pre["tweet_count"]);
         setUsersData(usersData);
+        setLoading(true);
       } catch (err) {
         console.log(err);
       }
@@ -32,7 +34,7 @@ function AdminTweetsPage() {
   return (
     <div className="admin-tweets">
       <h4 className="admin-page-title">使用者列表</h4>
-      <AdminUsersList usersData={usersData} />
+      {loading ? <AdminUsersList usersData={usersData} /> : ""}
     </div>
   );
 }
