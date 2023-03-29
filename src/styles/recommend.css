@@ -3,11 +3,11 @@
 
 .recommend {
   position: fixed;
-  z-index: -1;
   width: 275px;
   background-color: var(--gray-1);
   margin-top: 16px;
   border-radius: 16px;
+    /* 刪除 z-index: -1; */
 }
 
 .recommend .title {
