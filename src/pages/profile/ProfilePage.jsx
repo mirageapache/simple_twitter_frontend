@@ -23,6 +23,9 @@ import ReplyList from "components/Main/ReplyList";
 import ProfileModal from "components/Profile/ProfileModal.jsx";
 import { useReply } from "context/ReplyContext";
 
+import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
+import default_cover from "assets/images/default_user_cover.jpg";
+
 const navbarData = [
   { title: "推文", view: "tweet" },
   { title: "回覆", view: "reply" },
@@ -39,12 +42,11 @@ function ProfilePage() {
   const [reRender, setReRender] = useState(true);
   const { tweetList, setTweetList } = useTweet();
   const { replyList, setReplyList } = useReply();
+  const [profileData, setProfileData] = useState({});
+  const [currentView, setCurrentView] = useState("tweet");
 
   //判斷顯示
   const identity = selfId === apiId ? "self" : "other";
-
-  // 取資料
-  const [profileData, setProfileData] = useState({});
   // 取得使用者資訊
   useEffect(() => {
     const getProfileData = async () => {
@@ -65,7 +67,6 @@ function ProfilePage() {
   }, [apiId, reRender]);
 
   //判斷分頁
-  const [currentView, setCurrentView] = useState("tweet");
   let partialView;
   if (currentView === "tweet") {
     // 推文分頁
@@ -134,17 +135,26 @@ function ProfilePage() {
       <ProfileGuide data={profileData} />
       <div className="user-board">
         <div className="cover-wrapper">
-          <img
-            src={profileData.cover}
-            alt="user cover"
-            className="user-cover"
-          />
-          <div className="avatar-wrapper">
+          {profileData?.cover ? (
             <img
-              src={profileData.avatar}
-              alt="user avatar"
-              className="avatar-img"
+              src={profileData?.cover}
+              alt="user cover"
+              className="user-cover"
             />
+          ) : (
+            <img src={default_cover} alt="user cover" className="user-cover" />
+          )}
+
+          <div className="avatar-wrapper">
+            {profileData?.avatar ? (
+              <img
+                src={profileData?.avatar}
+                alt="user avatar"
+                className="avatar-img"
+              />
+            ) : (
+              <IconAvatar className="avatar_img" />
+            )}
           </div>
         </div>
         <div className="info-card">
@@ -165,7 +175,7 @@ function ProfilePage() {
           </div>
           <div className="card-container">
             <div className="user-info">
-              <h5 className="user-name">{profileData.name}</h5>
+              <h5 className="user-name">{profileData?.name}</h5>
               <p className="user-account">@{profileData.account}</p>
               <p className="user-introduction">{profileData.introduction}</p>
               <div className="follow-info">
@@ -177,7 +187,7 @@ function ProfilePage() {
                   state={{
                     user: {
                       name: `${profileData.name}`,
-                      tweet_count: `${profileData.tweet_count}`,
+                      tweet_count: `${profileData?.tweet_count}`,
                     },
                   }}
                 >
@@ -193,13 +203,13 @@ function ProfilePage() {
                   }}
                   state={{
                     user: {
-                      name: `${profileData.name}`,
-                      tweet_count: `${profileData.tweet_count}`,
+                      name: `${profileData?.name}`,
+                      tweet_count: `${profileData?.tweet_count}`,
                     },
                   }}
                 >
                   <span className="follow-num">
-                    {profileData.follower_count}個
+                    {profileData?.follower_count}個
                   </span>
                   <span className="follow-text">跟隨者</span>
                 </NavLink>

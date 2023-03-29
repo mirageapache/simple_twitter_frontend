@@ -17,7 +17,6 @@ export default function MainContent() {
   const { tweetList, setTweetList } = useTweet([]);
   const [postContent, setPostContent] = useState("");
   const { currentMember, isAuthenticated, logout } = useAuth();
-  const { isAuthenticated, currentMember, logout } = useAuth();
   const { setIsAlert, setNotiMessage } = useNoti();
 
   useEffect(() => {
@@ -40,11 +39,11 @@ export default function MainContent() {
   async function addTweet() {
     // 資料驗證
     if (postContent.length === 0) {
-      setNotiMessage({type:"error", message:"請撰寫推文內容！"});
+      setNotiMessage({ type: "error", message: "請撰寫推文內容！" });
       return;
     }
     if (postContent.length > 140) {
-      setNotiMessage({type:"error", message:"推文字數不可超140字！"});
+      setNotiMessage({ type: "error", message: "推文字數不可超140字！" });
       return;
     }
     const result = await addTweetAPI({ description: postContent });
@@ -71,11 +70,14 @@ export default function MainContent() {
         ];
       });
       setPostContent("");
-      setNotiMessage({type:"success", message:"發文成功！"});
+      setNotiMessage({ type: "success", message: "發文成功！" });
     } else {
-      setNotiMessage({type:"warning", message:"發生了一些錯誤，請再嘗試一次！"});
+      setNotiMessage({
+        type: "warning",
+        message: "發生了一些錯誤，請再嘗試一次！",
+      });
     }
-    setIsAlert(true)
+    setIsAlert(true);
   }
 
   return (

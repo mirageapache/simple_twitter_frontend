@@ -6,7 +6,6 @@ import { useReply } from "context/ReplyContext";
 import ReplyModal from "./ReplyModal";
 import { useNoti } from "context/NotiContext";
 
-
 // svg
 import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
 import { ReactComponent as IconReply } from "assets/icons/reply.svg";
@@ -48,8 +47,8 @@ function TweetItem({ data }) {
         setReplyModal(true);
       }
     } else if (result.response.status === 404) {
-      setNotiMessage({type:"error", message:"該則推文不存在！"});
-      setIsAlert(true)
+      setNotiMessage({ type: "error", message: "該則推文不存在！" });
+      setIsAlert(true);
       return;
     }
   }
