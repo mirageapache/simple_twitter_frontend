@@ -20,6 +20,7 @@ export default function Recommend() {
         let rawRecommendData = await getRecommendAPI();
         setRecommendData(rawRecommendData);
         setLoading(true);
+        console.log("this loading");
       } catch (err) {
         console.log(err);
       }
@@ -29,7 +30,6 @@ export default function Recommend() {
 
   // 跟隨、取消
   function handleFollowShip(followShipId, followedState) {
-    console.log("handleFollowShip", followShipId, followedState);
     async function toggleFollowShip(followShipId, followedState) {
       try {
         const result = followedState
