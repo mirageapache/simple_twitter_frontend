@@ -36,6 +36,9 @@ export const editUserDataAPI = async(user_id, data)=>{
   formData.append('introduction', data.introduction);
   formData.append('avatar', data.avatar);
   formData.append('cover', data.cover);
+  if(data.reset){
+    formData.append('resetCover', true)
+  }
 
   try {
     const response = await axiosInstance.put(userUrl(user_id),
