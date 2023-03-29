@@ -1,8 +1,12 @@
 import { ReplyList, ReplyModal } from "components";
 import { useTweet } from "context/TweetContext";
+import { useReply } from "context/ReplyContext";
+import ReplyModal from "./ReplyModal";
+import { NavLink } from "react-router-dom";
 import moment from "moment";
 // style
 import "styles/tweet_content.css";
+
 // svg
 import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
 import { ReactComponent as IconLeftArrow } from "assets/icons/left_arrow.svg";
@@ -112,6 +116,7 @@ export default function Content() {
               )}
             </span>
           </div>
+
         </div>
       </div>
       
