@@ -88,16 +88,31 @@
   background-color: rgba(23, 23, 37, 0.5);
 }
 
-.reply_modal .modal_body .cover-gray-panel .edit-setting {
+.reply_modal .modal_body .cover-gray-panel .cover-edit-setting {
   position: absolute;
   z-index: 891;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-width: 73.5px;
+  min-width: 100px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.cover-edit-setting .svg-label{
+  border: 1px solid transparent;
+  cursor: pointer;
+  border-radius: 50px;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover-edit-setting .svg-label:hover{
+  border: 1px solid white;
 }
 
 /* avatar */
@@ -129,27 +144,34 @@
   border-radius: 50%;
   background-color: rgba(23, 23, 37, 0.5);
 }
+
 .avatar-edit-setting {
+  display: flex;
+  width: 130px;
+  height: 130px;
+  border-radius: 200px;
   position: absolute;
   z-index: 996;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  
 }
 /* svg */
-.setting-icon-svg {
-  fill: #ffffff;
-  cursor: pointer;
-}
-
 .setting-icon-svg path {
   fill: #ffffff;
 }
 
 .add-photo-icon {
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
 }
+
+.upload-input{
+  display:none;
+}
+
+
 /* modal_content */
 .reply_modal .modal_body .edit-profile-container {
     margin: 80px 16px 16px 16px;

@@ -1,7 +1,8 @@
 import axios from "axios";
-
 import { baseUrl,userUrl } from "api/baseApi";
 
+const FormData = require('form-data');
+// const fs = require('fs');
 
 const axiosInstance = axios.create({
   baseUrl: baseUrl,
@@ -32,11 +33,18 @@ export const getUserDataAPI = async(user_id)=>{
 
 // put修改個人資料
 export const editUserDataAPI = async(user_id, data)=>{
+  console.log(data.avatar)
+  let formData = new FormData();
+  formData.append('name', data.name);
+  formData.append('ntroduction', data.introduction);
+  formData.append('avatar', data.avatar);
+  console.log(formData)
+
   try {
     const response = await axiosInstance.put(userUrl(user_id),{
-      name: data.name,
-      introduction: data.introduction
+      data: formData
     });
+    console.log(response)
     return response;
   } catch (error) {
     console.error("[Get user data failed]: ", error);
