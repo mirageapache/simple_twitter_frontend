@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 
 // style
 import "styles/AdminTweets.css";
+
 // components
 import AdminTweetsList from "components/Admin/AdminTweetsList";
+import LoadingMes from "components/LoadingMes";
 // api
 import { getAdminTweetsAPI, delAdminTweetAPI } from "api/adminApi";
 
@@ -44,7 +46,7 @@ function AdminTweetsPage() {
       {loading ? (
         <AdminTweetsList tweetsData={tweetsData} onDelete={handleDelete} />
       ) : (
-        ""
+        <LoadingMes />
       )}
     </div>
   );

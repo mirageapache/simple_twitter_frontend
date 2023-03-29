@@ -3,13 +3,13 @@ import { useState, useEffect } from "react";
 
 // api
 import { getAdminUsersAPI } from "api/adminApi";
-// context
 
 // style
 import "styles/AdminUsers.css";
 
 // components
 import AdminUsersList from "components/Admin/AdminUsersList";
+import LoadingMes from "components/LoadingMes";
 
 function AdminTweetsPage() {
   const [usersData, setUsersData] = useState([]);
@@ -34,7 +34,7 @@ function AdminTweetsPage() {
   return (
     <div className="admin-tweets">
       <h4 className="admin-page-title">使用者列表</h4>
-      {loading ? <AdminUsersList usersData={usersData} /> : ""}
+      {loading ? <AdminUsersList usersData={usersData} /> : <LoadingMes />}
     </div>
   );
 }
