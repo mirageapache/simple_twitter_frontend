@@ -71,7 +71,7 @@ export default function ReplyModal({ onModalToggle }) {
     const result = await editUserDataAPI(currentMember.id, data)
     if(result.status === 200){
       alert('資料已更新！');
-      onModalToggle();
+      onModalToggle(false,true);
     }
   }
 
@@ -80,13 +80,13 @@ export default function ReplyModal({ onModalToggle }) {
       <div
         className="gray_panel"
         onClick={() => {
-          onModalToggle();
+          onModalToggle(false,false);
         }}
       ></div>
       <div className="modal_panel">
         <div className="modal_header">
           <div className="header-left">
-            <span className="close_btn" onClick={() => {onModalToggle();}}>
+            <span className="close_btn" onClick={() => {onModalToggle(false,false);}}>
               <IconClose />
             </span>
             <h5>編輯個人資料</h5>
