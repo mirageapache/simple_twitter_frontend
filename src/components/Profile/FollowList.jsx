@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 function FollowItem({ follow, followMode, btnClass, handleFollowShip }) {
   let otherUserInfo;
   let followShipId;
@@ -13,11 +14,13 @@ function FollowItem({ follow, followMode, btnClass, handleFollowShip }) {
   }
   return (
     <div className="follow-item">
-      <img
-        src={otherUserInfo?.avatar}
-        alt="user avatar"
-        className="follow-item-avatar"
-      />
+      <NavLink to={`profile/${followShipId}`}>
+        <img
+          src={otherUserInfo?.avatar}
+          alt="user avatar"
+          className="follow-item-avatar"
+        />
+      </NavLink>
       <div className="follow-item-container">
         <div className="follow-item-user">
           <p className="follow-tweet-name">{otherUserInfo?.name}</p>
