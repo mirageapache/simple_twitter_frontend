@@ -14,7 +14,7 @@ function FollowItem({ follow, followMode, btnClass, handleFollowShip }) {
   }
   return (
     <div className="follow-item">
-      <NavLink to={`profile/${followShipId}`}>
+      <NavLink to={`/profile/${followShipId}`}>
         <img
           src={otherUserInfo?.avatar}
           alt="user avatar"
@@ -54,7 +54,7 @@ function followList({ followData, followMode, handleFollowShip }) {
                   ? follow?.followerId
                   : follow?.followingId
               }
-              btnClass="follow-item-button-active"
+              btnClass="followStatus_button_active"
               follow={follow}
               followMode={followMode}
               handleFollowShip={handleFollowShip}
@@ -68,7 +68,7 @@ function followList({ followData, followMode, handleFollowShip }) {
                   ? follow?.followerId
                   : follow?.followingId
               }
-              btnClass="follow-item-button"
+              btnClass="followStatus_button"
               follow={follow}
               followMode={followMode}
               handleFollowShip={handleFollowShip}

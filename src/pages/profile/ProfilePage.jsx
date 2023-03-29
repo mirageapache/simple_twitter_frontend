@@ -21,6 +21,7 @@ import TweetNavbar from "components/Profile/TweetNavbar";
 import TweetList from "components/Main/TweetList.jsx";
 import ReplyList from "components/Main/ReplyList";
 import ProfileModal from "components/Profile/ProfileModal.jsx";
+
 import { useReply } from "context/ReplyContext";
 
 import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
@@ -80,7 +81,7 @@ function ProfilePage() {
   }
 
   async function getUserTweetList() {
-    const result = await getUserTweetListAPI(selfId);
+    const result = await getUserTweetListAPI(apiId);
     if (result.status === 200) {
       setTweetList(result.data);
     }
@@ -93,13 +94,13 @@ function ProfilePage() {
       setReRender(false);
       setCurrentView("tweet");
     }
-  }, [selfId, reRender]);
+  }, [apiId, reRender]);
 
   // 更換分頁
   function onViewChange(view) {
     // 取得個人回覆 function
     async function getUserReplyList() {
-      const result = await getUserReplyListAPI(selfId);
+      const result = await getUserReplyListAPI(apiId);
       if (result.status === 200) {
         setReplyList(result.data);
       }
@@ -107,7 +108,7 @@ function ProfilePage() {
 
     //取得喜歡的推文 function
     async function getUserLikeList() {
-      const result = await getUserLikeListAPI(selfId);
+      const result = await getUserLikeListAPI(apiId);
       if (result.status === 200) {
         const new_data = result.data.map((item) => {
           return item.Tweet;
@@ -130,6 +131,7 @@ function ProfilePage() {
     setModalToggle(is_active);
     rerender && setReRender(rerender);
   }
+
   return (
     <>
       <ProfileGuide data={profileData} />
@@ -170,7 +172,7 @@ function ProfilePage() {
                 編輯個人資料
               </button>
             ) : (
-              <Interactive />
+              <Interactive id={apiId} state={profileData?.is_followed} />
             )}
           </div>
           <div className="card-container">

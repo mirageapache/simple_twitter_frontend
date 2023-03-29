@@ -10,6 +10,7 @@ import {
 
 //style
 import "styles/follow.css";
+import "styles/follow_btn.css";
 // components
 import ProfileGuide from "components/Profile/ProfileGuide.jsx";
 import FollowList from "components/Profile/FollowList";
@@ -64,7 +65,7 @@ function FollowPage() {
       }
     };
     getFollowData(apiId);
-  }, [reNew]);
+  }, [apiId, followMode, reNew]);
 
   // 更換分頁
   function onViewChange(modeState) {

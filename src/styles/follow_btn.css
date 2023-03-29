@@ -1,0 +1,26 @@
+/* 狀態切換 */
+.followStatus_button {
+    padding: 8px 16px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 1px solid var(--main-color);
+    color: var(--main-color);
+    background: #ffffff;
+    
+  }
+  
+  .followStatus_button_active {
+    padding: 8px 16px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 1px solid var(--main-color);
+    color: #ffffff;
+    background: var(--main-color);
+  }
+  
