@@ -65,11 +65,11 @@
 }
 
 /* cover*/
-.reply_modal .modal_body .cover-wrapper {
+.reply_modal .modal_body .user_cover {
   position: relative;
   width: 100%;
-  height: auto;
-  min-height: 200px;
+  height: 200px;
+  object-fit: cover;
 }
 .reply_modal .modal_body .modal-cover-image {
   position: relative;
