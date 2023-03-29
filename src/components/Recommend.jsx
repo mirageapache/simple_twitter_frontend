@@ -63,15 +63,17 @@ export default function Recommend() {
   return (
     <div className="recommend">
       <h4 className="title">推薦跟隨</h4>
-      {/* 清單，等取得資料才render */}
-      {loading ? (
-        <RecommendList
-          recommendData={recommendData}
-          handleFollowShip={handleFollowShip}
-        />
-      ) : (
-        ""
-      )}
+      <div className="item_group">
+        {/* 清單，等取得資料才render */}
+        {loading ? (
+          <RecommendList
+            recommendData={recommendData}
+            handleFollowShip={handleFollowShip}
+          />
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 }

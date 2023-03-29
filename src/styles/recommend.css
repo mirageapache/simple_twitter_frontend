@@ -4,6 +4,7 @@
 .recommend {
   position: fixed;
   width: 275px;
+  height: calc(100vh - 25px);
   background-color: var(--gray-1);
   margin-top: 16px;
   border-radius: 16px;
@@ -15,9 +16,14 @@
   border-bottom: 1px solid #f6ecf0;
 }
 
+.recommend .item_group{
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
 .recommend .recommend_item {
   width: 100%;
-  padding: 16px;
+  padding: 16px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
