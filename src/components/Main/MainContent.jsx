@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "context/AuthContext";
 import { useTweet } from "context/TweetContext";
-
 import { getTweetListAPI, addTweetAPI } from "api/main";
-
+import { useNoti } from "context/NotiContext";
+// style
 import "styles/main_content.css";
 
 import { TweetList } from "components";
@@ -17,6 +17,8 @@ export default function MainContent() {
   const { tweetList, setTweetList } = useTweet([]);
   const [postContent, setPostContent] = useState("");
   const { currentMember, isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, currentMember, logout } = useAuth();
+  const { setIsAlert, setNotiMessage } = useNoti();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -38,16 +40,15 @@ export default function MainContent() {
   async function addTweet() {
     // 資料驗證
     if (postContent.length === 0) {
-      alert("請撰寫推文內容！");
+      setNotiMessage({type:"error", message:"請撰寫推文內容！"});
       return;
     }
     if (postContent.length > 140) {
-      alert("推文字數不可超140字！");
+      setNotiMessage({type:"error", message:"推文字數不可超140字！"});
       return;
     }
     const result = await addTweetAPI({ description: postContent });
     if (result.status === 200) {
-      console.log(result);
       const newTweet = result.data.data.tweet;
       setTweetList((prevTweet) => {
         return [
@@ -70,10 +71,11 @@ export default function MainContent() {
         ];
       });
       setPostContent("");
-      alert("發文成功！");
+      setNotiMessage({type:"success", message:"發文成功！"});
     } else {
-      alert("發生了一些錯誤，請再嘗試一次！");
+      setNotiMessage({type:"warning", message:"發生了一些錯誤，請再嘗試一次！"});
     }
+    setIsAlert(true)
   }
 
   return (

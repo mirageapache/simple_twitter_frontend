@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "context/AuthContext";
+import { useNoti } from "context/NotiContext";
 // api
 import {
   getRecommendAPI,
@@ -13,6 +14,7 @@ import "styles/recommend.css";
 export default function Recommend() {
   const [recommendData, setRecommendData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { setIsAlert, setNotiMessage } = useNoti();
   const [reNew, setRenew] = useState(false);
   const { isAuthenticated, logout } = useAuth();
   // 取得推薦
@@ -42,6 +44,13 @@ export default function Recommend() {
           : await createFollowShipAPI(followShipId);
         if (result.status === "success") {
           // 需要重新取得遠端資料：為了排序
+          setLoading(false);
+          // 設定通知訊息
+          followedState?
+            setNotiMessage({type:"info", message:"已取消跟隨！"})
+          :
+            setNotiMessage({type:"success", message:"已跟随！"})
+          setIsAlert(true);
           setRenew(!reNew);
         }
       } catch (err) {

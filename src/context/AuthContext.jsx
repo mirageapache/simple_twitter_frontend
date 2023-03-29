@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
   const [payload, setPayload] = useState(null);
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  
   useEffect(() => {
     const checkTokenIsValid = async () => {
       const authToken = localStorage.getItem("AuthToken");

@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "context/AuthContext";
 import { TweetProvider } from "context/TweetContext";
 import { ReplyProvider } from "context/ReplyContext";
+import { NotiProvider } from "context/NotiContext";
 // style
 import "styles/app.css";
 // page
@@ -15,6 +16,7 @@ import AdminPage from "pages/AdminPage";
 import AdminTweetsPage from "pages/admin/AdminTweetsPage";
 import AdminUsersPage from "pages/admin/AdminUsersPage";
 
+
 export default function App() {
   // console.clear();
   return (
@@ -23,7 +25,8 @@ export default function App() {
         <AuthProvider>
           <TweetProvider>
             <ReplyProvider>
-              <Routes>
+              <NotiProvider>
+                <Routes>
                 <Route path="*" element={<HomePage />} />
                 <Route path="register" element={<RegisterPage />} />
                 <Route path="login" element={<LoginPage />} />
@@ -45,7 +48,8 @@ export default function App() {
                   <Route path="tweets" element={<AdminTweetsPage />} />
                   <Route path="users" element={<AdminUsersPage />} />
                 </Route>
-              </Routes>
+                </Routes>
+              </NotiProvider>
             </ReplyProvider>
           </TweetProvider>
         </AuthProvider>

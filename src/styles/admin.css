@@ -23,6 +23,9 @@
   /* scroll bar style */
   .admin_page .admin_section {
     overflow-y: auto;
+    /* margin: 0 24px; */
+    border-left: 1px solid #E6ECF0;
+    border-right: 1px solid #E6ECF0;
   }
   ::-webkit-scrollbar {
     width: 8px;

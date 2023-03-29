@@ -4,6 +4,8 @@ import { RegisterAPI } from "api/auth";
 import { editAccountAPI } from 'api/main';
 import "styles/auth_form.css";
 import { useAuth } from "context/AuthContext";
+import Notification from "components/Form/Notification";
+import { useNoti } from "context/NotiContext";
 
 // email 驗證規則
 const email_rule= /^\w+((-\w+)|(.\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z]+$/;
@@ -17,6 +19,7 @@ export default function AccountForm({ userData, current_page }) {
   const [confirm_password, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessate] = useState(["", ""]);
   const { currentMember } = useAuth();
+  const { is_alert, setIsAlert, setNotiMessage } = useNoti();
 
   useEffect(()=> {
     // Setting 設定帳號資料
@@ -60,35 +63,43 @@ export default function AccountForm({ userData, current_page }) {
   // 資料驗證
   function checkData(){
     if (account.length === 0) {
+      setNotiMessage({type:"error", message:"帳號欄位必填！"});
       setErrorMessate(["account", "帳號欄位必填！"]);
       return false;
     }
     if (name.length === 0) {
       setErrorMessate(["name", "名稱欄位必填！"]);
+      setNotiMessage({type:"error", message:"名稱欄位必填！"});
       return false;
     }
     if (name.length > 50) {
       setErrorMessate(["name", "名稱字數上限為50字！"]);
+      setNotiMessage({type:"warning", message:"名稱字數上限為50字！"});
       return false;
     }
     if (email.length === 0) {
       setErrorMessate(["email", "Email欄位必填！"]);
+      setNotiMessage({type:"error", message:"Email欄位必填！"});
       return false;
     }
     if (email.search(email_rule) === -1) {
       setErrorMessate(["email", "Email格式不正確！"]);
+      setNotiMessage({type:"error", message:"Email格式不正確！"});
       return false;
     }
     if (password.length === 0) {
       setErrorMessate(["password", "密碼欄位必填！"]);
+      setNotiMessage({type:"error", message:"密碼欄位必填！"});
       return false;
     }
     if (confirm_password.length === 0) {
       setErrorMessate(["confirm_password", "確認密碼欄位必填！"]);
+      setNotiMessage({type:"error", message:"確認密碼欄位必填！"});
       return false;
     }
     if (confirm_password !== password) {
       setErrorMessate(["confirm_password", "確認密碼與密碼不相符！"]);
+      setNotiMessage({type:"error", message:"確認密碼與密碼不相符！"});
       return false;
     }
     return true;
@@ -104,24 +115,28 @@ export default function AccountForm({ userData, current_page }) {
       const result = await RegisterAPI({ req_data });
       // 判斷登入是否成功
       if (result.status === 200) {
-        alert('註冊成功！');
+        setNotiMessage({type:"success", message:"註冊成功！"});
         // 導向登入頁
         navigate("/login");
       } else {
         if (result.response.data.message === "Existing email or user account") {
-          alert("帳號或Email已存在！");
+          setNotiMessage({type:"error", message:"帳號或Email已存在！"});
         }
         if (result.response.data.message === "Confirm password is incorrect") {
-          alert("確認密碼與密碼不相符！");
+          setNotiMessage({type:"error", message:"確認密碼與密碼不相符！"});
         }
         if (
           result.response.data.message ===
           "Password length must be between 5 and 12 characters"
         ) {
-          alert("密碼長度應為5~12字元！");
+          setNotiMessage({type:"error", message:"密碼長度應為5~12字元！"});
         }
         return;
       }
+      setIsAlert(true);
+    }
+    else{
+      setIsAlert(true);
     }
   }
 
@@ -136,7 +151,7 @@ export default function AccountForm({ userData, current_page }) {
       // 判斷登入是否成功
       if (result.status === 200) {
         const new_data = result.data.data.user;
-        alert('修改成功！');
+        setNotiMessage({type:"success", message:"修改成功！"});
         setPassword('')
         setConfirmPassword('')
         setAccount(new_data.account)
@@ -145,21 +160,24 @@ export default function AccountForm({ userData, current_page }) {
        
       } else {
         if (result.response.data.message === "Existing email or user account") {
-          alert("帳號或Email已存在！");
+          setNotiMessage({type:"error", message:"帳號或Email已存在！"});
         }
         if (result.response.data.message === "Confirm password is incorrect") {
-          alert("確認密碼與密碼不相符！");
+          setNotiMessage({type:"error", message:"確認密碼與密碼不相符！"});
         }
         if (
           result.response.data.message ===
           "Password length must be between 5 and 12 characters"
         ) {
-          alert("密碼長度應為5~12字元！");
+          setNotiMessage({type:"error", message:"密碼長度應為5~12字元！"});
         }
         return;
       }
+      setIsAlert(true);
     }
-
+    else{
+      setIsAlert(true);
+    }
   }
 
   // KeyDown 事件
@@ -257,7 +275,8 @@ export default function AccountForm({ userData, current_page }) {
         </div>
       }
 
-      
+      {/* 通知訊息*/}
+      {is_alert && <Notification />} 
     </div>
   );
 }
