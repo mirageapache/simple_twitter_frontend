@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "context/AuthContext";
+import { useNoti } from "context/NotiContext";
 
 // style
 import "styles/navbar.css";
@@ -21,6 +22,7 @@ export default function Navbar() {
   const [selfId, setSelfId] = useState(null);
   const [activeitem, setActiveItem] = useState('main');
   const [modal_toggle, setModalToggle] = useState(false);
+  const { setIsAlert, setNotiMessage } = useNoti();
 
   // 這段要確認一下
   useEffect(() => {
@@ -42,6 +44,8 @@ export default function Navbar() {
 
   // 登出事件
   const handleClick = () => {
+    setNotiMessage({type:"info", message:"您已登出系統！"});
+    setIsAlert(true);
     logout();
   };
 

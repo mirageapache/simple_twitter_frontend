@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useAuth } from "context/AuthContext";
 import { useTweet } from "context/TweetContext";
 import { addTweetAPI } from 'api/main';
+import { useNoti } from "context/NotiContext";
+
 
 // svg
 import { ReactComponent as IconClose } from 'assets/icons/close.svg';
@@ -11,16 +13,19 @@ export default function TweetModal({onModalToggle}) {
   const [postContent, setPostContent] = useState('');
   const { currentMember } = useAuth();
   const { setTweetList } = useTweet();
+  const { setIsAlert, setNotiMessage } = useNoti();
 
   // 新增推文
   async function addTweet(){
     // 資料驗證
     if(postContent.length  === 0){
-      alert('請撰寫推文內容！')
+      setNotiMessage({type:"error", message:"請撰寫推文內容！"});
+      setIsAlert(true);
       return
     }
     if(postContent.length > 140){
-      alert('推文字數不可超140字！')
+      setNotiMessage({type:"error", message:"推文字數不可超140字！"});
+      setIsAlert(true);
       return
     }
     const result = await addTweetAPI({description:postContent});
@@ -47,12 +52,13 @@ export default function TweetModal({onModalToggle}) {
         ];
       });
       setPostContent('');
-      alert('發文成功！');
+      setNotiMessage({type:"success", message:"發文成功！"});
       onModalToggle();
     }
     else{
-      alert('發生了一些錯誤，請再嘗試一次！')
+      setNotiMessage({type:"error", message:"發生了一些錯誤，請再嘗試一次！"});
     }
+    setIsAlert(true);
   }
 
   return(
