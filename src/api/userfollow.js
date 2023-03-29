@@ -8,6 +8,8 @@ const userFollowingsUrl = (user_id) => `${userUrl(`${user_id}`)}/followings`;
 const followShipsUrl = `${baseUrl}/followships`
 const unFollowUrl =(following_id) => `${followShipsUrl}/${following_id}`
 
+const recommendUrL =(count)=>`${baseUrl}/followships/top/${count}`
+
 const axiosInstance = axios.create({
   baseUrl: baseUrl,
 });
@@ -65,5 +67,16 @@ export const unFollowAPI = async (followingId) => {
       return response.data;
     } catch (error) {
       console.error('[User create follow ship failed]: ', error);
+    }
+  };
+
+  // 取得推薦跟隨名單
+  export const getRecommendAPI = async () => {
+    try {
+      let countData = 10
+      const response = await axiosInstance.get(recommendUrL(countData));
+      return response.data;
+    } catch (error) {
+      console.error('[Get recommend failed]: ', error);
     }
   };
