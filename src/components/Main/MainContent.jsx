@@ -1,40 +1,40 @@
-import { TweetList } from "components";
 import { useEffect, useState } from "react";
-import { getTweetListAPI, addTweetAPI } from "api/main";
 import { useAuth } from "context/AuthContext";
 import { useTweet } from "context/TweetContext";
+import { getTweetListAPI, addTweetAPI } from "api/main";
 import { useNoti } from "context/NotiContext";
 // style
 import "styles/main_content.css";
+
+import { TweetList } from "components";
+import LoadingMes from "components/LoadingMes";
+
 // svg
 import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
 
 export default function MainContent() {
-  const { tweetList, setTweetList } = useTweet();
+  const [loading, setLoading] = useState(false);
+  const { tweetList, setTweetList } = useTweet([]);
   const [postContent, setPostContent] = useState("");
+  const { currentMember, isAuthenticated, logout } = useAuth();
   const { isAuthenticated, currentMember, logout } = useAuth();
   const { setIsAlert, setNotiMessage } = useNoti();
 
   useEffect(() => {
     if (!isAuthenticated) {
-      setTweetList(null);
       return logout();
-    } else if (!currentMember.id) {
-      setTweetList(null);
-      return logout();
-    }
-  }, [isAuthenticated]);
-
-  useEffect(() => {
-    // get TweetList (取得推文列表)
-    async function getTweetList() {
-      const result = await getTweetListAPI();
-      if (result.status === 200) {
-        setTweetList(result.data);
+    } else {
+      async function getTweetList() {
+        // get TweetList (取得推文列表)
+        const result = await getTweetListAPI();
+        if (result.status === 200) {
+          setTweetList(result.data);
+          setLoading(true);
+        }
       }
+      getTweetList();
     }
-    getTweetList();
-  }, [setTweetList]);
+  }, [setTweetList, isAuthenticated, logout]);
 
   // add new Tweet (新增推文)
   async function addTweet() {
@@ -123,7 +123,7 @@ export default function MainContent() {
           )}
         </div>
       </div>
-      {/* <TweetList list_data={tweetList} /> */}
+      {loading ? <TweetList list_data={tweetList} /> : <LoadingMes />}
     </div>
   );
 }

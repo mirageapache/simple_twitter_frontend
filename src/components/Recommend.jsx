@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useAuth } from "context/AuthContext";
 import { useNoti } from "context/NotiContext";
 // api
 import {
@@ -15,19 +16,24 @@ export default function Recommend() {
   const [loading, setLoading] = useState(false);
   const { setIsAlert, setNotiMessage } = useNoti();
   const [reNew, setRenew] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
   // 取得推薦
   useEffect(() => {
-    const getRecommend = async () => {
-      try {
-        let rawRecommendData = await getRecommendAPI();
-        setRecommendData(rawRecommendData);
-        setLoading(true);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getRecommend();
-  }, [reNew]);
+    if (!isAuthenticated) {
+      return logout();
+    } else {
+      const getRecommend = async () => {
+        try {
+          let rawRecommendData = await getRecommendAPI();
+          setRecommendData(rawRecommendData);
+          setLoading(true);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      getRecommend();
+    }
+  }, [reNew, isAuthenticated, logout]);
 
   // 跟隨、取消
   function handleFollowShip(followShipId, followedState) {
