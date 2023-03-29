@@ -28,13 +28,14 @@
 
 .notification{
   position: fixed;
-  width: 395px;
+  width: 400px;
   height: 96px;
   background-color: white;
   z-index: 999;
   top: 20px;
+  left: calc( 50% - 200px);
   border-radius: 8px;
-  box-shadow: 0px 4px 4px rgba(51, 51, 51, 0.08);
+  box-shadow: 0px 4px 4px rgba(41, 41, 41, 0.08);
   display: flex;
   padding: 20px 24px;
   align-items: center;
@@ -59,5 +60,14 @@
 }
 
 .notification .success_icon{
-  border-color: var(--ligth-green-color);
+  border-color: var(--light-green-color);
+}
+.notification .error_icon{
+  border-color: var(--error-color);
+}
+.notification .warning_icon{
+  border-color: var(--warning-color);
+}
+.notification .info_icon{
+  border-color: var(--light-blue-color);
 }

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "styles/auth_form.css";
 import { loginAPI } from "api/auth";
 import { useAuth } from "context/AuthContext";
+import { useNoti } from "context/NotiContext";
 import Notification from "components/Form/Notification";
 
 export default function LoginForm({ current_page }) {
@@ -11,7 +12,7 @@ export default function LoginForm({ current_page }) {
   const [account, setAccount] = useState(""); //帳號
   const [password, setPassword] = useState(""); //密碼
   const [errorMessage, setErrorMessage] = useState(["", ""]); //input錯誤訊息
-  const [notification, setNotification] = useState(["", ""]); //通知訊息
+  const { is_alert, setIsAlert, setNotiMessage } = useNoti();
 
   function accountChange(value) {
     setAccount(value);
@@ -36,30 +37,26 @@ export default function LoginForm({ current_page }) {
 
     // fetch Login API
     const result = await loginAPI({ account, password, role: current_page });
-    // 判斷登入是否成功
     if (result.status === 200) {
-      // alert(result.message);
-      setNotification(["success", "登入成功！"]);
-      // 將Token 存至localStorage
       localStorage.setItem("AuthToken", result.data.data.token);
       setLoginState(true);
-      // 判斷前台登入or後台登入，指向不同頁面
-      setTimeout(() => {
-        current_page === "users" ? navigate("/") : navigate("/admin");
-      }, 1500);
+      setNotiMessage({type:"success", message:"登入成功！"});
+      setIsAlert(true);
+      current_page === "users" ? navigate("/") : navigate("/admin");
     } else {
       setLoginState(false);
+      setIsAlert(true); //顯示錯誤通知
       if (result.response.status === 400) {
-        setErrorMessage("password", "密碼長度應為5~12字元！");
-        alert("密碼長度應為5~12字元！");
+        setErrorMessage(["password", "密碼長度應為5~12字元！"]);
+        setNotiMessage({type:"error", message:"密碼長度應為5~12字元！"});
       } else if (result.response.status === 401) {
-        setErrorMessage("password", "密碼錯誤！");
-        alert("密碼錯誤！");
+        setErrorMessage(["password", "密碼錯誤！"]);
+        setNotiMessage({type:"error", message:"密碼錯誤！"});
       } else if (result.response.status === 404) {
-        setErrorMessage("account", "帳號未註冊！");
-        alert("帳號未註冊！");
+        setErrorMessage(["account", "帳號未註冊！"]);
+        setNotiMessage({type:"error", message:"帳號未註冊！"});
       } else if (result.response.status === 500) {
-        alert("伺服器流量過載！請稍後再試！");
+        setNotiMessage({type:"info", message:"伺服器流量過載！請稍後再試！"});
       }
       return;
     }
@@ -74,10 +71,7 @@ export default function LoginForm({ current_page }) {
 
   return (
     <div className="login_form">
-      {/* 通知訊息 */}
-      {notification[0].length > 0 && (
-        <Notification type={notification[0]} text={notification[1]} />
-      )}
+
 
       <div className="input_group">
         <FormInput
@@ -132,6 +126,9 @@ export default function LoginForm({ current_page }) {
           </Link>
         </div>
       )}
+
+      {/* 通知訊息 */}
+      {is_alert && <Notification />}
     </div>
   );
 }

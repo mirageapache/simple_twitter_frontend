@@ -4,6 +4,8 @@ import { getTweetAPI, LikeTweetAPI, UnlikeTweetAPI } from "api/main";
 import { useTweet } from "context/TweetContext";
 import { useReply } from "context/ReplyContext";
 import ReplyModal from "./ReplyModal";
+import { useNoti } from "context/NotiContext";
+
 
 // svg
 import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
@@ -31,6 +33,7 @@ function TweetItem({ data }) {
   const navigate = useNavigate();
   const { setTweet, setTweetList } = useTweet();
   const { setReplyList, setReplyModal } = useReply();
+  const { setIsAlert, setNotiMessage } = useNoti();
 
   // 取得單一筆Tweet
   async function readTweetDetail(tweet_id, type) {
@@ -45,7 +48,8 @@ function TweetItem({ data }) {
         setReplyModal(true);
       }
     } else if (result.response.status === 404) {
-      alert("找不到推文！");
+      setNotiMessage({type:"error", message:"該則推文不存在！"});
+      setIsAlert(true)
       return;
     }
   }

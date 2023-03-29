@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getUserDataAPI, editUserDataAPI } from 'api/userProfile';
 import { useAuth } from "context/AuthContext";
+import { useNoti } from "context/NotiContext";
 
 // style
 import "styles/profileModal.css";
@@ -16,6 +17,7 @@ export default function ReplyModal({ onModalToggle }) {
   const [cover, setCover] = useState(null);
   const [coverFile, setCoverFile] = useState(null);
   const { currentMember } = useAuth();
+  const { setIsAlert, setNotiMessage } = useNoti();
 
   // 取得使用者資料
   useEffect(() => {
@@ -51,26 +53,31 @@ export default function ReplyModal({ onModalToggle }) {
   async function editUserData(){
     // 資料驗證
     if(name.length === 0){
-      alert('名稱不可空白！');
+      setNotiMessage({type:"error", message:"名稱不可空白！"});
+      setIsAlert(true);
       return;
     }
     if(name.length > 50){
-      alert('名稱字數不可超過50字！');
+      setNotiMessage({type:"error", message:"名稱字數不可超過50字！"});
+      setIsAlert(true);
       return;
     }
     if(introduction.length === 0){
-      alert('自我介紹不可空白！');
+      setNotiMessage({type:"error", message:"自我介紹不可空白！"});
+      setIsAlert(true);
       return;
     }
     if(introduction.length > 50){
-      alert('自我介紹字數不可超過50字！');
+      setNotiMessage({type:"error", message:"自我介紹字數不可超過50字！"});
+      setIsAlert(true);
       return;
     }
 
     const data = {name, introduction, avatar:avatarFile, cover:coverFile }
     const result = await editUserDataAPI(currentMember.id, data)
     if(result.status === 200){
-      alert('資料已更新！');
+      setNotiMessage({type:"success", message:"資料已更新！"});
+      setIsAlert(true);
       onModalToggle(false,true);
     }
   }

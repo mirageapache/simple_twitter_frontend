@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "context/AuthContext";
-
+import { useNoti } from "context/NotiContext";
 // style
 import "styles/navbar.css";
 
@@ -11,10 +11,14 @@ import { ReactComponent as IconHomeLight } from "assets/icons/home_light.svg";
 import { ReactComponent as IconUser } from "assets/icons/user.svg";
 // import { ReactComponent as IconUserLight } from "assets/icons/user_light.svg";
 import { ReactComponent as IconLogout } from "assets/icons/logout.svg";
+
 function AdminNavbar() {
   const { logout } = useAuth();
+  const { setIsAlert, setNotiMessage } = useNoti();
 
   const handleClick = () => {
+    setNotiMessage({type:"info", message:"您已登出系統！"});
+    setIsAlert(true);
     logout();
   };
 

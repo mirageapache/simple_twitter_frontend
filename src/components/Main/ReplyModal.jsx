@@ -2,17 +2,19 @@ import { useState } from "react";
 import { useTweet } from "context/TweetContext";
 import { useAuth } from "context/AuthContext";
 import { addReplyAPI } from "api/main";
+import { useReply } from "context/ReplyContext";
+import { useNoti } from "context/NotiContext";
 import moment from "moment";
 // svg
 import { ReactComponent as IconClose } from "assets/icons/close.svg";
 import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
-import { useReply } from "context/ReplyContext";
 
 export default function ReplyModal() {
   const [comment, setComment] = useState("");
   const { currentMember } = useAuth();
   const { tweet, setTweet, setTweetList } = useTweet();
   const { setReplyList, setReplyModal } = useReply();
+  const { setIsAlert, setNotiMessage } = useNoti();
 
   // 設定時間格式
   let rowRelativeTime = moment(tweet.updatedAt)
@@ -44,11 +46,11 @@ export default function ReplyModal() {
   async function addReply() {
     // 資料驗證
     if (comment.length === 0) {
-      alert("請輸入回覆內容！");
+      setNotiMessage({type:"error", message:"請輸入回覆內容！"});
       return;
     }
     if (comment.length > 140) {
-      alert("回覆內容字數不可超過140字！");
+      setNotiMessage({type:"error", message:"回覆內容字數不可超過140字！"});
       return;
     }
 
@@ -56,7 +58,8 @@ export default function ReplyModal() {
     const result = await addReplyAPI({ tweet_id: tweet.id, comment });
     if (result.status === 200) {
       const new_reply = result.data;
-      alert("回覆成功！");
+      setNotiMessage({type:"success", message:"你回覆一則留言！"});
+      setIsAlert(true);
       setTweet((prevData) => {
         return {
           ...prevData,
@@ -75,7 +78,6 @@ export default function ReplyModal() {
           }
         });
       });
-
       setReplyList((prevData) => {
         return [
           ...prevData,
