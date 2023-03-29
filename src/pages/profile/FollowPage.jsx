@@ -36,59 +36,48 @@ function FollowPage() {
   }
   const [followMode, setFollowMode] = useState(originMode);
   const [followData, setFollowData] = useState([]);
-
+  const [loading, setLoading] = useState(false);
+  const [reNew, setRenew] = useState(false);
+  // 取得資料
   useEffect(() => {
     const getFollowData = async (apiId) => {
       try {
-        let rawFollowData;
-        let dataSetState;
-        if (followMode === "followers") {
-          rawFollowData = await getFollowersDataAPI(apiId);
-          dataSetState = rawFollowData.map((item) => ({
-            ...item,
-            checkFollowed: item?.Followers?.is_followed,
-          }));
-        } else if (followMode === "followings") {
-          rawFollowData = await getFollowingsDataAPI(apiId);
-          dataSetState = rawFollowData.map((item) => ({
-            ...item,
-            checkFollowed: item?.Followings?.is_followed,
-          }));
-        }
+        setLoading(false);
+        let rawFollowData =
+          followMode === "followers"
+            ? await getFollowersDataAPI(apiId)
+            : await getFollowingsDataAPI(apiId);
+        let dataSetState =
+          followMode === "followers"
+            ? rawFollowData.map((item) => ({
+                ...item,
+                checkFollowed: item?.Followers?.is_followed,
+              }))
+            : rawFollowData.map((item) => ({
+                ...item,
+                checkFollowed: item?.Followings?.is_followed,
+              }));
         setFollowData(dataSetState);
+        setLoading(true);
       } catch (err) {
         console.log(err);
       }
     };
     getFollowData(apiId);
-  }, []);
+  }, [reNew]);
 
   // 更換分頁
-  function onViewChange(followMode) {
+  function onViewChange(modeState) {
     async function getFollowData(followMode) {
       try {
-        let rawFollowData;
-        let dataSetState;
-        if (followMode === "followers") {
-          rawFollowData = await getFollowersDataAPI(apiId);
-          dataSetState = rawFollowData.map((item) => ({
-            ...item,
-            checkFollowed: item?.Followers?.is_followed,
-          }));
-        } else if (followMode === "followings") {
-          rawFollowData = await getFollowingsDataAPI(apiId);
-          dataSetState = rawFollowData.map((item) => ({
-            ...item,
-            checkFollowed: item?.Followings?.is_followed,
-          }));
-        }
-        setFollowData(dataSetState);
-        setFollowMode(followMode);
+        setLoading(false);
+        setFollowMode(modeState);
+        setRenew(!reNew);
       } catch (err) {
         console.log(err);
       }
     }
-    getFollowData(followMode);
+    getFollowData(modeState);
   }
 
   //切換跟隨
@@ -98,40 +87,14 @@ function FollowPage() {
         if (!followedState) {
           const result = await createFollowShipAPI(followShipId);
           if (result.status === "success" && IdType === "followerId") {
-            setFollowData((prevFollow) => {
-              return prevFollow.map((follow) => {
-                if (follow.followerId === followShipId) {
-                  return {
-                    ...follow,
-                    checkFollowed: !followedState,
-                  };
-                }
-                return follow;
-              });
-            });
+            // 重新取得遠端資料
+            setRenew(!reNew);
           }
         } else {
           const result = await unFollowAPI(followShipId);
           if (result.status === "success") {
-            if (IdType === "followingId") {
-              setFollowData((prevFollow) =>
-                prevFollow.filter(
-                  (follow) => follow?.followingId !== followShipId
-                )
-              );
-            } else if (IdType === "followerId") {
-              setFollowData((prevFollow) => {
-                return prevFollow.map((follow) => {
-                  if (follow.followerId === followShipId) {
-                    return {
-                      ...follow,
-                      checkFollowed: !followedState,
-                    };
-                  }
-                  return follow;
-                });
-              });
-            }
+            // 重新取得遠端資料
+            setRenew(!reNew);
           }
         }
       } catch (err) {
@@ -152,12 +115,16 @@ function FollowPage() {
           onViewChange={onViewChange}
         />
       </div>
-      {/* 清單 */}
-      <FollowList
-        followData={followData}
-        followMode={followMode}
-        handleFollowShip={handleFollowShip}
-      />
+      {/* 清單，等取得資料才render */}
+      {loading ? (
+        <FollowList
+          followData={followData}
+          followMode={followMode}
+          handleFollowShip={handleFollowShip}
+        />
+      ) : (
+        ""
+      )}
     </>
   );
 }

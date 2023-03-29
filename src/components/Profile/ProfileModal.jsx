@@ -3,6 +3,8 @@ import { getUserDataAPI, editUserDataAPI } from 'api/userProfile';
 import { useAuth } from "context/AuthContext";
 import { useNoti } from "context/NotiContext";
 
+import default_user_cover from 'assets/images/default_user_cover.jpg'
+
 // style
 import "styles/profileModal.css";
 // svg
@@ -12,10 +14,11 @@ import { ReactComponent as IconAddPhoto } from "assets/icons/addphoto.svg";
 export default function ReplyModal({ onModalToggle }) {
   const [name, setName] = useState('');
   const [introduction, setIntroduction] = useState('');
-  const [avatar, setAvatar] = useState(null);
-  const [avatarFile, setAvatarFile] = useState(null);
-  const [cover, setCover] = useState(null);
-  const [coverFile, setCoverFile] = useState(null);
+  const [avatar, setAvatar] = useState(null); // 處理avatar預覽
+  const [avatarFile, setAvatarFile] = useState(null); //處理avatar上傳
+  const [cover, setCover] = useState(null); // 處理cover預覽 
+  const [coverFile, setCoverFile] = useState(null); //處理cover上傳
+  const [resetCover, setResetCover] = useState(false); //重設cover
   const { currentMember } = useAuth();
   const { setIsAlert, setNotiMessage } = useNoti();
 
@@ -46,6 +49,17 @@ export default function ReplyModal({ onModalToggle }) {
     if(event.target.files[0] !== undefined){
       setCover(URL.createObjectURL(event.target.files[0])); //設定預覽圖片
       setCoverFile(event.target.files[0]);
+      setResetCover(false);
+    }
+  }
+
+  // 還原cover圖
+  function handleReset(){
+    let reset = window.confirm('要刪除背景圖嗎？');
+    if (reset === true) {
+      setResetCover(true);
+      setCover(default_user_cover);
+    } else {
     }
   }
 
@@ -73,7 +87,7 @@ export default function ReplyModal({ onModalToggle }) {
       return;
     }
 
-    const data = {name, introduction, avatar:avatarFile, cover:coverFile }
+    const data = {name, introduction, avatar:avatarFile, cover:coverFile , reset: resetCover};
     const result = await editUserDataAPI(currentMember.id, data)
     if(result.status === 200){
       setNotiMessage({type:"success", message:"資料已更新！"});
@@ -108,7 +122,7 @@ export default function ReplyModal({ onModalToggle }) {
             <img
               src={cover}
               alt="user cover img-gray-panel"
-              className="user-cover"
+              className="user_cover"
             />
             <span className="cover-gray-panel">
               <div className="cover-edit-setting">
@@ -116,7 +130,7 @@ export default function ReplyModal({ onModalToggle }) {
                   <IconAddPhoto  className="add-cover setting-icon-svg add-photo-icon" />
                 </label>
                 <input className="upload-input" type="file" name="" id="upload_cover" onChange={handleCover}/>
-                <label className="svg-label">
+                <label className="svg-label" onClick={handleReset}>
                   <IconClose className="delete-cover setting-icon-svg" />
                 </label>
               </div>
