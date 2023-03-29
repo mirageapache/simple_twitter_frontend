@@ -35,6 +35,8 @@ function ProfilePage() {
   const { user_id } = useParams();
   const apiId = Number(user_id);
   const selfId = Number(currentMember.id);
+  const [modal_toggle, setModalToggle] = useState(false);
+  const [reRender, setReRender] = useState(true);
   const { tweetList, setTweetList } = useTweet();
   const { replyList, setReplyList } = useReply();
 
@@ -45,19 +47,22 @@ function ProfilePage() {
   const [profileData, setProfileData] = useState({});
   // 取得使用者資訊
   useEffect(() => {
-    const getProfileData = async () => {
-      try {
-        const result = await getUserDataAPI(apiId);
-        if (result.status === 200) {
-          const rawProfileData = result.data;
-          setProfileData(rawProfileData);
+      const getProfileData = async () => {
+        try {
+          const result = await getUserDataAPI(apiId);
+          if (result.status === 200) {
+            const rawProfileData = result.data;
+            setProfileData(rawProfileData);
+          }
+        } catch (err) {
+          console.log(err);
         }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getProfileData();
-  }, [apiId]);
+      };
+    if(reRender){  
+      getProfileData();
+      setReRender(false);
+    }
+  }, [apiId, reRender]);
 
   //判斷分頁
   const [currentView, setCurrentView] = useState("tweet");
@@ -82,8 +87,12 @@ function ProfilePage() {
 
   // 取得使用者推文
   useEffect(() => {
-    getUserTweetList();
-  }, [selfId]);
+    if(reRender){  
+      getUserTweetList();
+      setReRender(false);
+      setCurrentView('tweet')
+    }
+  }, [selfId, reRender]);
 
   // 更換分頁
   function onViewChange(view) {
@@ -116,10 +125,10 @@ function ProfilePage() {
     setCurrentView(view);
   }
 
-  // Modal toggle
-  const [modal_toggle, setModalToggle] = useState(false);
-  function onModalToggle() {
-    setModalToggle(!modal_toggle);
+
+  function onModalToggle(is_active, rerender) {
+    setModalToggle(is_active);
+    rerender && setReRender(rerender)
   }
   return (
     <>
@@ -145,7 +154,7 @@ function ProfilePage() {
               <button
                 type="button"
                 className="btn-base"
-                onClick={onModalToggle}
+                onClick={()=>{onModalToggle(true,false)}}
               >
                 編輯個人資料
               </button>

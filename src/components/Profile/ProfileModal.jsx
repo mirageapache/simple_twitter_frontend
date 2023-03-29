@@ -11,8 +11,10 @@ import { ReactComponent as IconAddPhoto } from "assets/icons/addphoto.svg";
 export default function ReplyModal({ onModalToggle }) {
   const [name, setName] = useState('');
   const [introduction, setIntroduction] = useState('');
-  const [avatar, setAvatar] = useState('');
-  const [cover, setCover] = useState('');
+  const [avatar, setAvatar] = useState(null);
+  const [avatarFile, setAvatarFile] = useState(null);
+  const [cover, setCover] = useState(null);
+  const [coverFile, setCoverFile] = useState(null);
   const { currentMember } = useAuth();
 
   // 取得使用者資料
@@ -29,6 +31,23 @@ export default function ReplyModal({ onModalToggle }) {
     getUserData();
   },[currentMember])
 
+  // 上傳暫存avatar圖
+  function handleAvatar(event){
+    if(event.target.files[0] !== undefined){
+      setAvatar(URL.createObjectURL(event.target.files[0])); //設定預覽圖片
+      setAvatarFile(event.target.files[0]);
+    }
+  }
+
+  // 上傳暫存cover圖
+  function handleCover(event){
+    if(event.target.files[0] !== undefined){
+      setCover(URL.createObjectURL(event.target.files[0])); //設定預覽圖片
+      setCoverFile(event.target.files[0]);
+    }
+  }
+
+  // 編輯 User Data
   async function editUserData(){
     // 資料驗證
     if(name.length === 0){
@@ -48,13 +67,12 @@ export default function ReplyModal({ onModalToggle }) {
       return;
     }
 
-    const data = {name, introduction }
+    const data = {name, introduction, avatar:avatarFile, cover:coverFile }
     const result = await editUserDataAPI(currentMember.id, data)
     if(result.status === 200){
       alert('資料已更新！');
-      onModalToggle();
+      onModalToggle(false,true);
     }
-
   }
 
   return (
@@ -62,18 +80,13 @@ export default function ReplyModal({ onModalToggle }) {
       <div
         className="gray_panel"
         onClick={() => {
-          onModalToggle();
+          onModalToggle(false,false);
         }}
       ></div>
       <div className="modal_panel">
         <div className="modal_header">
           <div className="header-left">
-            <span
-              className="close_btn"
-              onClick={() => {
-                onModalToggle();
-              }}
-            >
+            <span className="close_btn" onClick={() => {onModalToggle(false,false);}}>
               <IconClose />
             </span>
             <h5>編輯個人資料</h5>
@@ -91,9 +104,14 @@ export default function ReplyModal({ onModalToggle }) {
               className="user-cover"
             />
             <span className="cover-gray-panel">
-              <div className="edit-setting">
-                <IconAddPhoto className="setting-icon-svg add-photo-icon" />
-                <IconClose className="setting-icon-svg" />
+              <div className="cover-edit-setting">
+                <label className="svg-label" htmlFor="upload_cover">
+                  <IconAddPhoto  className="add-cover setting-icon-svg add-photo-icon" />
+                </label>
+                <input className="upload-input" type="file" name="" id="upload_cover" onChange={handleCover}/>
+                <label className="svg-label">
+                  <IconClose className="delete-cover setting-icon-svg" />
+                </label>
               </div>
             </span>
           </div>
@@ -104,18 +122,25 @@ export default function ReplyModal({ onModalToggle }) {
               className=" modal-avatar-img avatar-container"
             />
             <span className="avatar-gray-panel">
-              <div className="avatar-edit-setting">
+              <label htmlFor="upload_avatar" className="avatar-edit-setting">
                 <IconAddPhoto className="setting-icon-svg add-photo-icon" />
-              </div>
+              </label>
+              <input 
+                className="upload-input" 
+                type="file" 
+                name="avatar" 
+                id="upload_avatar" 
+                onChange={handleAvatar}
+              />
             </span>
           </div>
           <div className="edit-profile-container">
             <form className="form profile-info-form">
               <div className="input_group">
                 <div className="input_div">
-                  <label htmlFor="名稱">名稱</label>
+                  <label htmlFor="name_input">名稱</label>
                   <input
-                    id="名稱"
+                    id="name_input"
                     name="name"
                     type="text"
                     placeholder="請輸入名稱"
@@ -124,10 +149,10 @@ export default function ReplyModal({ onModalToggle }) {
                   />
                 </div>
                 <div className="input_div">
-                  <label htmlFor="自我介紹">自我介紹</label>
+                  <label htmlFor="introduction_input">自我介紹</label>
                   <textarea
-                    id="名稱"
-                    name="自我介紹"
+                    id="introduction_input"
+                    name="introduction"
                     placeholder="請輸入自我介紹"
                     value={introduction}
                     onChange={(e)=>{setIntroduction(e.target.value)}}
