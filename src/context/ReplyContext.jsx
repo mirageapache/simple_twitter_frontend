@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 // import { getTweetAPI } from "api/main";
 
 const defaultValue = {
-  reply:{},
+  reply: {},
   replyList: [],
   replyModal: false,
 };
@@ -19,14 +19,14 @@ export const ReplyProvider = ({ children }) => {
   // const { currentTweet_id, setTweet } = useTweet();
 
   return (
-    <ReplyContext.Provider 
+    <ReplyContext.Provider
       value={{
         reply,
         setReply,
         replyList,
         setReplyList,
         replyModal,
-        setReplyModal, 
+        setReplyModal,
       }}
     >
       {children}

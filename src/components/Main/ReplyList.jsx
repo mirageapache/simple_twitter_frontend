@@ -6,7 +6,7 @@ export default function ReplyList() {
   const { replyList } = useReply();
 
   const reply = replyList.map((item) => {
-    return <ReplyItem key={item.id} data={item} />;
+    return <ReplyItem key={item?.id} data={item} />;
   });
 
   return <div className="reply_list">{reply}</div>;
@@ -14,7 +14,7 @@ export default function ReplyList() {
 
 function ReplyItem({ data }) {
   // 設定時間格式
-  let rowRelativeTime = moment(data.updatedAt)
+  let rowRelativeTime = moment(data?.updatedAt)
     .startOf("second")
     .fromNow()
     .trim();
@@ -37,17 +37,17 @@ function ReplyItem({ data }) {
       relativeTime = `${rowRelativeTime.slice(0, hourIndex)}小時`;
     }
   } else {
-    relativeTime = moment(data.updatedAt).format("LLL");
+    relativeTime = moment(data?.updatedAt).format("LLL");
   }
 
   return (
     <div className="reply_item">
       {/* Avatar */}
       <div className="avatar_div">
-        {data.User.avatar ? (
+        {data?.User?.avatar ? (
           <img
             className="avatar_img"
-            src={data.User.avatar}
+            src={data?.User?.avatar}
             alt="user_avatar"
           />
         ) : (
@@ -57,8 +57,8 @@ function ReplyItem({ data }) {
       <div className="text_div">
         {/* Item Header */}
         <div className="card_header">
-          <p className="user_name">{data.User.name}</p>
-          <p className="user_account">@{data.User.account}</p>
+          <p className="user_name">{data?.User?.name}</p>
+          <p className="user_account">@{data?.User?.account}</p>
           <p className="reply_time">‧{relativeTime}</p>
         </div>
 
@@ -66,9 +66,9 @@ function ReplyItem({ data }) {
         <div className="card_body">
           <span className="reply_to">
             回覆
-            <p className="post_owner">@{data.Tweet.User.account}</p>
+            <p className="post_owner">@{data?.Tweet?.User?.account}</p>
           </span>
-          <p className="reply_text">{data.comment}</p>
+          <p className="reply_text">{data?.comment}</p>
         </div>
       </div>
     </div>

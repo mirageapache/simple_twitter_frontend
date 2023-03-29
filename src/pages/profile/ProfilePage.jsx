@@ -47,18 +47,18 @@ function ProfilePage() {
   const [profileData, setProfileData] = useState({});
   // 取得使用者資訊
   useEffect(() => {
-      const getProfileData = async () => {
-        try {
-          const result = await getUserDataAPI(apiId);
-          if (result.status === 200) {
-            const rawProfileData = result.data;
-            setProfileData(rawProfileData);
-          }
-        } catch (err) {
-          console.log(err);
+    const getProfileData = async () => {
+      try {
+        const result = await getUserDataAPI(apiId);
+        if (result.status === 200) {
+          const rawProfileData = result.data;
+          setProfileData(rawProfileData);
         }
-      };
-    if(reRender){  
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    if (reRender) {
       getProfileData();
       setReRender(false);
     }
@@ -87,10 +87,10 @@ function ProfilePage() {
 
   // 取得使用者推文
   useEffect(() => {
-    if(reRender){  
+    if (reRender) {
       getUserTweetList();
       setReRender(false);
-      setCurrentView('tweet')
+      setCurrentView("tweet");
     }
   }, [selfId, reRender]);
 
@@ -125,10 +125,9 @@ function ProfilePage() {
     setCurrentView(view);
   }
 
-
   function onModalToggle(is_active, rerender) {
     setModalToggle(is_active);
-    rerender && setReRender(rerender)
+    rerender && setReRender(rerender);
   }
   return (
     <>
@@ -154,7 +153,9 @@ function ProfilePage() {
               <button
                 type="button"
                 className="btn-base"
-                onClick={()=>{onModalToggle(true,false)}}
+                onClick={() => {
+                  onModalToggle(true, false);
+                }}
               >
                 編輯個人資料
               </button>

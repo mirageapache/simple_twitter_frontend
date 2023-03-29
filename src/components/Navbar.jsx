@@ -17,24 +17,28 @@ import { ReactComponent as IconLogout } from "assets/icons/logout.svg";
 import TweetModal from "./Main/TweetModal";
 
 export default function Navbar() {
-  const { logout, currentMember } = useAuth();
+  const { isAuthenticated, logout, currentMember } = useAuth();
   const [selfId, setSelfId] = useState(null);
-  const [activeitem, setActiveItem] = useState('main');
+  const [activeItem, setActiveItem] = useState("main");
   const [modal_toggle, setModalToggle] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  // 這段要確認一下
   useEffect(() => {
-    const checkSelf = async () => {
-      const currentMemberId = await currentMember.id;
-      if (!currentMemberId) {
-        return logout();
-      }
-      setSelfId(Number(currentMemberId));
-    };
-
-    checkSelf();
-  }, []);
-
+    if (!isAuthenticated) {
+      return logout();
+    } else {
+      const checkSelf = async () => {
+        const currentMemberId = await currentMember.id;
+        if (!currentMemberId) {
+          return logout();
+        } else {
+          setSelfId(Number(currentMemberId));
+          setLoading(true);
+        }
+      };
+      checkSelf();
+    }
+  }, [isAuthenticated, logout, currentMember]);
 
   function onModalToggle() {
     setModalToggle(!modal_toggle);
@@ -45,7 +49,6 @@ export default function Navbar() {
     logout();
   };
 
-
   return (
     <div className="navbar">
       {/* Logo */}
@@ -53,18 +56,37 @@ export default function Navbar() {
         <IconLogo />
       </div>
       {/* Item group */}
-      <div className="item_group">
-        <NavItem text="首頁" svg_string="home" active={activeitem} setActive={()=>{setActiveItem('main')}} />
-        <NavItem
-          text="個人資料"
-          svg_string="user"
-          active={activeitem}
-          selfId={selfId}
-          setActive={()=>{setActiveItem('profile')}}
-        />
-        <NavItem text="設定" svg_string="config" active={activeitem} setActive={()=>{setActiveItem('setting')}} />
-      </div>
-
+      {loading ? (
+        <div className="item_group">
+          <NavItem
+            text="首頁"
+            svg_string="home"
+            active={activeItem}
+            setActive={() => {
+              setActiveItem("main");
+            }}
+          />
+          <NavItem
+            text="個人資料"
+            svg_string="user"
+            active={activeItem}
+            selfId={selfId}
+            setActive={() => {
+              setActiveItem("profile");
+            }}
+          />
+          <NavItem
+            text="設定"
+            svg_string="config"
+            active={activeItem}
+            setActive={() => {
+              setActiveItem("setting");
+            }}
+          />
+        </div>
+      ) : (
+        ""
+      )}
       <button className="tweet_btn" onClick={onModalToggle}>
         推文
       </button>
@@ -83,36 +105,36 @@ export default function Navbar() {
   );
 }
 
-function NavItem({ text, svg_string, active, selfId , setActive}) {
-  let style = 'nav_item';
+function NavItem({ text, svg_string, active, selfId, setActive }) {
+  let style = "nav_item";
   let svg_item;
   let routePath;
 
   switch (svg_string) {
     case "home":
-      if(active === 'main'){
-        svg_item = <IconHome />
-        style = 'nav_item active'
-      }else{
-        svg_item = <IconHomeLight />
+      if (active === "main") {
+        svg_item = <IconHome />;
+        style = "nav_item active";
+      } else {
+        svg_item = <IconHomeLight />;
       }
       routePath = "main";
       break;
     case "user":
-      if(active === 'profile'){
-        svg_item = <IconUser />
-        style = 'nav_item active'
-      }else{
-        svg_item = <IconUserLight />
+      if (active === "profile") {
+        svg_item = <IconUser />;
+        style = "nav_item active";
+      } else {
+        svg_item = <IconUserLight />;
       }
       routePath = `profile/${selfId}`;
       break;
     case "config":
-      if(active === 'setting'){
-        svg_item = <IconConfig />
-        style = 'nav_item active'
-      }else{
-        svg_item = <IconConfigLight />
+      if (active === "setting") {
+        svg_item = <IconConfig />;
+        style = "nav_item active";
+      } else {
+        svg_item = <IconConfigLight />;
       }
       routePath = "setting";
       break;
