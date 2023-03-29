@@ -5,6 +5,7 @@ import { addReplyAPI } from "api/main";
 import { useReply } from "context/ReplyContext";
 import { useNoti } from "context/NotiContext";
 import moment from "moment";
+import 'styles/tweet_content.css'
 // svg
 import { ReactComponent as IconClose } from "assets/icons/close.svg";
 import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
