@@ -46,9 +46,30 @@ export default function ReplyModal() {
       } else {
         relativeTime = `${rowRelativeTime.slice(0, hourIndex)}小時`;
       }
-    } else {
+    } else {g
       // relativeTime = moment(data.updatedAt).format("LLL");
       relativeTime = moment(tweet.updatedAt).format("LLL");
+      relativeTime = `${rowRelativeTime.slice(0, minIndex)}分鐘`;
+    }
+  } else if (hourIndex > 0) {
+    if (rowRelativeTime.includes("an hour ago")) {
+      relativeTime = "1小時";
+    } else {
+      relativeTime = `${rowRelativeTime.slice(0, hourIndex)}小時`;
+    }
+  } else {
+    relativeTime = moment(tweet.updatedAt).format("LLL");
+  }
+  // 新增回覆
+  async function addReply() {
+    // 資料驗證
+    if (comment.length === 0) {
+      setNotiMessage({type:"error", message:"請輸入回覆內容！"});
+      return;
+    }
+    if (comment.length > 140) {
+      setNotiMessage({type:"error", message:"回覆內容字數不可超過140字！"});
+      return;
     }
     // 新增回覆
     async function addReply() {
@@ -111,36 +132,97 @@ export default function ReplyModal() {
         setReplyModal(false);
       }
     }
-
-    return (
-      <div className="reply_item">
-        {/* Avatar */}
-        <div className="avatar_div">
-          {data.User.avatar ? (
-            <img
-              className="avatar_img"
-              src={data.User.avatar}
-              alt="user_avatar"
-            />
-          ) : (
-            <IconAvatar className="avatar_img" />
-          )}
+  return (
+    <div className="main_reply_modal">
+      <div
+        className="gray_panel"
+        onClick={() => {
+          setReplyModal(false);
+        }}
+      ></div>
+      <div className="modal_panel">
+        <div className="modal_header">
+          <span
+            className="close_btn"
+            onClick={() => {
+              setReplyModal(false);
+            }}
+          >
+            <IconClose />
+          </span>
         </div>
-        <div className="text_div">
-          {/* Item Header */}
-          <div className="card_header">
-            <p className="user_name">{data.User.name}</p>
-            <p className="user_account">@{data.User.account}</p>
-            <p className="reply_time">‧{relativeTime}</p>
+        <div className="modal_body">
+          {/* 推文區塊 */}
+          <div className="tweet_content">
+            <div className="post_div">
+              <div className="post_avatar">
+                {tweet.User.avatar ? (
+                  <img
+                    className="avatar_img"
+                    src={tweet.User.avatar}
+                    alt="user_avatar"
+                  />
+                ) : (
+                  <IconAvatar className="avatar_img" />
+                )}
+                <span className="style_square">
+                  <span className="style_bar"> </span>
+                </span>
+              </div>
+              <div className="post_text">
+                <div className="post_owner_info">
+                  <p className="name">{tweet.User.name}</p>
+                  <p className="account">{tweet.User.account}</p>
+                  <p className="time">‧{relativeTime}</p>
+                </div>
+                <p className="post_content">{tweet.description}</p>
+                <div className="reply_to">
+                  回覆給
+                  <p className="post_owner">@{tweet.User.account}</p>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Item Body */}
-          <div className="card_body">
-            <span className="reply_to">
-              回覆
-              <p className="post_owner">@{data.Tweet.User.account}</p>
-            </span>
-            <p className="reply_text">{data.comment}</p>
+          {/* 回覆區塊 */}
+          <div className="reply_area">
+            <div className="avatar_div">
+              {currentMember.avatar ? (
+                <img
+                  className="replier_avatar"
+                  src={currentMember.avatar}
+                  alt="user_avatar"
+                />
+              ) : (
+                <IconAvatar className="replier_avatar" />
+              )}
+            </div>
+            <div className="text_div">
+              <textarea
+                className="content_text"
+                cols="60"
+                rows="5"
+                placeholder="推你的回覆"
+                onChange={(e) => {
+                  setComment(e.target.value);
+                }}
+                value={comment}
+              ></textarea>
+            </div>
+          </div>
+          <div className="modal_footer">
+            {comment.length > 140 ? (
+              <>
+                <p className="tip_text">回覆內容字數不可超過140字</p>
+                <button className="submit_btn" disabled="ture">
+                  回覆
+                </button>
+              </>
+            ) : (
+              <button className="submit_btn" onClick={addReply}>
+                回覆
+              </button>
+            )}
           </div>
         </div>
       </div>
