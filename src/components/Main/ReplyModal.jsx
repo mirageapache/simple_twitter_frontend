@@ -17,21 +17,39 @@ export default function ReplyModal() {
   const { setReplyList, setReplyModal } = useReply();
   const { setIsAlert, setNotiMessage } = useNoti();
 
-  // 設定時間格式
-  let rowRelativeTime = moment(tweet.updatedAt)
-    .startOf("second")
-    .fromNow()
-    .trim();
-  let hourIndex = rowRelativeTime.indexOf("h");
-  let minIndex = rowRelativeTime.indexOf("m");
-  let secondIndex = rowRelativeTime.indexOf("seconds");
-  let relativeTime;
-  if (secondIndex > 0) {
-    relativeTime = "now";
-  } else if (minIndex > 0) {
-    if (rowRelativeTime.includes("a minute ago")) {
+  // const reply = replyList.map((item) => {
+  // return <ReplyItem key={item.id} data={item} />;
+  // });
+  // return <div className="reply_list">{reply}</div>;
+  // }
+
+  function ReplyItem({ data }) {
+    // 設定時間格式
+    let rowRelativeTime = moment(data.updatedAt)
+      .startOf("second")
+      .fromNow()
+      .trim();
+    let hourIndex = rowRelativeTime.indexOf("h");
+    let minIndex = rowRelativeTime.indexOf("m");
+    let secondIndex = rowRelativeTime.indexOf("seconds");
+    let relativeTime;
+    if (secondIndex > 0) {
       relativeTime = "now";
-    } else {
+    } else if (minIndex > 0) {
+      if (rowRelativeTime.includes("a minute ago")) {
+        relativeTime = "now";
+      } else {
+        relativeTime = `${rowRelativeTime.slice(0, minIndex)}分鐘`;
+      }
+    } else if (hourIndex > 0) {
+      if (rowRelativeTime.includes("an hour ago")) {
+        relativeTime = "1小時";
+      } else {
+        relativeTime = `${rowRelativeTime.slice(0, hourIndex)}小時`;
+      }
+    } else {g
+      // relativeTime = moment(data.updatedAt).format("LLL");
+      relativeTime = moment(tweet.updatedAt).format("LLL");
       relativeTime = `${rowRelativeTime.slice(0, minIndex)}分鐘`;
     }
   } else if (hourIndex > 0) {
@@ -54,54 +72,67 @@ export default function ReplyModal() {
       setNotiMessage({type:"error", message:"回覆內容字數不可超過140字！"});
       return;
     }
-
-    // fetch add reply API
-    const result = await addReplyAPI({ tweet_id: tweet.id, comment });
-    if (result.status === 200) {
-      const new_reply = result.data;
-      setNotiMessage({type:"success", message:"你回覆一則留言！"});
-      setIsAlert(true);
-      setTweet((prevData) => {
-        return {
-          ...prevData,
-          reply_count: prevData.reply_count + 1,
-        };
-      });
-      setTweetList((prevData) => {
-        return prevData.map((item) => {
-          if (item.id.toString() === new_reply.TweetId) {
-            return {
-              ...item,
-              reply_count: item.reply_count + 1,
-            };
-          } else {
-            return item;
-          }
+    // 新增回覆
+    async function addReply() {
+      // 資料驗證
+      if (comment.length === 0) {
+        setNotiMessage({ type: "error", message: "請輸入回覆內容！" });
+        return;
+      }
+      if (comment.length > 140) {
+        setNotiMessage({
+          type: "error",
+          message: "回覆內容字數不可超過140字！",
         });
-      });
-      setReplyList((prevData) => {
-        return [
-          ...prevData,
-          {
-            id: new_reply.id,
-            UserId: new_reply.UserId,
-            comment: new_reply.comment,
-            createdAt: new_reply.createdAt,
-            updatedAt: new_reply.updatedAt,
-            User: {
-              id: currentMember.id,
-              name: currentMember.name,
-              account: currentMember.account,
-              avatar: currentMember.avatar,
-            },
-          },
-        ];
-      });
-      setComment("");
-      setReplyModal(false);
-    }
-  }
+        return;
+      }
 
+      // fetch add reply API
+      const result = await addReplyAPI({ tweet_id: tweet.id, comment });
+      if (result.status === 200) {
+        const new_reply = result.data;
+        setNotiMessage({ type: "success", message: "你回覆一則留言！" });
+        setIsAlert(true);
+        setTweet((prevData) => {
+          return {
+            ...prevData,
+            reply_count: prevData.reply_count + 1,
+          };
+        });
+        setTweetList((prevData) => {
+          return prevData.map((item) => {
+            if (item.id.toString() === new_reply.TweetId) {
+              return {
+                ...item,
+                reply_count: item.reply_count + 1,
+              };
+            } else {
+              return item;
+            }
+          });
+        });
+        setReplyList((prevData) => {
+          return [
+            ...prevData,
+            {
+              id: new_reply.id,
+              UserId: new_reply.UserId,
+              comment: new_reply.comment,
+              createdAt: new_reply.createdAt,
+              updatedAt: new_reply.updatedAt,
+              User: {
+                id: currentMember.id,
+                name: currentMember.name,
+                account: currentMember.account,
+                avatar: currentMember.avatar,
+              },
+            },
+          ];
+        });
+        setComment("");
+        setReplyModal(false);
+      }
+    }
   return (
     <div className="main_reply_modal">
       <div
@@ -196,6 +227,6 @@ export default function ReplyModal() {
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }

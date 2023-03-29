@@ -1,11 +1,11 @@
-import moment from "moment";
+import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router";
+import moment from "moment";
 import { getTweetAPI, LikeTweetAPI, UnlikeTweetAPI } from "api/main";
 import { useTweet } from "context/TweetContext";
 import { useReply } from "context/ReplyContext";
-import ReplyModal from "./ReplyModal";
 import { useNoti } from "context/NotiContext";
-
+import ReplyModal from "./ReplyModal";
 
 // svg
 import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
@@ -47,8 +47,8 @@ function TweetItem({ data }) {
         setReplyModal(true);
       }
     } else if (result.response.status === 404) {
-      setNotiMessage({type:"error", message:"該則推文不存在！"});
-      setIsAlert(true)
+      setNotiMessage({ type: "error", message: "該則推文不存在！" });
+      setIsAlert(true);
       return;
     }
   }
@@ -110,44 +110,46 @@ function TweetItem({ data }) {
   return (
     <div className="tweet_item">
       <div className="avatar_div">
-        {data.User.avatar ? (
-          <img
-            className="avatar_img"
-            src={data.User.avatar}
-            alt="user_avatar"
-          />
+        {data?.User?.avatar ? (
+          <NavLink to={`profile/${data?.User?.id}`}>
+            <img
+              className="avatar_img"
+              src={data?.User?.avatar}
+              alt="user_avatar"
+            />
+          </NavLink>
         ) : (
           <IconAvatar className="avatar_img" />
         )}
       </div>
       <div className="text_div">
         <div className="card_header">
-          <p className="user_name">{data.User.name}</p>
+          <p className="user_name">{data?.User?.name}</p>
           <span className="user_span">
-            <p className="user_account">@{data.User.account}</p>
+            <p className="user_account">@{data?.User?.account}</p>
             <p className="post_time">‧{relativeTime}</p>
           </span>
         </div>
         <div
           className="card_body"
           onClick={() => {
-            readTweetDetail(data.id, "content");
+            readTweetDetail(data?.id, "content");
           }}
         >
-          <p className="post_content">{data.description}</p>
+          <p className="post_content">{data?.description}</p>
         </div>
         <div className="card_footer">
           <span className="reply_span">
             <IconReply
               className="reply_icon"
               onClick={() => {
-                readTweetDetail(data.id, "reply");
+                readTweetDetail(data?.id, "reply");
               }}
             />
-            <p>{data.reply_count}</p>
+            <p>{data?.reply_count}</p>
           </span>
           <span className="like_span">
-            {data.is_liked === 1 ? (
+            {data?.is_liked === 1 ? (
               <IconLike
                 className="like_icon"
                 onClick={() => {
@@ -158,11 +160,11 @@ function TweetItem({ data }) {
               <IconLikeLight
                 className="unlike_icon"
                 onClick={() => {
-                  LikeToggle(data.id, "like");
+                  LikeToggle(data?.id, "like");
                 }}
               />
             )}
-            <p>{data.like_count}</p>
+            <p>{data?.like_count}</p>
           </span>
         </div>
       </div>

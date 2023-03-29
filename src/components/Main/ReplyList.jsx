@@ -1,6 +1,7 @@
 import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
 import { useReply } from "context/ReplyContext";
 import moment from "moment";
+import { NavLink } from "react-router-dom";
 
 export default function ReplyList({current_page, replyOwner}) {
   const { replyList } = useReply();
@@ -46,11 +47,13 @@ function ReplyItem({ data, current_page, replyOwner }) {
       {/* Avatar */}
       <div className="avatar_div">
         {data?.User?.avatar ? (
-          <img
-            className="avatar_img"
-            src={data?.User?.avatar}
-            alt="user_avatar"
-          />
+          <NavLink to={`profile/${data?.User?.id}`}>
+            <img
+              className="avatar_img"
+              src={data?.User?.avatar}
+              alt="user_avatar"
+            />
+          </NavLink>
         ) : (
           <IconAvatar className="avatar_img" />
         )}
