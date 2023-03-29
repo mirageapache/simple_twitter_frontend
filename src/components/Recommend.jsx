@@ -13,6 +13,7 @@ import "styles/recommend.css";
 export default function Recommend() {
   const [recommendData, setRecommendData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [reNew, setRenew] = useState(false);
   // 取得推薦
   useEffect(() => {
     const getRecommend = async () => {
@@ -20,13 +21,12 @@ export default function Recommend() {
         let rawRecommendData = await getRecommendAPI();
         setRecommendData(rawRecommendData);
         setLoading(true);
-        console.log("this loading");
       } catch (err) {
         console.log(err);
       }
     };
     getRecommend();
-  }, [loading]);
+  }, [reNew]);
 
   // 跟隨、取消
   function handleFollowShip(followShipId, followedState) {
@@ -37,7 +37,7 @@ export default function Recommend() {
           : await createFollowShipAPI(followShipId);
         if (result.status === "success") {
           // 需要重新取得遠端資料：為了排序
-          setLoading(false);
+          setRenew(!reNew);
         }
       } catch (err) {
         console.log(err);
@@ -49,6 +49,7 @@ export default function Recommend() {
   return (
     <div className="recommend">
       <h4 className="title">推薦跟隨</h4>
+      {/* 清單，等取得資料才render */}
       {loading ? (
         <RecommendList
           recommendData={recommendData}
