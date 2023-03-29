@@ -2,17 +2,18 @@ import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
 import { useReply } from "context/ReplyContext";
 import moment from "moment";
 
-export default function ReplyList() {
+export default function ReplyList({current_page, replyOwner}) {
   const { replyList } = useReply();
 
   const reply = replyList.map((item) => {
-    return <ReplyItem key={item?.id} data={item} />;
+    return <ReplyItem key={item?.id} data={item} current_page={current_page} replyOwner={replyOwner} />;
   });
 
   return <div className="reply_list">{reply}</div>;
 }
 
-function ReplyItem({ data }) {
+function ReplyItem({ data, current_page, replyOwner }) {
+  console.log(data)
   // 設定時間格式
   let rowRelativeTime = moment(data?.updatedAt)
     .startOf("second")
@@ -66,7 +67,11 @@ function ReplyItem({ data }) {
         <div className="card_body">
           <span className="reply_to">
             回覆
-            <p className="post_owner">@{data?.Tweet?.User?.account}</p>
+            {current_page === 'tweet_content'?
+              <p className="post_owner">@{replyOwner}</p>
+            :
+              <p className="post_owner">@{data?.Tweet?.User?.account}</p>
+            }
           </span>
           <p className="reply_text">{data?.comment}</p>
         </div>
