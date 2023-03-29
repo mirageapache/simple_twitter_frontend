@@ -32,14 +32,12 @@ export default function Recommend() {
     console.log("handleFollowShip", followShipId, followedState);
     async function toggleFollowShip(followShipId, followedState) {
       try {
-        if (!followedState) {
-          const result = followedState
-            ? await unFollowAPI(followShipId)
-            : await createFollowShipAPI(followShipId);
-          if (result.status === "success") {
-            // 需要重新取得遠端資料：為了排序
-            setLoading(false);
-          }
+        const result = followedState
+          ? await unFollowAPI(followShipId)
+          : await createFollowShipAPI(followShipId);
+        if (result.status === "success") {
+          // 需要重新取得遠端資料：為了排序
+          setLoading(false);
         }
       } catch (err) {
         console.log(err);
@@ -91,20 +89,16 @@ function RecommendItem({ data, btnClass, handleFollowShip }) {
   return (
     <div className="recommend_item">
       <div className="recommend_item_info">
-        {/* 大頭貼 */}
         <img
           src={data?.avatar}
           alt="user avatar"
           className="recommend_item_avatar"
         />
-
-        {/* 名稱、帳號 */}
         <div className="item_text">
           <p className="name">{data?.name}</p>
           <p className="account">@{data?.account}</p>
         </div>
       </div>
-      {/* 跟隨按鈕 */}
       <button
         type="button"
         className={btnClass}
