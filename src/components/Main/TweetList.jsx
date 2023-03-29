@@ -16,7 +16,6 @@ import { ReactComponent as IconLikeLight } from "assets/icons/like_light.svg";
 export default function TweetList({ source }) {
   const { replyModal } = useReply();
   const { tweetList } = useTweet();
-
   const tweet_data = tweetList.map((item) => {
     return <TweetItem key={item.id} data={item} />;
   });
