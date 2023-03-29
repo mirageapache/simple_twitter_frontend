@@ -1,45 +1,113 @@
+import { useState, useEffect } from "react";
+
+// api
+import {
+  getRecommendAPI,
+  createFollowShipAPI,
+  unFollowAPI,
+} from "api/userfollow";
+
 // style
-import 'styles/recommend.css';
+import "styles/recommend.css";
 
-import { recommend_data } from 'data/dummy_data.js';
+export default function Recommend() {
+  const [recommendData, setRecommendData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  // 取得推薦
+  useEffect(() => {
+    const getRecommend = async () => {
+      try {
+        let rawRecommendData = await getRecommendAPI();
+        setRecommendData(rawRecommendData);
+        setLoading(true);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getRecommend();
+  }, [loading]);
 
-import { ReactComponent as IconAvatar } from 'assets/icons/avatar.svg';
+  // 跟隨、取消
+  function handleFollowShip(followShipId, followedState) {
+    console.log("handleFollowShip", followShipId, followedState);
+    async function toggleFollowShip(followShipId, followedState) {
+      try {
+        const result = followedState
+          ? await unFollowAPI(followShipId)
+          : await createFollowShipAPI(followShipId);
+        if (result.status === "success") {
+          // 需要重新取得遠端資料：為了排序
+          setLoading(false);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    toggleFollowShip(followShipId, followedState);
+  }
 
-
-
-export default function Recommend(){
-
-  const recommend_list = recommend_data.map((item,index) => {
-    return <RecommendItem key={index} account={item.account} name={item.name} />
-  })
-
-  return(
-    <div className='recommend'>
-      <h4 className='title'>推薦跟隨</h4>
-      {recommend_list}
+  return (
+    <div className="recommend">
+      <h4 className="title">推薦跟隨</h4>
+      {loading ? (
+        <RecommendList
+          recommendData={recommendData}
+          handleFollowShip={handleFollowShip}
+        />
+      ) : (
+        ""
+      )}
     </div>
-  )
+  );
 }
 
+function RecommendList({ recommendData, handleFollowShip }) {
+  return recommendData.map((data) => {
+    if (data?.is_followed) {
+      return (
+        <RecommendItem
+          key={data?.id}
+          btnClass="recommend_btn_active"
+          data={data}
+          handleFollowShip={handleFollowShip}
+        />
+      );
+    } else {
+      return (
+        <RecommendItem
+          key={data?.id}
+          btnClass="recommend_btn"
+          data={data}
+          handleFollowShip={handleFollowShip}
+        />
+      );
+    }
+  });
+}
 
-function RecommendItem({account, name}){
-  return(
-    <div className='recommend_item'>
-      {/* 大頭貼 */}
-      <div className='item_avatar'>
-        <IconAvatar />
+function RecommendItem({ data, btnClass, handleFollowShip }) {
+  return (
+    <div className="recommend_item">
+      <div className="recommend_item_info">
+        <img
+          src={data?.avatar}
+          alt="user avatar"
+          className="recommend_item_avatar"
+        />
+        <div className="item_text">
+          <p className="name">{data?.name}</p>
+          <p className="account">@{data?.account}</p>
+        </div>
       </div>
-
-      {/* 名稱、帳號 */}
-      <div className='item_text'>
-        <p className='name'>{name}</p>
-        <p className='account'>@{account}</p>
-      </div>
-
-      {/* 跟隨按鈕 */}
-      <div className='item_btn'>
-        <button className='follow_btn'>正在跟隨</button>
-      </div>
+      <button
+        type="button"
+        className={btnClass}
+        onClick={() => {
+          handleFollowShip(data.id, data?.is_followed);
+        }}
+      >
+        {data.is_followed ? "正在跟隨" : "跟隨"}
+      </button>
     </div>
-  )
+  );
 }
