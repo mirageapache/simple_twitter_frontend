@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
+import { useAuth } from "context/AuthContext";
 
 import {
   getFollowersDataAPI,
@@ -23,11 +24,15 @@ const navbarData = [
 
 // function
 function FollowPage() {
+  const { currentMember } = useAuth();
   const { user_id } = useParams();
+  const [identity, setIdentity] = useState(null);
   const apiId = Number(user_id);
-
+  const selfId = Number(currentMember?.id);
+  // 取表頭資料
   const { pathname, state } = useLocation();
   const user = state.user;
+  // 判斷來源初始模式
   let originMode;
   if (pathname.includes("followers")) {
     originMode = "followers";
@@ -59,12 +64,14 @@ function FollowPage() {
               }));
         setFollowData(dataSetState);
         setLoading(true);
+        //判斷顯示
+        selfId === apiId ? setIdentity("self") : setIdentity("other");
       } catch (err) {
         console.log(err);
       }
     };
     getFollowData(apiId);
-  }, [apiId, followMode, reNew]);
+  }, [apiId, followMode, reNew, identity, selfId]);
 
   // 更換分頁
   function onViewChange(modeState) {
@@ -121,6 +128,7 @@ function FollowPage() {
           followData={followData}
           followMode={followMode}
           handleFollowShip={handleFollowShip}
+          identity={identity}
         />
       ) : (
         ""

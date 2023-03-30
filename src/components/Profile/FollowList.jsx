@@ -1,5 +1,11 @@
 import { NavLink } from "react-router-dom";
-function FollowItem({ follow, followMode, btnClass, handleFollowShip }) {
+function FollowItem({
+  follow,
+  followMode,
+  btnClass,
+  handleFollowShip,
+  identity,
+}) {
   let otherUserInfo;
   let followShipId;
   let IdType;
@@ -24,15 +30,19 @@ function FollowItem({ follow, followMode, btnClass, handleFollowShip }) {
       <div className="follow-item-container">
         <div className="follow-item-user">
           <p className="follow-tweet-name">{otherUserInfo?.name}</p>
-          <button
-            type="button"
-            className={btnClass}
-            onClick={() => {
-              handleFollowShip(followShipId, follow?.checkFollowed, IdType);
-            }}
-          >
-            {follow.checkFollowed ? "正在跟隨" : "跟隨"}
-          </button>
+          {identity === "self" ? (
+            <button
+              type="button"
+              className={btnClass}
+              onClick={() => {
+                handleFollowShip(followShipId, follow?.checkFollowed, IdType);
+              }}
+            >
+              {follow.checkFollowed ? "正在跟隨" : "跟隨"}
+            </button>
+          ) : (
+            ""
+          )}
         </div>
         <div className="follow-item-tweet">
           <p>{otherUserInfo?.introduction}</p>
@@ -42,7 +52,7 @@ function FollowItem({ follow, followMode, btnClass, handleFollowShip }) {
   );
 }
 
-function followList({ followData, followMode, handleFollowShip }) {
+function followList({ followData, followMode, handleFollowShip, identity }) {
   return (
     <div className="follow-list">
       {followData.map((follow) => {
@@ -58,6 +68,7 @@ function followList({ followData, followMode, handleFollowShip }) {
               follow={follow}
               followMode={followMode}
               handleFollowShip={handleFollowShip}
+              identity={identity}
             />
           );
         } else {
@@ -72,6 +83,7 @@ function followList({ followData, followMode, handleFollowShip }) {
               follow={follow}
               followMode={followMode}
               handleFollowShip={handleFollowShip}
+              identity={identity}
             />
           );
         }
