@@ -11,7 +11,7 @@ import "styles/profileModal.css";
 import { ReactComponent as IconClose } from "assets/icons/close.svg";
 import { ReactComponent as IconAddPhoto } from "assets/icons/addphoto.svg";
 
-export default function ReplyModal({ onModalToggle }) {
+export default function ReplyModal({ onModalToggle, reRender }) {
   const [name, setName] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [avatar, setAvatar] = useState(null); // 處理avatar預覽
@@ -98,7 +98,7 @@ export default function ReplyModal({ onModalToggle }) {
     if (result.status === 200) {
       setNotiMessage({ type: "success", message: "資料已更新！" });
       setIsAlert(true);
-      onModalToggle(false, true);
+      onModalToggle(false, !reRender);
     }
   }
 
@@ -107,7 +107,7 @@ export default function ReplyModal({ onModalToggle }) {
       <div
         className="gray_panel"
         onClick={() => {
-          onModalToggle(false, false);
+          onModalToggle(false, reRender);
         }}
       ></div>
       <div className="modal_panel">
@@ -116,7 +116,7 @@ export default function ReplyModal({ onModalToggle }) {
             <span
               className="close_btn"
               onClick={() => {
-                onModalToggle(false, false);
+                onModalToggle(false, reRender);
               }}
             >
               <IconClose />

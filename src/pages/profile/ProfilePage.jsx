@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { useLocation, NavLink, useParams } from "react-router-dom";
 import { useAuth } from "context/AuthContext";
 
 // api
@@ -18,11 +18,12 @@ import default_cover from "assets/images/default_user_cover.jpg";
 // function
 function ProfilePage() {
   const { isAuthenticated, logout, currentMember } = useAuth();
+  const { pathname } = useLocation();
   const { user_id } = useParams();
   const apiId = Number(user_id);
   const selfId = Number(currentMember.id);
   const [modal_toggle, setModalToggle] = useState(false);
-  const [reRender, setReRender] = useState(true);
+  const [reRender, setReRender] = useState(false);
   const [profileData, setProfileData] = useState({});
 
   //判斷顯示
@@ -30,6 +31,12 @@ function ProfilePage() {
 
   // 取得使用者資訊(還要再改)
   useEffect(() => {
+    // console.log("identity", identity);
+    // console.log("apiId", apiId);
+    // console.log("pathname", pathname);
+    console.log("identity", identity);
+    console.log("apiId", apiId);
+    console.log("pathname", pathname);
     if (!isAuthenticated) {
       return logout();
     } else {
@@ -44,12 +51,9 @@ function ProfilePage() {
           console.log(err);
         }
       };
-      if (reRender) {
-        getProfileData();
-        setReRender(false);
-      }
+      getProfileData();
     }
-  }, [isAuthenticated, logout, apiId, reRender]);
+  }, [isAuthenticated, logout, pathname, apiId, reRender]);
 
   function onModalToggle(is_active, rerender) {
     setModalToggle(is_active);
@@ -145,7 +149,9 @@ function ProfilePage() {
         </div>
       </div>
 
-      {modal_toggle && <ProfileModal onModalToggle={onModalToggle} />}
+      {modal_toggle && (
+        <ProfileModal onModalToggle={onModalToggle} reRender={reRender} />
+      )}
     </>
   );
 }
