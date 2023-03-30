@@ -3,6 +3,7 @@ import { getAccountAPI } from "api/main";
 import { useAuth } from "context/AuthContext";
 import { AccountForm } from "components";
 import LoadingMes from "components/LoadingMes";
+import { useNoti } from "context/NotiContext";
 
 import "styles/setting.css";
 
@@ -10,6 +11,10 @@ export default function SettingPage() {
   const { isAuthenticated, logout, currentMember } = useAuth();
   const [userData, setUserData] = useState();
   const [loading, setLoading] = useState(false);
+  const { setActiveItem } = useNoti();
+
+  setActiveItem('setting');
+
   // 取得使用者帳號資料
   useEffect(() => {
     setLoading(false);

@@ -17,8 +17,10 @@ export default function MainContent() {
   const { tweetList, setTweetList } = useTweet([]);
   const [postContent, setPostContent] = useState("");
   const { currentMember, isAuthenticated, logout } = useAuth();
-  const { setIsAlert, setNotiMessage } = useNoti();
-
+  const { setIsAlert, setNotiMessage, setActiveItem } = useNoti();
+  
+  setActiveItem('main');
+  
   useEffect(() => {
     if (!isAuthenticated) {
       return logout();
@@ -34,6 +36,7 @@ export default function MainContent() {
       getTweetList();
     }
   }, [setTweetList, isAuthenticated, logout]);
+
 
   // add new Tweet (新增推文)
   async function addTweet() {

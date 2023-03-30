@@ -22,6 +22,7 @@ import TweetList from "components/Main/TweetList.jsx";
 import ReplyList from "components/Main/ReplyList";
 import ProfileModal from "components/Profile/ProfileModal.jsx";
 
+import { useNoti } from "context/NotiContext";
 import { useReply } from "context/ReplyContext";
 
 import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
@@ -45,10 +46,11 @@ function ProfilePage() {
   const { replyList, setReplyList } = useReply();
   const [profileData, setProfileData] = useState({});
   const [currentView, setCurrentView] = useState("tweet");
+  const { setActiveItem } = useNoti();
 
   //判斷顯示
   const identity = selfId === apiId ? "self" : "other";
-
+  setActiveItem('profile');
   // 取得使用者資訊(還要再改)
   useEffect(() => {
     if (!isAuthenticated) {

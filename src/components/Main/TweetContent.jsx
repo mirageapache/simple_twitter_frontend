@@ -6,7 +6,7 @@ import { useAuth } from "context/AuthContext";
 import { useTweet } from "context/TweetContext";
 import { LikeTweetAPI, UnlikeTweetAPI } from "api/main";
 import { useReply } from "context/ReplyContext";
-
+import { useNoti } from "context/NotiContext";
 // style
 import "styles/tweet_content.css";
 // svg
@@ -16,11 +16,13 @@ import { ReactComponent as IconReply } from "assets/icons/reply.svg";
 import { ReactComponent as IconLike } from "assets/icons/like.svg";
 import { ReactComponent as IconLikeLight } from "assets/icons/like_light.svg";
 
-export default function Content() {
 
+export default function Content() {
   const { isAuthenticated, logout } = useAuth();
   const { tweet, setTweet } = useTweet();
   const { replyModal, setReplyModal } = useReply();
+  const { setActiveItem } = useNoti();
+  setActiveItem('main');
   // 驗證
   useEffect(() => {
     if (!isAuthenticated) {
