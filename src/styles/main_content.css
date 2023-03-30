@@ -96,11 +96,6 @@
 
   .tweet_list .tweet_item .user_account{
     font-size: 14px;
-    cursor: pointer;
-  }
-  .tweet_list .tweet_item .user_account:hover{
-    font-size: 14px;
-    color: var(--primary-color);
   }
 
   .tweet_list .tweet_item .post_time{
