@@ -15,10 +15,10 @@ import { ReactComponent as IconLogout } from "assets/icons/logout.svg";
 function AdminNavbar() {
   const { logout } = useAuth();
   const { setIsAlert, setNotiMessage } = useNoti();
-  const [activeitem, setActiveItem] = useState('tweets');
+  const [activeitem, setActiveItem] = useState("tweets");
 
   const handleClick = () => {
-    setNotiMessage({type:"info", message:"您已登出系統！"});
+    setNotiMessage({ type: "info", message: "您已登出系統！" });
     setIsAlert(true);
     logout();
   };
@@ -31,8 +31,22 @@ function AdminNavbar() {
       </div>
       {/* Item group */}
       <div className="item_group">
-        <NavItem text="推文清單" pathState="tweets" active={activeitem}  setActive={()=>{setActiveItem('tweets')}}/>
-        <NavItem text="使用者列表" pathState="users" active={activeitem} setActive={()=>{setActiveItem('users')}}/>
+        <NavItem
+          text="推文清單"
+          pathState="tweets"
+          active={activeitem}
+          setActive={() => {
+            setActiveItem("tweets");
+          }}
+        />
+        <NavItem
+          text="使用者列表"
+          pathState="users"
+          active={activeitem}
+          setActive={() => {
+            setActiveItem("users");
+          }}
+        />
       </div>
 
       <div className="logout">
@@ -48,25 +62,25 @@ function AdminNavbar() {
 }
 
 function NavItem({ text, pathState, active, setActive }) {
-  let style = 'nav_item';
+  let style = "nav_item";
   let svg_item;
   let routePath;
   switch (pathState) {
     case "tweets":
-      if(active === 'tweets'){
-        svg_item = <IconHome />
-        style = 'nav_item active'
-      }else{
-        svg_item = <IconHomeLight />
+      if (active === "tweets") {
+        svg_item = <IconHome />;
+        style = "nav_item active";
+      } else {
+        svg_item = <IconHomeLight />;
       }
       routePath = "tweets";
       break;
     case "users":
-      if(active === 'users'){
-        svg_item = <IconUser />
-        style = 'nav_item active'
-      }else{
-        svg_item = <IconUserLight />
+      if (active === "users") {
+        svg_item = <IconUser />;
+        style = "nav_item active";
+      } else {
+        svg_item = <IconUserLight />;
       }
       routePath = "users";
       break;
@@ -75,7 +89,12 @@ function NavItem({ text, pathState, active, setActive }) {
   }
 
   return (
-    <NavLink className={style} data-active={active} to={routePath} onClick={setActive}>
+    <NavLink
+      className={style}
+      data-active={active}
+      to={routePath}
+      onClick={setActive}
+    >
       <span className="item_svg">{svg_item}</span>
       <h5 className="item_text">{text}</h5>
     </NavLink>

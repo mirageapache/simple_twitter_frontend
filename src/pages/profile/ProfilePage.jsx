@@ -184,7 +184,7 @@ function ProfilePage() {
                 <NavLink
                   className="follow-info-item"
                   to={{
-                    pathname: `/follow/${apiId}/followings`,
+                    pathname: `/main/follow/${apiId}/followings`,
                   }}
                   state={{
                     user: {
@@ -201,7 +201,7 @@ function ProfilePage() {
                 <NavLink
                   className="follow-info-item"
                   to={{
-                    pathname: `/follow/${apiId}/followers`,
+                    pathname: `/main/follow/${apiId}/followers`,
                   }}
                   state={{
                     user: {

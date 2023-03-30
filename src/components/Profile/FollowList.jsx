@@ -20,7 +20,7 @@ function FollowItem({
   }
   return (
     <div className="follow-item">
-      <NavLink to={`/profile/${followShipId}`}>
+      <NavLink to={`/main/profile/${followShipId}`}>
         <img
           src={otherUserInfo?.avatar}
           alt="user avatar"

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { getUserDataAPI, editUserDataAPI } from 'api/userProfile';
+import { getUserDataAPI, editUserDataAPI } from "api/userProfile";
 import { useAuth } from "context/AuthContext";
 import { useNoti } from "context/NotiContext";
 
-import default_user_cover from 'assets/images/default_user_cover.jpg'
+import default_user_cover from "assets/images/default_user_cover.jpg";
 
 // style
 import "styles/profileModal.css";
@@ -12,11 +12,11 @@ import { ReactComponent as IconClose } from "assets/icons/close.svg";
 import { ReactComponent as IconAddPhoto } from "assets/icons/addphoto.svg";
 
 export default function ReplyModal({ onModalToggle }) {
-  const [name, setName] = useState('');
-  const [introduction, setIntroduction] = useState('');
+  const [name, setName] = useState("");
+  const [introduction, setIntroduction] = useState("");
   const [avatar, setAvatar] = useState(null); // 處理avatar預覽
   const [avatarFile, setAvatarFile] = useState(null); //處理avatar上傳
-  const [cover, setCover] = useState(null); // 處理cover預覽 
+  const [cover, setCover] = useState(null); // 處理cover預覽
   const [coverFile, setCoverFile] = useState(null); //處理cover上傳
   const [resetCover, setResetCover] = useState(false); //重設cover
   const { currentMember } = useAuth();
@@ -24,9 +24,9 @@ export default function ReplyModal({ onModalToggle }) {
 
   // 取得使用者資料
   useEffect(() => {
-    async function getUserData(){
+    async function getUserData() {
       const result = await getUserDataAPI(currentMember.id);
-      if(result.status === 200){
+      if (result.status === 200) {
         setName(result.data.name);
         setIntroduction(result.data.introduction);
         setAvatar(result.data.avatar);
@@ -34,19 +34,19 @@ export default function ReplyModal({ onModalToggle }) {
       }
     }
     getUserData();
-  },[currentMember])
+  }, [currentMember]);
 
   // 上傳暫存avatar圖
-  function handleAvatar(event){
-    if(event.target.files[0] !== undefined){
+  function handleAvatar(event) {
+    if (event.target.files[0] !== undefined) {
       setAvatar(URL.createObjectURL(event.target.files[0])); //設定預覽圖片
       setAvatarFile(event.target.files[0]);
     }
   }
 
   // 上傳暫存cover圖
-  function handleCover(event){
-    if(event.target.files[0] !== undefined){
+  function handleCover(event) {
+    if (event.target.files[0] !== undefined) {
       setCover(URL.createObjectURL(event.target.files[0])); //設定預覽圖片
       setCoverFile(event.target.files[0]);
       setResetCover(false);
@@ -54,8 +54,8 @@ export default function ReplyModal({ onModalToggle }) {
   }
 
   // 還原cover圖
-  function handleReset(){
-    let reset = window.confirm('要刪除背景圖嗎？');
+  function handleReset() {
+    let reset = window.confirm("要刪除背景圖嗎？");
     if (reset === true) {
       setResetCover(true);
       setCover(default_user_cover);
@@ -64,35 +64,41 @@ export default function ReplyModal({ onModalToggle }) {
   }
 
   // 編輯 User Data
-  async function editUserData(){
+  async function editUserData() {
     // 資料驗證
-    if(name.length === 0){
-      setNotiMessage({type:"error", message:"名稱不可空白！"});
+    if (name.length === 0) {
+      setNotiMessage({ type: "error", message: "名稱不可空白！" });
       setIsAlert(true);
       return;
     }
-    if(name.length > 50){
-      setNotiMessage({type:"error", message:"名稱字數不可超過50字！"});
+    if (name.length > 50) {
+      setNotiMessage({ type: "error", message: "名稱字數不可超過50字！" });
       setIsAlert(true);
       return;
     }
-    if(introduction.length === 0){
-      setNotiMessage({type:"error", message:"自我介紹不可空白！"});
+    if (introduction.length === 0) {
+      setNotiMessage({ type: "error", message: "自我介紹不可空白！" });
       setIsAlert(true);
       return;
     }
-    if(introduction.length > 50){
-      setNotiMessage({type:"error", message:"自我介紹字數不可超過50字！"});
+    if (introduction.length > 50) {
+      setNotiMessage({ type: "error", message: "自我介紹字數不可超過50字！" });
       setIsAlert(true);
       return;
     }
 
-    const data = {name, introduction, avatar:avatarFile, cover:coverFile , reset: resetCover};
-    const result = await editUserDataAPI(currentMember.id, data)
-    if(result.status === 200){
-      setNotiMessage({type:"success", message:"資料已更新！"});
+    const data = {
+      name,
+      introduction,
+      avatar: avatarFile,
+      cover: coverFile,
+      reset: resetCover,
+    };
+    const result = await editUserDataAPI(currentMember.id, data);
+    if (result.status === 200) {
+      setNotiMessage({ type: "success", message: "資料已更新！" });
       setIsAlert(true);
-      onModalToggle(false,true);
+      onModalToggle(false, true);
     }
   }
 
@@ -101,19 +107,30 @@ export default function ReplyModal({ onModalToggle }) {
       <div
         className="gray_panel"
         onClick={() => {
-          onModalToggle(false,false);
+          onModalToggle(false, false);
         }}
       ></div>
       <div className="modal_panel">
         <div className="modal_header">
           <div className="header-left">
-            <span className="close_btn" onClick={() => {onModalToggle(false,false);}}>
+            <span
+              className="close_btn"
+              onClick={() => {
+                onModalToggle(false, false);
+              }}
+            >
               <IconClose />
             </span>
             <h5>編輯個人資料</h5>
           </div>
 
-          <button type="button" className="btn-save" onClick={() => {editUserData()}}>
+          <button
+            type="button"
+            className="btn-save"
+            onClick={() => {
+              editUserData();
+            }}
+          >
             儲存
           </button>
         </div>
@@ -127,9 +144,15 @@ export default function ReplyModal({ onModalToggle }) {
             <span className="cover-gray-panel">
               <div className="cover-edit-setting">
                 <label className="svg-label" htmlFor="upload_cover">
-                  <IconAddPhoto  className="add-cover setting-icon-svg add-photo-icon" />
+                  <IconAddPhoto className="add-cover setting-icon-svg add-photo-icon" />
                 </label>
-                <input className="upload-input" type="file" name="" id="upload_cover" onChange={handleCover}/>
+                <input
+                  className="upload-input"
+                  type="file"
+                  name=""
+                  id="upload_cover"
+                  onChange={handleCover}
+                />
                 <label className="svg-label" onClick={handleReset}>
                   <IconClose className="delete-cover setting-icon-svg" />
                 </label>
@@ -146,11 +169,11 @@ export default function ReplyModal({ onModalToggle }) {
               <label htmlFor="upload_avatar" className="avatar-edit-setting">
                 <IconAddPhoto className="setting-icon-svg add-photo-icon" />
               </label>
-              <input 
-                className="upload-input" 
-                type="file" 
-                name="avatar" 
-                id="upload_avatar" 
+              <input
+                className="upload-input"
+                type="file"
+                name="avatar"
+                id="upload_avatar"
                 onChange={handleAvatar}
               />
             </span>
@@ -166,7 +189,9 @@ export default function ReplyModal({ onModalToggle }) {
                     type="text"
                     placeholder="請輸入名稱"
                     value={name}
-                    onChange={(e)=>{setName(e.target.value)}}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
                   />
                 </div>
                 <div className="input_div">
@@ -176,7 +201,9 @@ export default function ReplyModal({ onModalToggle }) {
                     name="introduction"
                     placeholder="請輸入自我介紹"
                     value={introduction}
-                    onChange={(e)=>{setIntroduction(e.target.value)}}
+                    onChange={(e) => {
+                      setIntroduction(e.target.value);
+                    }}
                   />
                 </div>
               </div>

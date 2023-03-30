@@ -42,7 +42,7 @@ function TweetItem({ data }) {
       setReplyList(result.data.Replies); //設定該則推文的回覆列表
       if (type === "content") {
         // 導至TweetPage
-        navigate(`/tweet/:tweet_id=${tweet_id}`);
+        navigate(`/main/tweet/:tweet_id=${tweet_id}`);
       } else {
         setReplyModal(true);
       }
@@ -111,7 +111,7 @@ function TweetItem({ data }) {
     <div className="tweet_item">
       <div className="avatar_div">
         {data?.User?.avatar ? (
-          <NavLink to={`/profile/${data?.User?.id}`}>
+          <NavLink to={`/main/profile/${data?.User?.id}`}>
             <img
               className="avatar_img"
               src={data?.User?.avatar}

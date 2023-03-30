@@ -60,8 +60,12 @@ export default function Content() {
         <div className="post_header">
           <span className="avatar_span">
             {tweet.User.avatar ? (
-              <NavLink to={`profile/${tweet?.User?.id}`}>
-              <img className="avatar_img" src={tweet?.User?.avatar} alt="user_avatar"/>
+              <NavLink to={`/main/profile/${tweet?.User?.id}`}>
+                <img
+                  className="avatar_img"
+                  src={tweet?.User?.avatar}
+                  alt="user_avatar"
+                />
               </NavLink>
             ) : (
               <IconAvatar className="avatar_img" />
@@ -111,13 +115,15 @@ export default function Content() {
               )}
             </span>
           </div>
-
         </div>
       </div>
-      
+
       {tweet.Replies.length !== 0 ? (
-        
-        <ReplyList reply_data={tweet.Replies} current_page='tweet_content' replyOwner={tweet.User.account}/>
+        <ReplyList
+          reply_data={tweet.Replies}
+          current_page="tweet_content"
+          replyOwner={tweet.User.account}
+        />
       ) : (
         <div className="reply_msg">
           <h3>還沒有人來留言~</h3>

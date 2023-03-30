@@ -107,7 +107,7 @@ function RecommendItem({ data, btnClass, handleFollowShip }) {
     <div className="recommend_item">
       <div className="recommend_item_info">
         {data?.avatar ? (
-          <NavLink to={`/profile/${data?.id}`}>
+          <NavLink to={`/main/profile/${data?.id}`}>
             <img
               src={data?.avatar}
               alt="user avatar"
