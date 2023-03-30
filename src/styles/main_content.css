@@ -149,7 +149,7 @@
 
   /* Tweet Modal */
   .tweet_modal{
-    position: fixed;
+    position: relative;
   }
   .tweet_modal .gray_panel{
     position: fixed;

@@ -52,6 +52,7 @@ export default function TweetModal({ onModalToggle }) {
       });
       setPostContent("");
       setNotiMessage({ type: "success", message: "發文成功！" });
+      setIsAlert(true);
       onModalToggle();
     } else {
       setNotiMessage({
