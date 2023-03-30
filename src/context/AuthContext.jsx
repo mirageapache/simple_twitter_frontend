@@ -23,14 +23,12 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkTokenIsValid = async () => {
       const authToken = localStorage.getItem("AuthToken");
-      console.log("before fetch api, AuthToken = ",authToken)
       if (!authToken) {
         setIsAuthenticated(false);
         setPayload(null);
         return;
       }
       const result = await checkLoginStatusAPI(authToken);
-      console.log("fetch api result = ",result)
       if (result) {
         setIsAuthenticated(true);
         const tempPayload = jwt_decode(authToken);

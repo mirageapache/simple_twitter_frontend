@@ -7,12 +7,16 @@ import { useNavigate } from "react-router";
 const HomePage = () => {
   // const { logout } = useAuth();
   const navigate = useNavigate();
+  const{ isAuthenticated } = useAuth();
 
   useEffect(() => {
-    // console.log('homepage execute logout');
-    navigate('login')
-    // logout();
-  }, []);
+    if(isAuthenticated){
+      navigate('main');
+    }
+    else{
+      navigate('login')
+    }
+  }, [navigate, isAuthenticated]);
 
   return (
     <div>
