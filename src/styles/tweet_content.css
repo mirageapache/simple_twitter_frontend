@@ -47,10 +47,6 @@
     font-size: 14px;
     line-height: 22px;
     color: var(--secondary-color);
-    cursor: pointer;
-  }
-  .tweet_content .user_info .account:hover{
-    color: var(--primary-color);
   }
 
   .tweet_content .post_body{
@@ -158,10 +154,6 @@
   .reply_list .reply_item .user_account{
     font-size: 14px;
     color: var(--secondary-color);
-    cursor: pointer;
-  }
-  .reply_list .reply_item .user_account:hover{
-    color: var(--primary-color);
   }
 
   .reply_list .reply_item .reply_time{
@@ -275,11 +267,6 @@
   .main_reply_modal .post_owner_info .time{
     color: var(--secondary-color);
     font-size: 14px;
-  }
-
-  .main_reply_modal .post_owner_info .account:hover{
-    color: var(--primary-color);
-    cursor: pointer;
   }
 
   .main_reply_modal .post_content{
