@@ -14,7 +14,6 @@ export default function ReplyList({current_page, replyOwner}) {
 }
 
 function ReplyItem({ data, current_page, replyOwner }) {
-  console.log(data)
   // 設定時間格式
   let rowRelativeTime = moment(data?.updatedAt)
     .startOf("second")
