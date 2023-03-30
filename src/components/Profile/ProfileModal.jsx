@@ -81,8 +81,8 @@ export default function ReplyModal({ onModalToggle }) {
       setIsAlert(true);
       return;
     }
-    if (introduction.length > 50) {
-      setNotiMessage({ type: "error", message: "自我介紹字數不可超過50字！" });
+    if (introduction.length > 160) {
+      setNotiMessage({ type: "error", message: "自我介紹字數不可超過160字！" });
       setIsAlert(true);
       return;
     }
