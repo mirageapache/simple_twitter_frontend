@@ -137,25 +137,25 @@ export default function AccountForm({ userData, current_page }) {
       } else {
         if (result.response.data.message === "Existing email or user account") {
           setNotiMessage({type:"error", message:"帳號或Email已存在！"});
-          setErrorMessate(["account", "帳號或Email已存在！"]);
+          setIsAlert(true);
         }
         if (result.response.data.message === "Confirm password is incorrect") {
           setNotiMessage({type:"error", message:"確認密碼與密碼不相符！"});
-          setErrorMessate(["confirm_password", "確認密碼與密碼不相符！"]);
+          setIsAlert(true);
         }
         if (
           result.response.data.message ===
           "Password length must be between 5 and 12 characters"
         ) {
           setNotiMessage({type:"error", message:"密碼長度應為5~12字元！"});
-          setErrorMessate(["password", "密碼長度應為5~12字元！"]);
+          setIsAlert(true);
         }
         setIsAlert(true);
         return;
       }
     }
     else{
-      setIsAlert(true); //資料驗證錯誤提示
+      setIsAlert(true);
     }
   }
 
@@ -177,25 +177,26 @@ export default function AccountForm({ userData, current_page }) {
         setAccount(new_data.account)
         setName(new_data.name)
         setEmail(new_data.email)
+       
       } else {
         if (result.response.data.message === "Existing email or user account") {
           setNotiMessage({type:"error", message:"帳號或Email已存在！"});
-          setErrorMessate(["account", "帳號或Email已存在！"]);
+          setIsAlert(true);
         }
         if (result.response.data.message === "Confirm password is incorrect") {
           setNotiMessage({type:"error", message:"確認密碼與密碼不相符！"});
-          setErrorMessate(["confirm_password", "確認密碼與密碼不相符！"]);
+          setIsAlert(true);
         }
         if (
           result.response.data.message ===
           "Password length must be between 5 and 12 characters"
         ) {
           setNotiMessage({type:"error", message:"密碼長度應為5~12字元！"});
-          setErrorMessate(["password", "密碼長度應為5~12字元！"]);
+          setIsAlert(true);
         }
+        setIsAlert(true);
         return;
       }
-      setIsAlert(true);
     }
     else{
       setIsAlert(true);
