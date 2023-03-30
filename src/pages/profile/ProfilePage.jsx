@@ -11,7 +11,7 @@ import "styles/profile.css";
 import ProfileGuide from "components/Profile/ProfileGuide";
 import Interactive from "components/Profile/Interactive";
 import ProfileModal from "components/Profile/ProfileModal.jsx";
-
+import ProfileList from "components/Profile/ProfileList";
 import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
 import default_cover from "assets/images/default_user_cover.jpg";
 
@@ -31,12 +31,6 @@ function ProfilePage() {
 
   // 取得使用者資訊(還要再改)
   useEffect(() => {
-    // console.log("identity", identity);
-    // console.log("apiId", apiId);
-    // console.log("pathname", pathname);
-    console.log("identity", identity);
-    console.log("apiId", apiId);
-    console.log("pathname", pathname);
     if (!isAuthenticated) {
       return logout();
     } else {
@@ -147,6 +141,7 @@ function ProfilePage() {
             </div>
           </div>
         </div>
+        <ProfileList apiId={apiId} />
       </div>
 
       {modal_toggle && (
