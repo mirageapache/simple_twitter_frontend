@@ -40,10 +40,12 @@ export default function MainContent() {
     // 資料驗證
     if (postContent.length === 0) {
       setNotiMessage({ type: "error", message: "請撰寫推文內容！" });
+      setIsAlert(true);
       return;
     }
     if (postContent.length > 140) {
       setNotiMessage({ type: "error", message: "推文字數不可超140字！" });
+      setIsAlert(true);
       return;
     }
     const result = await addTweetAPI({ description: postContent });
@@ -71,11 +73,13 @@ export default function MainContent() {
       });
       setPostContent("");
       setNotiMessage({ type: "success", message: "發文成功！" });
+      setIsAlert(true);
     } else {
       setNotiMessage({
         type: "warning",
         message: "發生了一些錯誤，請再嘗試一次！",
       });
+      setIsAlert(true);
     }
     setIsAlert(true);
   }
