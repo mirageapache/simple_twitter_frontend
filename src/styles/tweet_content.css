@@ -32,6 +32,7 @@
     width: 50px;
     height: 50px;
     margin-right: 8px;
+    border-radius: 50px;
     cursor: pointer;
   }
 
@@ -46,10 +47,6 @@
     font-size: 14px;
     line-height: 22px;
     color: var(--secondary-color);
-    cursor: pointer;
-  }
-  .tweet_content .user_info .account:hover{
-    color: var(--primary-color);
   }
 
   .tweet_content .post_body{
@@ -136,6 +133,7 @@
   .reply_list .reply_item .avatar_img{
     width: 50px;
     height: 50px;
+    border-radius: 50px;
     cursor: pointer;
   }
   
@@ -156,10 +154,6 @@
   .reply_list .reply_item .user_account{
     font-size: 14px;
     color: var(--secondary-color);
-    cursor: pointer;
-  }
-  .reply_list .reply_item .user_account:hover{
-    color: var(--primary-color);
   }
 
   .reply_list .reply_item .reply_time{
@@ -192,7 +186,7 @@
   }
   .main_reply_modal .gray_panel{
     position: fixed;
-    z-index: 998;
+    z-index: 997;
     width: 100%;
     height: 100%;
     top: 0;
@@ -203,7 +197,7 @@
   .main_reply_modal .modal_panel{
     background-color: white;
     position: fixed;
-    z-index: 999;
+    z-index: 998;
     width: 635px;
     top: 56px;
     border-radius: 14px;
@@ -242,6 +236,7 @@
     width: 50px;
     height: 50px;
     margin-right: 8px;
+    border-radius: 50px;
     cursor: pointer;
   }
 
@@ -274,11 +269,6 @@
     font-size: 14px;
   }
 
-  .main_reply_modal .post_owner_info .account:hover{
-    color: var(--primary-color);
-    cursor: pointer;
-  }
-
   .main_reply_modal .post_content{
     line-height: 26px;
   }
@@ -305,6 +295,7 @@
     margin-right: 8px;
     width: 50px;
     height: 50px;
+    border-radius: 50px;
   }
 
   .main_reply_modal .modal_body .text_div{

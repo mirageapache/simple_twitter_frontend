@@ -4,6 +4,7 @@ import moment from "moment";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "context/AuthContext";
 import { useTweet } from "context/TweetContext";
+import { LikeTweetAPI, UnlikeTweetAPI } from "api/main";
 import { useReply } from "context/ReplyContext";
 
 // style
@@ -16,8 +17,9 @@ import { ReactComponent as IconLike } from "assets/icons/like.svg";
 import { ReactComponent as IconLikeLight } from "assets/icons/like_light.svg";
 
 export default function Content() {
+
   const { isAuthenticated, logout } = useAuth();
-  const { tweet } = useTweet();
+  const { tweet, setTweet } = useTweet();
   const { replyModal, setReplyModal } = useReply();
   // 驗證
   useEffect(() => {
@@ -52,6 +54,27 @@ export default function Content() {
   } else {
     relativeTime = moment(tweet.updatedAt).format("LLL");
   }
+
+  // like/unlike Tweet
+  async function LikeToggle(tweet_id, type) {
+    let result;
+    if (type === "like") {
+      result = await LikeTweetAPI(tweet_id);
+    } else {
+      result = await UnlikeTweetAPI(tweet_id);
+    }
+    if (result.status === 200) {
+      setTweet((prevData) => {
+        return {
+          ...prevData,
+          like_count: type === "like" ? prevData.like_count + 1 : prevData.like_count - 1,
+          is_liked: type === "like" ? 1 : 0,
+        }
+      });
+    }
+  }
+
+
   // Back to last page
   function backToLastPage() {
     window.history.back();
@@ -119,9 +142,9 @@ export default function Content() {
             </span>
             <span>
               {tweet.is_liked ? (
-                <IconLike className="like_icon" />
+                <IconLike className="like_icon" onClick={()=>{LikeToggle(tweet.id,'unlike')}}/>
               ) : (
-                <IconLikeLight className="unlike_icon" />
+                <IconLikeLight className="unlike_icon" onClick={()=>{LikeToggle(tweet.id,'like')}}/>
               )}
             </span>
           </div>

@@ -20,9 +20,9 @@ import TweetModal from "./Main/TweetModal";
 export default function Navbar() {
   const { isAuthenticated, logout, currentMember } = useAuth();
   const [selfId, setSelfId] = useState(null);
-  const [activeItem, setActiveItem] = useState("main");
   const [modal_toggle, setModalToggle] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { activeItem, setActiveItem} = useNoti();
   const { setIsAlert, setNotiMessage } = useNoti();
 
   useEffect(() => {
