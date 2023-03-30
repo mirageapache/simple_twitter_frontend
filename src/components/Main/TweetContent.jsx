@@ -1,9 +1,12 @@
+import { useEffect } from "react";
 import { ReplyList, ReplyModal } from "components";
+import moment from "moment";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "context/AuthContext";
 import { useTweet } from "context/TweetContext";
 import { LikeTweetAPI, UnlikeTweetAPI } from "api/main";
 import { useReply } from "context/ReplyContext";
-import { NavLink } from "react-router-dom";
-import moment from "moment";
+
 // style
 import "styles/tweet_content.css";
 // svg
@@ -14,8 +17,16 @@ import { ReactComponent as IconLike } from "assets/icons/like.svg";
 import { ReactComponent as IconLikeLight } from "assets/icons/like_light.svg";
 
 export default function Content() {
+
+  const { isAuthenticated, logout } = useAuth();
   const { tweet, setTweet } = useTweet();
   const { replyModal, setReplyModal } = useReply();
+  // 驗證
+  useEffect(() => {
+    if (!isAuthenticated) {
+      return logout();
+    }
+  }, [isAuthenticated, logout]);
 
   // 設定時間格式
   let rowRelativeTime = moment(tweet.updatedAt)
@@ -82,8 +93,12 @@ export default function Content() {
         <div className="post_header">
           <span className="avatar_span">
             {tweet.User.avatar ? (
-              <NavLink to={`profile/${tweet?.User?.id}`}>
-              <img className="avatar_img" src={tweet?.User?.avatar} alt="user_avatar"/>
+              <NavLink to={`/main/profile/${tweet?.User?.id}`}>
+                <img
+                  className="avatar_img"
+                  src={tweet?.User?.avatar}
+                  alt="user_avatar"
+                />
               </NavLink>
             ) : (
               <IconAvatar className="avatar_img" />
@@ -133,13 +148,15 @@ export default function Content() {
               )}
             </span>
           </div>
-
         </div>
       </div>
-      
+
       {tweet.Replies.length !== 0 ? (
-        
-        <ReplyList reply_data={tweet.Replies} current_page='tweet_content' replyOwner={tweet.User.account}/>
+        <ReplyList
+          reply_data={tweet.Replies}
+          current_page="tweet_content"
+          replyOwner={tweet.User.account}
+        />
       ) : (
         <div className="reply_msg">
           <h3>還沒有人來留言~</h3>

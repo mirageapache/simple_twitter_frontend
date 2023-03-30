@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { RegisterAPI } from "api/auth";
-import { editAccountAPI } from 'api/main';
+import { editAccountAPI } from "api/main";
 import "styles/auth_form.css";
 import { useAuth } from "context/AuthContext";
 import Notification from "components/Form/Notification";
 import { useNoti } from "context/NotiContext";
 
 // email 驗證規則
-const email_rule= /^\w+((-\w+)|(.\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z]+$/;
+const email_rule =
+  /^\w+((-\w+)|(.\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z]+$/;
 
 export default function AccountForm({ userData, current_page }) {
   const navigate = useNavigate();
@@ -21,15 +22,14 @@ export default function AccountForm({ userData, current_page }) {
   const { currentMember } = useAuth();
   const { is_alert, setIsAlert, setNotiMessage } = useNoti();
 
-  useEffect(()=> {
+  useEffect(() => {
     // Setting 設定帳號資料
-    if(userData !== undefined && current_page === 'setting'){
+    if (userData !== undefined && current_page === "setting") {
       setAccount(userData.account);
       setName(userData.name);
       setEmail(userData.email);
     }
-  },[userData, current_page])
-
+  }, [userData, current_page]);
 
   function accountChange(value) {
     setErrorMessate(["", ""]);
@@ -64,11 +64,10 @@ export default function AccountForm({ userData, current_page }) {
     setConfirmPassword(value);
   }
 
-
   // 資料驗證
-  function checkData(){
+  function checkData() {
     if (account.length === 0) {
-      setNotiMessage({type:"error", message:"帳號欄位必填！"});
+      setNotiMessage({ type: "error", message: "帳號欄位必填！" });
       setErrorMessate(["account", "帳號欄位必填！"]);
       return false;
     }
@@ -79,27 +78,27 @@ export default function AccountForm({ userData, current_page }) {
     }
     if (name.length === 0) {
       setErrorMessate(["name", "名稱欄位必填！"]);
-      setNotiMessage({type:"error", message:"名稱欄位必填！"});
+      setNotiMessage({ type: "error", message: "名稱欄位必填！" });
       return false;
     }
     if (name.length > 50) {
       setErrorMessate(["name", "名稱字數上限為50字！"]);
-      setNotiMessage({type:"warning", message:"名稱字數上限為50字！"});
+      setNotiMessage({ type: "warning", message: "名稱字數上限為50字！" });
       return false;
     }
     if (email.length === 0) {
       setErrorMessate(["email", "Email欄位必填！"]);
-      setNotiMessage({type:"error", message:"Email欄位必填！"});
+      setNotiMessage({ type: "error", message: "Email欄位必填！" });
       return false;
     }
     if (email.search(email_rule) === -1) {
       setErrorMessate(["email", "Email格式不正確！"]);
-      setNotiMessage({type:"error", message:"Email格式不正確！"});
+      setNotiMessage({ type: "error", message: "Email格式不正確！" });
       return false;
     }
     if (password.length === 0) {
       setErrorMessate(["password", "密碼欄位必填！"]);
-      setNotiMessage({type:"error", message:"密碼欄位必填！"});
+      setNotiMessage({ type: "error", message: "密碼欄位必填！" });
       return false;
     }
     if (password.length <5 || password.length > 12) {
@@ -109,12 +108,12 @@ export default function AccountForm({ userData, current_page }) {
     }
     if (confirm_password.length === 0) {
       setErrorMessate(["confirm_password", "確認密碼欄位必填！"]);
-      setNotiMessage({type:"error", message:"確認密碼欄位必填！"});
+      setNotiMessage({ type: "error", message: "確認密碼欄位必填！" });
       return false;
     }
     if (confirm_password !== password) {
       setErrorMessate(["confirm_password", "確認密碼與密碼不相符！"]);
-      setNotiMessage({type:"error", message:"確認密碼與密碼不相符！"});
+      setNotiMessage({ type: "error", message: "確認密碼與密碼不相符！" });
       return false;
     }
     return true;
@@ -123,8 +122,8 @@ export default function AccountForm({ userData, current_page }) {
   // 註冊功能 (RegisterPage)
   async function Register() {
     setErrorMessate(["", ""]);
-    const is_check = checkData()
-    if(is_check){
+    const is_check = checkData();
+    if (is_check) {
       const req_data = { account, name, email, password, confirm_password };
       // fetch API 事件
       const result = await RegisterAPI({ req_data });
@@ -160,10 +159,10 @@ export default function AccountForm({ userData, current_page }) {
   }
 
   // 設定帳號 (SettingPage)
-  async function Setting(){
+  async function Setting() {
     setErrorMessate(["", ""]);
-    const is_check = checkData()
-    if(is_check){
+    const is_check = checkData();
+    if (is_check) {
       const req_data = { account, name, email, password, confirm_password };
       // fetch API 事件
       const result = await editAccountAPI(currentMember.id, req_data);
@@ -206,7 +205,7 @@ export default function AccountForm({ userData, current_page }) {
   // KeyDown 事件
   function handleKeyDown(key) {
     if (key === "Enter") {
-      current_page === 'register'? Register() : Setting()
+      current_page === "register" ? Register() : Setting();
     }
   }
 
@@ -284,22 +283,25 @@ export default function AccountForm({ userData, current_page }) {
         />
       </div>
 
-      { current_page === 'register'?
+      {current_page === "register" ? (
         <div className="register_btn_div">
-          <button className="submit_btn" onClick={Register}>註冊</button>
-          <Link to='/login'>
+          <button className="submit_btn" onClick={Register}>
+            註冊
+          </button>
+          <NavLink to="/login">
             <button className="cancel_btn">取消</button>
-          </Link>
+          </NavLink>
         </div>
-      :
-
+      ) : (
         <div className="setting_btn_div">
-          <button className="edit_btn" onClick={Setting}>儲存</button>
+          <button className="edit_btn" onClick={Setting}>
+            儲存
+          </button>
         </div>
-      }
+      )}
 
       {/* 通知訊息*/}
-      {is_alert && <Notification />} 
+      {is_alert && <Notification />}
     </div>
   );
 }
@@ -316,18 +318,20 @@ function FormInput({ data, onChange, onKeyDown, value, err_msg }) {
   return (
     <div className="input_div">
       <label htmlFor={data.title}> {data.title}</label>
-        <input
-          className={input_style}
-          id={data.title}
-          name={data.name}
-          type={data.type}
-          placeholder={data.placeholder}
-          onChange={(e) => {
-            onChange(e.target.value);
-          }}
-          onKeyDown={(e) => {onKeyDown(e.key)}}
-          value={value}
-        />
+      <input
+        className={input_style}
+        id={data.title}
+        name={data.name}
+        type={data.type}
+        placeholder={data.placeholder}
+        onChange={(e) => {
+          onChange(e.target.value);
+        }}
+        onKeyDown={(e) => {
+          onKeyDown(e.key);
+        }}
+        value={value}
+      />
       {/* 錯誤訊息 */}
       {message}
     </div>

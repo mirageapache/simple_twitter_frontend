@@ -3,11 +3,18 @@ import { useReply } from "context/ReplyContext";
 import moment from "moment";
 import { NavLink } from "react-router-dom";
 
-export default function ReplyList({current_page, replyOwner}) {
+export default function ReplyList({ current_page, replyOwner }) {
   const { replyList } = useReply();
 
   const reply = replyList.map((item) => {
-    return <ReplyItem key={item?.id} data={item} current_page={current_page} replyOwner={replyOwner} />;
+    return (
+      <ReplyItem
+        key={item?.id}
+        data={item}
+        current_page={current_page}
+        replyOwner={replyOwner}
+      />
+    );
   });
 
   return <div className="reply_list">{reply}</div>;
@@ -46,7 +53,7 @@ function ReplyItem({ data, current_page, replyOwner }) {
       {/* Avatar */}
       <div className="avatar_div">
         {data?.User?.avatar ? (
-          <NavLink to={`/profile/${data?.User?.id}`}>
+          <NavLink to={`/main/profile/${data?.User?.id}`}>
             <img
               className="avatar_img"
               src={data?.User?.avatar}
@@ -69,11 +76,11 @@ function ReplyItem({ data, current_page, replyOwner }) {
         <div className="card_body">
           <span className="reply_to">
             回覆
-            {current_page === 'tweet_content'?
+            {current_page === "tweet_content" ? (
               <p className="post_owner">@{replyOwner}</p>
-            :
+            ) : (
               <p className="post_owner">@{data?.Tweet?.User?.account}</p>
-            }
+            )}
           </span>
           <p className="reply_text">{data?.comment}</p>
         </div>

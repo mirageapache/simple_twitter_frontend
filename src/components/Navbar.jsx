@@ -26,6 +26,7 @@ export default function Navbar() {
   const { setIsAlert, setNotiMessage } = useNoti();
 
   useEffect(() => {
+    setLoading(false);
     if (!isAuthenticated) {
       return logout();
     } else {
@@ -48,8 +49,9 @@ export default function Navbar() {
 
   // 登出事件
   const handleClick = () => {
-    setNotiMessage({type:"info", message:"您已登出系統！"});
+    setNotiMessage({ type: "info", message: "您已登出系統！" });
     setIsAlert(true);
+    setLoading(false);
     logout();
   };
 
@@ -122,7 +124,7 @@ function NavItem({ text, svg_string, active, selfId, setActive }) {
       } else {
         svg_item = <IconHomeLight />;
       }
-      routePath = "main";
+      routePath = "/main/main";
       break;
     case "user":
       if (active === "profile") {
@@ -131,7 +133,7 @@ function NavItem({ text, svg_string, active, selfId, setActive }) {
       } else {
         svg_item = <IconUserLight />;
       }
-      routePath = `profile/${selfId}`;
+      routePath = `/main/profile/${selfId}`;
       break;
     case "config":
       if (active === "setting") {
@@ -140,7 +142,7 @@ function NavItem({ text, svg_string, active, selfId, setActive }) {
       } else {
         svg_item = <IconConfigLight />;
       }
-      routePath = "setting";
+      routePath = "/main/setting";
       break;
     default:
       break;

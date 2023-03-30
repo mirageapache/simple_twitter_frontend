@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "styles/auth_form.css";
 import { loginAPI } from "api/auth";
 import { useAuth } from "context/AuthContext";
@@ -40,23 +40,26 @@ export default function LoginForm({ current_page }) {
     if (result.status === 200) {
       localStorage.setItem("AuthToken", result.data.data.token);
       setLoginState(true);
-      setNotiMessage({type:"success", message:"登入成功！"});
+      setNotiMessage({ type: "success", message: "登入成功！" });
       setIsAlert(true);
-      current_page === "users" ? navigate("/") : navigate("/admin");
+      current_page === "users" ? navigate("/main") : navigate("/admin");
     } else {
       setLoginState(false);
       setIsAlert(true); //顯示錯誤通知
       if (result.response.status === 400) {
         setErrorMessage(["password", "密碼長度應為5~12字元！"]);
-        setNotiMessage({type:"error", message:"密碼長度應為5~12字元！"});
+        setNotiMessage({ type: "error", message: "密碼長度應為5~12字元！" });
       } else if (result.response.status === 401) {
         setErrorMessage(["password", "密碼錯誤！"]);
-        setNotiMessage({type:"error", message:"密碼錯誤！"});
+        setNotiMessage({ type: "error", message: "密碼錯誤！" });
       } else if (result.response.status === 404) {
         setErrorMessage(["account", "帳號未註冊！"]);
-        setNotiMessage({type:"error", message:"帳號未註冊！"});
+        setNotiMessage({ type: "error", message: "帳號未註冊！" });
       } else if (result.response.status === 500) {
-        setNotiMessage({type:"info", message:"伺服器流量過載！請稍後再試！"});
+        setNotiMessage({
+          type: "info",
+          message: "伺服器流量過載！請稍後再試！",
+        });
       }
       return;
     }
@@ -71,8 +74,6 @@ export default function LoginForm({ current_page }) {
 
   return (
     <div className="login_form">
-
-
       <div className="input_group">
         <FormInput
           data={{
@@ -111,19 +112,19 @@ export default function LoginForm({ current_page }) {
 
       {current_page === "users" ? (
         <div className="btn_group">
-          <Link to="/register">
+          <NavLink to="/register">
             <button className="link_btn register_btn">註冊</button>
-          </Link>
+          </NavLink>
           <span>‧</span>
-          <Link to="/admin_login">
+          <NavLink to="/admin_login">
             <button className="link_btn admin_login_btn">後台登入</button>
-          </Link>
+          </NavLink>
         </div>
       ) : (
         <div className="btn_group">
-          <Link to="/login">
+          <NavLink to="/login">
             <button className="link_btn user_login_btn">前台登入</button>
-          </Link>
+          </NavLink>
         </div>
       )}
 

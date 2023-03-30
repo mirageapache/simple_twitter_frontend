@@ -42,7 +42,7 @@ function TweetItem({ data }) {
       setReplyList(result.data.Replies); //設定該則推文的回覆列表
       if (type === "content") {
         // 導至TweetPage
-        navigate(`/tweet/:tweet_id=${tweet_id}`);
+        navigate(`/main/tweet/:tweet_id=${tweet_id}`);
       } else {
         setReplyModal(true);
       }
