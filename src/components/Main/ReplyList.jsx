@@ -47,7 +47,7 @@ function ReplyItem({ data, current_page, replyOwner }) {
       {/* Avatar */}
       <div className="avatar_div">
         {data?.User?.avatar ? (
-          <NavLink to={`profile/${data?.User?.id}`}>
+          <NavLink to={`/profile/${data?.User?.id}`}>
             <img
               className="avatar_img"
               src={data?.User?.avatar}

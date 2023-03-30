@@ -63,11 +63,9 @@ export default function Content() {
         <div className="post_header">
           <span className="avatar_span">
             {tweet.User.avatar ? (
-              <img
-                className="avatar_img"
-                src={tweet.User.avatar}
-                alt="user_avatar"
-              />
+              <NavLink to={`profile/${tweet?.User?.id}`}>
+              <img className="avatar_img" src={tweet?.User?.avatar} alt="user_avatar"/>
+              </NavLink>
             ) : (
               <IconAvatar className="avatar_img" />
             )}

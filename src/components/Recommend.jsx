@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "context/AuthContext";
 import { useNoti } from "context/NotiContext";
 // api
@@ -10,6 +11,8 @@ import {
 
 // style
 import "styles/recommend.css";
+import "styles/follow_btn.css";
+import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
 
 export default function Recommend() {
   const [recommendData, setRecommendData] = useState([]);
@@ -46,10 +49,9 @@ export default function Recommend() {
           // 需要重新取得遠端資料：為了排序
           setLoading(false);
           // 設定通知訊息
-          followedState?
-            setNotiMessage({type:"info", message:"已取消跟隨！"})
-          :
-            setNotiMessage({type:"success", message:"已跟随！"})
+          followedState
+            ? setNotiMessage({ type: "info", message: "已取消跟隨！" })
+            : setNotiMessage({ type: "success", message: "已跟随！" });
           setIsAlert(true);
           setRenew(!reNew);
         }
@@ -82,7 +84,7 @@ function RecommendList({ recommendData, handleFollowShip }) {
       return (
         <RecommendItem
           key={data?.id}
-          btnClass="recommend_btn_active"
+          btnClass="followStatus_button_active"
           data={data}
           handleFollowShip={handleFollowShip}
         />
@@ -91,7 +93,7 @@ function RecommendList({ recommendData, handleFollowShip }) {
       return (
         <RecommendItem
           key={data?.id}
-          btnClass="recommend_btn"
+          btnClass="followStatus_button"
           data={data}
           handleFollowShip={handleFollowShip}
         />
@@ -104,11 +106,18 @@ function RecommendItem({ data, btnClass, handleFollowShip }) {
   return (
     <div className="recommend_item">
       <div className="recommend_item_info">
-        <img
-          src={data?.avatar}
-          alt="user avatar"
-          className="recommend_item_avatar"
-        />
+        {data?.avatar ? (
+          <NavLink to={`/profile/${data?.id}`}>
+            <img
+              src={data?.avatar}
+              alt="user avatar"
+              className="recommend_item_avatar"
+            />
+          </NavLink>
+        ) : (
+          <IconAvatar />
+        )}
+
         <div className="item_text">
           <p className="name">{data?.name}</p>
           <p className="account">@{data?.account}</p>

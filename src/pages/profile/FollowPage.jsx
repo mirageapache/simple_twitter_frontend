@@ -64,7 +64,7 @@ function FollowPage() {
       }
     };
     getFollowData(apiId);
-  }, [reNew]);
+  }, [apiId, followMode, reNew]);
 
   // 更換分頁
   function onViewChange(modeState) {
