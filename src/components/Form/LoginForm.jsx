@@ -134,9 +134,10 @@ export default function LoginForm({ current_page }) {
 }
 
 function FormInput({ data, onChange, onKeyDown, value, errmsg }) {
+  let input_style = "input"; 
   let message = "";
-
   if (errmsg[0] === data.name) {
+    input_style = "input_error";
     message = <label className="error_message">{errmsg[1]}</label>;
   }
 
@@ -144,7 +145,7 @@ function FormInput({ data, onChange, onKeyDown, value, errmsg }) {
     <div className="input_div">
       <label htmlFor={data.title}>{data.title}</label>
       <input
-        className="input"
+        className={input_style}
         id={data.title}
         name={data.name}
         type={data.type}
