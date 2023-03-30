@@ -14,14 +14,14 @@ export default function MainPage({ path }) {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      logout();
+      return logout();
     }
   }, [logout, isAuthenticated]);
 
   return (
     <div className="main_page">
       {/* 通知訊息*/}
-      {is_alert && <Notification />} 
+      {is_alert && <Notification />}
 
       {/* 導覽列 */}
       <section className="nav_section">

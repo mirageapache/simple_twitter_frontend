@@ -24,7 +24,7 @@ const navbarData = [
 
 // function
 function FollowPage() {
-  const { currentMember } = useAuth();
+  const { isAuthenticated, logout, currentMember } = useAuth();
   const { user_id } = useParams();
   const [identity, setIdentity] = useState(null);
   const apiId = Number(user_id);
@@ -43,35 +43,40 @@ function FollowPage() {
   const [followData, setFollowData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [reNew, setRenew] = useState(false);
+
   // 取得資料
   useEffect(() => {
-    const getFollowData = async (apiId) => {
-      try {
-        setLoading(false);
-        let rawFollowData =
-          followMode === "followers"
-            ? await getFollowersDataAPI(apiId)
-            : await getFollowingsDataAPI(apiId);
-        let dataSetState =
-          followMode === "followers"
-            ? rawFollowData.map((item) => ({
-                ...item,
-                checkFollowed: item?.Followers?.is_followed,
-              }))
-            : rawFollowData.map((item) => ({
-                ...item,
-                checkFollowed: item?.Followings?.is_followed,
-              }));
-        setFollowData(dataSetState);
-        setLoading(true);
-        //判斷顯示
-        selfId === apiId ? setIdentity("self") : setIdentity("other");
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getFollowData(apiId);
-  }, [apiId, followMode, reNew, identity, selfId]);
+    if (!isAuthenticated) {
+      return logout();
+    } else {
+      const getFollowData = async (apiId) => {
+        try {
+          setLoading(false);
+          let rawFollowData =
+            followMode === "followers"
+              ? await getFollowersDataAPI(apiId)
+              : await getFollowingsDataAPI(apiId);
+          let dataSetState =
+            followMode === "followers"
+              ? rawFollowData.map((item) => ({
+                  ...item,
+                  checkFollowed: item?.Followers?.is_followed,
+                }))
+              : rawFollowData.map((item) => ({
+                  ...item,
+                  checkFollowed: item?.Followings?.is_followed,
+                }));
+          setFollowData(dataSetState);
+          setLoading(true);
+          //判斷顯示
+          selfId === apiId ? setIdentity("self") : setIdentity("other");
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      getFollowData(apiId);
+    }
+  }, [isAuthenticated, logout, apiId, followMode, reNew, identity, selfId]);
 
   // 更換分頁
   function onViewChange(modeState) {

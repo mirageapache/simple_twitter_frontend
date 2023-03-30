@@ -1,8 +1,11 @@
+import { useEffect } from "react";
 import { ReplyList, ReplyModal } from "components";
+import moment from "moment";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "context/AuthContext";
 import { useTweet } from "context/TweetContext";
 import { useReply } from "context/ReplyContext";
-import { NavLink } from "react-router-dom";
-import moment from "moment";
+
 // style
 import "styles/tweet_content.css";
 // svg
@@ -13,8 +16,15 @@ import { ReactComponent as IconLike } from "assets/icons/like.svg";
 import { ReactComponent as IconLikeLight } from "assets/icons/like_light.svg";
 
 export default function Content() {
+  const { isAuthenticated, logout } = useAuth();
   const { tweet } = useTweet();
   const { replyModal, setReplyModal } = useReply();
+  // 驗證
+  useEffect(() => {
+    if (!isAuthenticated) {
+      return logout();
+    }
+  }, [isAuthenticated, logout]);
 
   // 設定時間格式
   let rowRelativeTime = moment(tweet.updatedAt)

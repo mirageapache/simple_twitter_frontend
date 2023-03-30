@@ -11,9 +11,6 @@ export default function Interactive({ id, state }) {
   const { setIsAlert, setNotiMessage } = useNoti();
 
   function handleFollowShip(id, state) {
-    console.log("here");
-    console.log(id);
-    console.log(state);
     async function toggleFollowShip(id, state) {
       try {
         const result = state

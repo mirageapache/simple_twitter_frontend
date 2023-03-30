@@ -26,6 +26,7 @@ export default function Navbar() {
   const { setIsAlert, setNotiMessage } = useNoti();
 
   useEffect(() => {
+    setLoading(false);
     if (!isAuthenticated) {
       return logout();
     } else {
@@ -50,6 +51,7 @@ export default function Navbar() {
   const handleClick = () => {
     setNotiMessage({ type: "info", message: "您已登出系統！" });
     setIsAlert(true);
+    setLoading(false);
     logout();
   };
 

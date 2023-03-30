@@ -35,7 +35,7 @@ const navbarData = [
 
 // function
 function ProfilePage() {
-  const { currentMember } = useAuth();
+  const { isAuthenticated, logout, currentMember } = useAuth();
   const { user_id } = useParams();
   const apiId = Number(user_id);
   const selfId = Number(currentMember.id);
@@ -48,24 +48,29 @@ function ProfilePage() {
 
   //判斷顯示
   const identity = selfId === apiId ? "self" : "other";
-  // 取得使用者資訊
+
+  // 取得使用者資訊(還要再改)
   useEffect(() => {
-    const getProfileData = async () => {
-      try {
-        const result = await getUserDataAPI(apiId);
-        if (result.status === 200) {
-          const rawProfileData = result.data;
-          setProfileData(rawProfileData);
+    if (!isAuthenticated) {
+      return logout();
+    } else {
+      const getProfileData = async () => {
+        try {
+          const result = await getUserDataAPI(apiId);
+          if (result.status === 200) {
+            const rawProfileData = result.data;
+            setProfileData(rawProfileData);
+          }
+        } catch (err) {
+          console.log(err);
         }
-      } catch (err) {
-        console.log(err);
+      };
+      if (reRender) {
+        getProfileData();
+        setReRender(false);
       }
-    };
-    if (reRender) {
-      getProfileData();
-      setReRender(false);
     }
-  }, [apiId, reRender]);
+  }, [isAuthenticated, logout, apiId, reRender]);
 
   //判斷分頁
   let partialView;
