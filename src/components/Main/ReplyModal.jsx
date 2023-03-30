@@ -48,10 +48,12 @@ export default function ReplyModal() {
     // 資料驗證
     if (comment.length === 0) {
       setNotiMessage({ type: "error", message: "請輸入回覆內容！" });
+      setIsAlert(true);
       return;
     }
     if (comment.length > 140) {
       setNotiMessage({ type: "error", message: "回覆內容字數不可超過140字！" });
+      setIsAlert(true);
       return;
     }
 
