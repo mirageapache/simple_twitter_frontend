@@ -57,6 +57,10 @@
   border-color: var(--light-blue-color);
 }
 
+.input_div .input_error{
+  border-color: var(--error-color) !important;
+}
+
 .login_form .input_div .error_message,
 .account_form .input_div .error_message{
   position: absolute;
