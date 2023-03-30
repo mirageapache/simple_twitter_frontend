@@ -40,7 +40,7 @@ export default function App() {
                   <Route path="setting" element={<SettingPage />} />
                 </Route>
                 
-                <Route path="/admin_login" element={<AdminLoginPage />} />
+                <Route path="admin_login" element={<AdminLoginPage />} />
                 <Route path="/admin" element={<AdminPage />}>
                   <Route index element={<AdminTweetsPage />} />
                   <Route path="tweets" element={<AdminTweetsPage />} />
