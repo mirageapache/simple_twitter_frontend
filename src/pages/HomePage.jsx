@@ -6,13 +6,15 @@ import LoadingMes from "components/LoadingMes";
 const HomePage = () => {
   const { logout } = useAuth();
   useEffect(() => {
-    return logout();
+    console.log('homepage execute logout');
+    logout();
   }, [logout]);
 
   return (
-    <div>
-      <LoadingMes />
-    </div>
+    <></>
+    // <div>
+    //   <LoadingMes />
+    // </div>
   );
 };
 
