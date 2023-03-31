@@ -29,7 +29,7 @@ const navbarData = [
 
 // function
 function ProfileList({ apiId }) {
-  console.log("apiId", apiId);
+  // console.log("apiId", apiId);
   let dataId = apiId;
   const [currentView, setCurrentView] = useState("tweet");
   const { tweetList, setTweetList } = useTweet();

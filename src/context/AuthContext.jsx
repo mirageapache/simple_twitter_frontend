@@ -66,7 +66,6 @@ export const AuthProvider = ({ children }) => {
           }
         },
         logout: () => {
-          console.log('AuthContext execute logout');
           localStorage.removeItem("AuthToken");
           setPayload(null);
           setIsAuthenticated(false);
