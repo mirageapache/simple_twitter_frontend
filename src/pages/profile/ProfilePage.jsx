@@ -1,49 +1,31 @@
 import { useState, useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { useLocation, NavLink, useParams } from "react-router-dom";
 import { useAuth } from "context/AuthContext";
-import { useTweet } from "context/TweetContext";
 
 // api
 import { getUserDataAPI } from "api/userProfile";
-import {
-  getUserTweetListAPI,
-  getUserReplyListAPI,
-  getUserLikeListAPI,
-} from "api/main";
-
 // style
 import "styles/profile.css";
 
 // components
 import ProfileGuide from "components/Profile/ProfileGuide";
 import Interactive from "components/Profile/Interactive";
-import TweetNavbar from "components/Profile/TweetNavbar";
-import TweetList from "components/Main/TweetList.jsx";
-import ReplyList from "components/Main/ReplyList";
 import ProfileModal from "components/Profile/ProfileModal.jsx";
-
+import ProfileList from "components/Profile/ProfileList";
 import { useNoti } from "context/NotiContext";
 import { useReply } from "context/ReplyContext";
-
 import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
 import default_cover from "assets/images/default_user_cover.jpg";
-
-const navbarData = [
-  { title: "推文", view: "tweet" },
-  { title: "回覆", view: "reply" },
-  { title: "喜歡", view: "like" },
-];
 
 // function
 function ProfilePage() {
   const { isAuthenticated, logout, currentMember } = useAuth();
+  const { pathname } = useLocation();
   const { user_id } = useParams();
   const apiId = Number(user_id);
   const selfId = Number(currentMember.id);
   const [modal_toggle, setModalToggle] = useState(false);
-  const [reRender, setReRender] = useState(true);
-  const { tweetList, setTweetList } = useTweet();
-  const { replyList, setReplyList } = useReply();
+  const [reRender, setReRender] = useState(false);
   const [profileData, setProfileData] = useState({});
   const [currentView, setCurrentView] = useState("tweet");
   const { setActiveItem } = useNoti();
@@ -67,72 +49,9 @@ function ProfilePage() {
           console.log(err);
         }
       };
-      if (reRender) {
-        getProfileData();
-        setReRender(false);
-      }
+      getProfileData();
     }
-  }, [isAuthenticated, logout, apiId, reRender]);
-
-  //判斷分頁
-  let partialView;
-  if (currentView === "tweet") {
-    // 推文分頁
-    partialView = <TweetList list_data={tweetList} />;
-  } else if (currentView === "reply") {
-    // 回覆分頁
-    partialView = <ReplyList list_data={replyList} />;
-  } else {
-    //喜歡分頁
-    partialView = <TweetList list_data={tweetList} />;
-  }
-
-  async function getUserTweetList() {
-    const result = await getUserTweetListAPI(apiId);
-    if (result.status === 200) {
-      setTweetList(result.data);
-    }
-  }
-
-  // 取得使用者推文
-  useEffect(() => {
-    if (reRender) {
-      getUserTweetList();
-      setReRender(false);
-      setCurrentView("tweet");
-    }
-  }, [apiId, reRender]);
-
-  // 更換分頁
-  function onViewChange(view) {
-    // 取得個人回覆 function
-    async function getUserReplyList() {
-      const result = await getUserReplyListAPI(apiId);
-      if (result.status === 200) {
-        setReplyList(result.data);
-      }
-    }
-
-    //取得喜歡的推文 function
-    async function getUserLikeList() {
-      const result = await getUserLikeListAPI(apiId);
-      if (result.status === 200) {
-        const new_data = result.data.map((item) => {
-          return item.Tweet;
-        });
-        setTweetList(new_data);
-      }
-    }
-
-    if (view === "reply") {
-      getUserReplyList(); // 取得個人回覆
-    } else if (view === "like") {
-      getUserLikeList(); // 取得喜歡的推文
-    } else {
-      getUserTweetList(); // 取得個人推文
-    }
-    setCurrentView(view);
-  }
+  }, [isAuthenticated, logout, pathname, apiId, reRender]);
 
   function onModalToggle(is_active, rerender) {
     setModalToggle(is_active);
@@ -226,17 +145,12 @@ function ProfilePage() {
             </div>
           </div>
         </div>
-        <TweetNavbar
-          navbarData={navbarData}
-          currentView={currentView}
-          onViewChange={onViewChange}
-        />
-
-        {/* 分頁 */}
-        {partialView}
+        <ProfileList apiId={apiId} />
       </div>
 
-      {modal_toggle && <ProfileModal onModalToggle={onModalToggle} />}
+      {modal_toggle && (
+        <ProfileModal onModalToggle={onModalToggle} reRender={reRender} />
+      )}
     </>
   );
 }

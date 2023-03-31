@@ -59,11 +59,7 @@ function TweetItem({ tweet, onDelete }) {
           </span>
         </div>
         <div className="tweet-content">
-          <p>
-            {tweet.description.length >= 50
-              ? tweet.description + "..."
-              : tweet.description}
-          </p>
+          <p>{tweet.description}</p>
         </div>
       </div>
       <IconDelete
