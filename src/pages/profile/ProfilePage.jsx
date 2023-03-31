@@ -13,7 +13,6 @@ import Interactive from "components/Profile/Interactive";
 import ProfileModal from "components/Profile/ProfileModal.jsx";
 import ProfileList from "components/Profile/ProfileList";
 import { useNoti } from "context/NotiContext";
-import { useReply } from "context/ReplyContext";
 import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
 import default_cover from "assets/images/default_user_cover.jpg";
 

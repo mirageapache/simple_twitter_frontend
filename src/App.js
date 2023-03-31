@@ -18,7 +18,7 @@ import AdminUsersPage from "pages/admin/AdminUsersPage";
 
 
 export default function App() {
-  console.clear();
+  // console.clear();
   return (
     <div className="app">
       <div className="container">
