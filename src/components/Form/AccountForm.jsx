@@ -271,7 +271,7 @@ export default function AccountForm({ userData, current_page }) {
         {/* Confirm Password */}
         <FormInput
           data={{
-            title: "密碼確認",
+            title: "確認密碼",
             name: "confirm_password",
             type: "password",
             placeholder: "請再次輸入密碼",
