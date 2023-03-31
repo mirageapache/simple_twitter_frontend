@@ -72,32 +72,3 @@
 .notification .info_icon{
   border-color: var(--light-blue-color);
 }
-
-.loading_wrapper{
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 180px;
-}
-
-.loading_wrapper h3{
-  font-size: 20px;
-}
-
-.loading_icon{
-  width: 25px;
-  height: 25px;
-  color: var(--secondary-color);
-  fill: var(--secondary-color);
-
-}
-
-.loading-animation{
-  animation:loading 1s infinite linear;
-}
- 
-@keyframes loading {
-  from{transform:rotate(0deg);}
-  to{transform:rotate(360deg);}
-}
