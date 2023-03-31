@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getUserDataAPI } from "api/userProfile";
 import { createFollowShipAPI, unFollowAPI } from "api/userfollow";
 import { useNoti } from "context/NotiContext";
 import "styles/follow_btn.css";
@@ -6,9 +7,23 @@ import "styles/follow_btn.css";
 import { ReactComponent as IconNotificationOK } from "assets/icons/notification_ok.svg";
 import { ReactComponent as IconMailLight } from "assets/icons/mail_light.svg";
 
-export default function Interactive({ id, state }) {
-  const [isFollow, setIsFollow] = useState(state);
+export default function Interactive({ id }) {
   const { setIsAlert, setNotiMessage } = useNoti();
+  const [isFollowed, setIsFollowed] = useState(null);
+
+  useEffect(() => {
+    const getProfileData = async () => {
+      try {
+        const result = await getUserDataAPI(id);
+        if (result.status === 200) {
+          setIsFollowed(result?.data?.is_followed);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getProfileData();
+  }, [id]);
 
   function handleFollowShip(id, state) {
     async function toggleFollowShip(id, state) {
@@ -22,7 +37,7 @@ export default function Interactive({ id, state }) {
             ? setNotiMessage({ type: "info", message: "已取消跟隨！" })
             : setNotiMessage({ type: "success", message: "已跟随！" });
           setIsAlert(true);
-          setIsFollow(!isFollow);
+          setIsFollowed(!state);
         }
       } catch (err) {
         console.log(err);
@@ -34,12 +49,12 @@ export default function Interactive({ id, state }) {
     <div className="interactive">
       <IconMailLight className="interact-icon" />
       <IconNotificationOK className="interact-icon interact-icon-active" />
-      {isFollow ? (
+      {isFollowed ? (
         <button
           type="button"
           className="followStatus_button_active"
           onClick={() => {
-            handleFollowShip(id, isFollow);
+            handleFollowShip(id, isFollowed);
           }}
         >
           正在跟隨
@@ -49,7 +64,7 @@ export default function Interactive({ id, state }) {
           type="button"
           className="followStatus_button"
           onClick={() => {
-            handleFollowShip(id, isFollow);
+            handleFollowShip(id, isFollowed);
           }}
         >
           跟隨

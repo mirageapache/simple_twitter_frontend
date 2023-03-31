@@ -4,7 +4,7 @@ function FollowItem({
   followMode,
   btnClass,
   handleFollowShip,
-  identity,
+  selfId,
 }) {
   let otherUserInfo;
   let followShipId;
@@ -30,7 +30,9 @@ function FollowItem({
       <div className="follow-item-container">
         <div className="follow-item-user">
           <p className="follow-tweet-name">{otherUserInfo?.name}</p>
-          {identity === "self" ? (
+          {selfId === followShipId ? (
+            ""
+          ) : (
             <button
               type="button"
               className={btnClass}
@@ -40,8 +42,6 @@ function FollowItem({
             >
               {follow.checkFollowed ? "正在跟隨" : "跟隨"}
             </button>
-          ) : (
-            ""
           )}
         </div>
         <div className="follow-item-tweet">
@@ -52,7 +52,7 @@ function FollowItem({
   );
 }
 
-function followList({ followData, followMode, handleFollowShip, identity }) {
+function followList({ followData, followMode, handleFollowShip, selfId }) {
   return (
     <div className="follow-list">
       {followData.map((follow) => {
@@ -68,7 +68,7 @@ function followList({ followData, followMode, handleFollowShip, identity }) {
               follow={follow}
               followMode={followMode}
               handleFollowShip={handleFollowShip}
-              identity={identity}
+              selfId={selfId}
             />
           );
         } else {
@@ -83,7 +83,7 @@ function followList({ followData, followMode, handleFollowShip, identity }) {
               follow={follow}
               followMode={followMode}
               handleFollowShip={handleFollowShip}
-              identity={identity}
+              selfId={selfId}
             />
           );
         }

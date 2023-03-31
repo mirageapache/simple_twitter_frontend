@@ -26,8 +26,7 @@ const navbarData = [
 function FollowPage() {
   const { isAuthenticated, logout, currentMember } = useAuth();
   const { user_id } = useParams();
-  const [identity, setIdentity] = useState(null);
-  const apiId = Number(user_id);
+  const apiId = Number(user_id); //正在瀏覽誰
   const selfId = Number(currentMember?.id);
   // 取表頭資料
   const { pathname, state } = useLocation();
@@ -68,15 +67,13 @@ function FollowPage() {
                 }));
           setFollowData(dataSetState);
           setLoading(true);
-          //判斷顯示
-          selfId === apiId ? setIdentity("self") : setIdentity("other");
         } catch (err) {
           console.log(err);
         }
       };
       getFollowData(apiId);
     }
-  }, [isAuthenticated, logout, apiId, followMode, reNew, identity, selfId]);
+  }, [isAuthenticated, logout, apiId, followMode, reNew]);
 
   // 更換分頁
   function onViewChange(modeState) {
@@ -133,7 +130,7 @@ function FollowPage() {
           followData={followData}
           followMode={followMode}
           handleFollowShip={handleFollowShip}
-          identity={identity}
+          selfId={selfId}
         />
       ) : (
         ""
