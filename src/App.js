@@ -4,6 +4,7 @@ import { TweetProvider } from "context/TweetContext";
 import { ReplyProvider } from "context/ReplyContext";
 import { NotiProvider } from "context/NotiContext";
 import { RecommendProvider } from "context/RecommendContext";
+import { FollowProvider } from "context/FollowContext";
 // style
 import "styles/app.css";
 // page
@@ -26,41 +27,43 @@ export default function App() {
           <TweetProvider>
             <ReplyProvider>
               <NotiProvider>
-                <RecommendProvider>
-                  <Routes>
-                    <Route path="*" element={<HomePage />} />
-                    <Route path="register" element={<RegisterPage />} />
-                    <Route path="login" element={<LoginPage />} />
-                    <Route path="/main" element={<MainPage />}>
-                      <Route index element={<MainContent />} />
-                      <Route path="main" element={<MainContent />} />
-                      <Route
-                        path="tweet/:tweet_id"
-                        element={<TweetContent />}
-                      />
-                      <Route
-                        path="profile/:user_id"
-                        element={<ProfilePage />}
-                      />
-                      <Route
-                        path="follow/:user_id/followers"
-                        element={<FollowPage />}
-                      ></Route>
-                      <Route
-                        path="follow/:user_id/followings"
-                        element={<FollowPage />}
-                      ></Route>
-                      <Route path="setting" element={<SettingPage />} />
-                    </Route>
+                <FollowProvider>
+                  <RecommendProvider>
+                    <Routes>
+                      <Route path="*" element={<HomePage />} />
+                      <Route path="register" element={<RegisterPage />} />
+                      <Route path="login" element={<LoginPage />} />
+                      <Route path="/main" element={<MainPage />}>
+                        <Route index element={<MainContent />} />
+                        <Route path="main" element={<MainContent />} />
+                        <Route
+                          path="tweet/:tweet_id"
+                          element={<TweetContent />}
+                        />
+                        <Route
+                          path="profile/:user_id"
+                          element={<ProfilePage />}
+                        />
+                        <Route
+                          path="follow/:user_id/followers"
+                          element={<FollowPage />}
+                        ></Route>
+                        <Route
+                          path="follow/:user_id/followings"
+                          element={<FollowPage />}
+                        ></Route>
+                        <Route path="setting" element={<SettingPage />} />
+                      </Route>
 
-                    <Route path="admin_login" element={<AdminLoginPage />} />
-                    <Route path="/admin" element={<AdminPage />}>
-                      <Route index element={<AdminTweetsPage />} />
-                      <Route path="tweets" element={<AdminTweetsPage />} />
-                      <Route path="users" element={<AdminUsersPage />} />
-                    </Route>
-                  </Routes>
-                </RecommendProvider>
+                      <Route path="admin_login" element={<AdminLoginPage />} />
+                      <Route path="/admin" element={<AdminPage />}>
+                        <Route index element={<AdminTweetsPage />} />
+                        <Route path="tweets" element={<AdminTweetsPage />} />
+                        <Route path="users" element={<AdminUsersPage />} />
+                      </Route>
+                    </Routes>
+                  </RecommendProvider>
+                </FollowProvider>
               </NotiProvider>
             </ReplyProvider>
           </TweetProvider>

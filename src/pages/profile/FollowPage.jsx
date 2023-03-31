@@ -3,6 +3,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { useAuth } from "context/AuthContext";
 import { useRecommend } from "context/RecommendContext";
 import { useNoti } from "context/NotiContext";
+import { useFollow } from "context/FollowContext";
 
 import {
   getFollowersDataAPI,
@@ -29,6 +30,7 @@ const navbarData = [
 function FollowPage() {
   const { isAuthenticated, logout, currentMember } = useAuth();
   const { renewRecommendList } = useRecommend();
+  const { toggleFollowed } = useFollow();
   const { setIsAlert, setNotiMessage } = useNoti();
   const { user_id } = useParams();
   const apiId = Number(user_id); //正在瀏覽誰
@@ -78,7 +80,7 @@ function FollowPage() {
       };
       getFollowData(apiId);
     }
-  }, [isAuthenticated, logout, apiId, followMode, reNew]);
+  }, [isAuthenticated, logout, apiId, followMode, reNew, toggleFollowed]);
 
   // 更換分頁
   function onViewChange(modeState) {

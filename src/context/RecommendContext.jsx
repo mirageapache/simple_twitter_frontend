@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 import { useNoti } from "context/NotiContext";
+import { useFollow } from "context/FollowContext";
 // api
 // api
 import {
@@ -23,6 +24,7 @@ export const RecommendProvider = ({ children }) => {
   const { setIsAlert, setNotiMessage } = useNoti();
   const [recommendData, setRecommendData] = useState([]); //存取recommend
   const [reNewRecommend, setReNewRecommend] = useState(true); //用toogle來反轉
+  const { toggleRenderFollow } = useFollow();
 
   // 取得推薦
   useEffect(() => {
@@ -62,6 +64,8 @@ export const RecommendProvider = ({ children }) => {
                 setIsAlert(true);
                 // 需要重新取得遠端資料：為了排序
                 setReNewRecommend(!reNewRecommend);
+                // 刷新中間區塊
+                toggleRenderFollow(true);
               }
             } catch (err) {
               console.log(err);

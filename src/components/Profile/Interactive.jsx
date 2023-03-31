@@ -3,6 +3,7 @@ import { getUserDataAPI } from "api/userProfile";
 import { createFollowShipAPI, unFollowAPI } from "api/userfollow";
 import { useNoti } from "context/NotiContext";
 import { useRecommend } from "context/RecommendContext";
+import { useFollow } from "context/FollowContext";
 import "styles/follow_btn.css";
 // svg
 import { ReactComponent as IconNotificationOK } from "assets/icons/notification_ok.svg";
@@ -11,6 +12,7 @@ import { ReactComponent as IconMailLight } from "assets/icons/mail_light.svg";
 export default function Interactive({ id }) {
   const { setIsAlert, setNotiMessage } = useNoti();
   const { renewRecommendList } = useRecommend();
+  const { toggleFollowed } = useFollow();
   const [isFollowed, setIsFollowed] = useState(null);
 
   useEffect(() => {
@@ -25,7 +27,7 @@ export default function Interactive({ id }) {
       }
     };
     getProfileData();
-  }, [id]);
+  }, [id, toggleFollowed]);
 
   function handleFollowShip(id, state) {
     async function toggleFollowShip(id, state) {
