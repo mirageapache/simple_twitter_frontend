@@ -31,9 +31,7 @@ export const RecommendProvider = ({ children }) => {
         try {
           console.log("getRecommend");
           let rawRecommendData = await getRecommendAPI();
-          console.log("rawRecommendData", rawRecommendData);
           setRecommendData(rawRecommendData);
-          // console.log("rawRecommendData ", rawRecommendData);
         } catch (err) {
           console.log(err);
         }

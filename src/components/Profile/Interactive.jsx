@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getUserDataAPI } from "api/userProfile";
 import { createFollowShipAPI, unFollowAPI } from "api/userfollow";
 import { useNoti } from "context/NotiContext";
+import { useRecommend } from "context/RecommendContext";
 import "styles/follow_btn.css";
 // svg
 import { ReactComponent as IconNotificationOK } from "assets/icons/notification_ok.svg";
@@ -9,6 +10,7 @@ import { ReactComponent as IconMailLight } from "assets/icons/mail_light.svg";
 
 export default function Interactive({ id }) {
   const { setIsAlert, setNotiMessage } = useNoti();
+  const { renewRecommendList } = useRecommend();
   const [isFollowed, setIsFollowed] = useState(null);
 
   useEffect(() => {
@@ -31,13 +33,14 @@ export default function Interactive({ id }) {
         const result = state
           ? await unFollowAPI(id)
           : await createFollowShipAPI(id);
-        if (result.status === "success") {
+        if (result?.status === "success") {
           // 設定通知訊息
           state
             ? setNotiMessage({ type: "info", message: "已取消跟隨！" })
             : setNotiMessage({ type: "success", message: "已跟随！" });
           setIsAlert(true);
           setIsFollowed(!state);
+          renewRecommendList(true);
         }
       } catch (err) {
         console.log(err);
