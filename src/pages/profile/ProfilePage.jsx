@@ -30,7 +30,8 @@ function ProfilePage() {
 
   //判斷顯示
   const identity = selfId === apiId ? "self" : "other";
-  setActiveItem("profile");
+  setActiveItem('profile');
+  
   // 取得使用者資訊(還要再改)
   useEffect(() => {
     if (!isAuthenticated) {
@@ -51,9 +52,9 @@ function ProfilePage() {
     }
   }, [isAuthenticated, logout, pathname, apiId, reRender]);
 
-  function onModalToggle(is_active, rerender) {
+  function onModalToggle(is_active, is_updatae) {
     setModalToggle(is_active);
-    rerender && setReRender(rerender);
+    is_updatae && setReRender(!reRender);
   }
 
   return (
@@ -147,7 +148,7 @@ function ProfilePage() {
       </div>
 
       {modal_toggle && (
-        <ProfileModal onModalToggle={onModalToggle} reRender={reRender} />
+        <ProfileModal onModalToggle={onModalToggle} />
       )}
     </>
   );
