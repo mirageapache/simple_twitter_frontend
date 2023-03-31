@@ -11,7 +11,7 @@ import "styles/profileModal.css";
 import { ReactComponent as IconClose } from "assets/icons/close.svg";
 import { ReactComponent as IconAddPhoto } from "assets/icons/addphoto.svg";
 
-export default function ReplyModal({ onModalToggle }) {
+export default function ReplyModal({ preAvatar, preCover, onModalToggle }) {
   const [name, setName] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [avatar, setAvatar] = useState(null); // 處理avatar預覽
@@ -136,11 +136,24 @@ export default function ReplyModal({ onModalToggle }) {
         </div>
         <div className="modal_body">
           <div className="modal-cover-image">
-            <img
-              src={cover}
-              alt="user cover img-gray-panel"
-              className="user_cover"
-            />
+
+            {cover?
+              <>
+                <img
+                  src={cover}
+                  alt="user cover img-gray-panel"
+                  className="user_cover"
+                />
+              </>
+            :
+              <>
+                <img
+                  src={preCover}
+                  alt="user cover img-gray-panel"
+                  className="user_cover"
+                />
+              </>
+            }
             <span className="cover-gray-panel">
               <div className="cover-edit-setting">
                 <label className="svg-label" htmlFor="upload_cover">
@@ -160,11 +173,23 @@ export default function ReplyModal({ onModalToggle }) {
             </span>
           </div>
           <div className="modal-avatar-wrapper">
-            <img
-              src={avatar}
-              alt="user avatar"
-              className=" modal-avatar-img avatar-container"
-            />
+            {avatar?
+              <>
+                <img
+                  src={avatar}
+                  alt="user avatar"
+                  className=" modal-avatar-img avatar-container"
+                />
+              </>
+            :
+              <>
+                <img
+                  src={preAvatar}
+                  alt="user avatar"
+                  className=" modal-avatar-img avatar-container"
+                />
+              </>
+            }
             <span className="avatar-gray-panel">
               <label htmlFor="upload_avatar" className="avatar-edit-setting">
                 <IconAddPhoto className="setting-icon-svg add-photo-icon" />
