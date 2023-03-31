@@ -27,6 +27,8 @@ function ProfilePage() {
   const [reRender, setReRender] = useState(false);
   const [profileData, setProfileData] = useState({});
   const { setActiveItem } = useNoti();
+  const [preAvatar, setPreAvatar] = useState('');
+  const [preCover, setPreCover] = useState('');
 
   //判斷顯示
   const identity = selfId === apiId ? "self" : "other";
@@ -42,6 +44,9 @@ function ProfilePage() {
           const result = await getUserDataAPI(apiId);
           if (result.status === 200) {
             const rawProfileData = result.data;
+            console.log(result.data)
+            setPreAvatar(result.data.avatar);
+            setPreCover(result.data.cover)
             setProfileData(rawProfileData);
           }
         } catch (err) {
@@ -148,7 +153,7 @@ function ProfilePage() {
       </div>
 
       {modal_toggle && (
-        <ProfileModal onModalToggle={onModalToggle} />
+        <ProfileModal preAvatar={preAvatar} preCover={preCover} onModalToggle={onModalToggle} />
       )}
     </>
   );
