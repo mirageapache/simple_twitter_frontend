@@ -12,6 +12,8 @@ import ProfileGuide from "components/Profile/ProfileGuide";
 import Interactive from "components/Profile/Interactive";
 import ProfileModal from "components/Profile/ProfileModal.jsx";
 import ProfileList from "components/Profile/ProfileList";
+import { useNoti } from "context/NotiContext";
+import { useReply } from "context/ReplyContext";
 import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
 import default_cover from "assets/images/default_user_cover.jpg";
 
@@ -25,10 +27,12 @@ function ProfilePage() {
   const [modal_toggle, setModalToggle] = useState(false);
   const [reRender, setReRender] = useState(false);
   const [profileData, setProfileData] = useState({});
+  const [currentView, setCurrentView] = useState("tweet");
+  const { setActiveItem } = useNoti();
 
   //判斷顯示
   const identity = selfId === apiId ? "self" : "other";
-
+  setActiveItem('profile');
   // 取得使用者資訊(還要再改)
   useEffect(() => {
     if (!isAuthenticated) {

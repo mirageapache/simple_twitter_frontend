@@ -24,7 +24,7 @@ function AdminNavbar() {
   };
 
   return (
-    <div className="navbar">
+    <div className="admin-navbar">
       {/* Logo */}
       <div className="logo">
         <IconLogo />

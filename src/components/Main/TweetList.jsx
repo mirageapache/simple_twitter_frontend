@@ -32,7 +32,7 @@ function TweetItem({ data }) {
   const navigate = useNavigate();
   const { setTweet, setTweetList } = useTweet();
   const { setReplyList, setReplyModal } = useReply();
-  const { setIsAlert, setNotiMessage, setActiveItem } = useNoti();
+  const { setIsAlert, setNotiMessage } = useNoti();
 
   // 取得單一筆Tweet
   async function readTweetDetail(tweet_id, type) {
@@ -113,9 +113,6 @@ function TweetItem({ data }) {
         {data?.User?.avatar ? (
           <NavLink
             to={`/main/profile/${data?.User?.id}`}
-            onClick={() => {
-              setActiveItem("profile");
-            }}
           >
             <img
               className="avatar_img"

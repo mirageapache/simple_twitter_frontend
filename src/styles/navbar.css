@@ -7,6 +7,14 @@
   bottom:0;
 }
 
+.admin-navbar{
+  position: fixed;
+  width: 180px;
+  height: 100vh;
+  top :0;
+  bottom:0;
+}
+
 .logo {
   padding: 8px;
 }

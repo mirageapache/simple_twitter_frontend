@@ -105,7 +105,6 @@ function RecommendList({ recommendData, handleFollowShip }) {
 }
 
 function RecommendItem({ data, btnClass, handleFollowShip }) {
-  const { setActiveItem } = useNoti();
 
   return (
     <div className="recommend_item">
@@ -116,7 +115,6 @@ function RecommendItem({ data, btnClass, handleFollowShip }) {
               src={data?.avatar}
               alt="user avatar"
               className="recommend_item_avatar"
-              onClick={()=>{setActiveItem('profile')}}
             />
           </NavLink>
         ) : (
