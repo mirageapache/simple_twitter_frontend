@@ -19,7 +19,6 @@ import AdminTweetsPage from "pages/admin/AdminTweetsPage";
 import AdminUsersPage from "pages/admin/AdminUsersPage";
 
 export default function App() {
-  // console.clear();
   return (
     <div className="app">
       <div className="container">

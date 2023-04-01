@@ -31,7 +31,6 @@ export const RecommendProvider = ({ children }) => {
     if (isAuthenticated) {
       const getRecommend = async () => {
         try {
-          console.log("getRecommend");
           let rawRecommendData = await getRecommendAPI();
           setRecommendData(rawRecommendData);
         } catch (err) {
