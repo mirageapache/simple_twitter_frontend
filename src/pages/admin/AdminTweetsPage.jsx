@@ -14,7 +14,7 @@ function AdminTweetsPage() {
   const { isAuthenticated, logout } = useAuth();
   const [tweetsData, setTweetsData] = useState([]);
   const { setIsAlert, setNotiMessage } = useNoti();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -24,7 +24,7 @@ function AdminTweetsPage() {
         try {
           const rawTweetsData = await getAdminTweetsAPI();
           setTweetsData(rawTweetsData);
-          setLoading(true);
+          setLoading(false);
         } catch (err) {
           console.log(err);
         }
@@ -56,9 +56,9 @@ function AdminTweetsPage() {
     <div className="page-wrapper">
       <h4 className="page-title">推文清單</h4>
       {loading ? (
-        <AdminTweetsList tweetsData={tweetsData} onDelete={handleDelete} />
-      ) : (
         <LoadingMes />
+      ) : (
+        <AdminTweetsList tweetsData={tweetsData} onDelete={handleDelete} />
       )}
     </div>
   );

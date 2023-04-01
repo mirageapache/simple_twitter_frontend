@@ -13,14 +13,14 @@ import LoadingMes from "components/LoadingMes";
 import { ReactComponent as IconAvatar } from "assets/icons/avatar.svg";
 
 export default function MainContent() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { tweetList, setTweetList } = useTweet([]);
   const [postContent, setPostContent] = useState("");
   const { currentMember, isAuthenticated, logout } = useAuth();
   const { setIsAlert, setNotiMessage, setActiveItem } = useNoti();
-  
-  setActiveItem('main');
-  
+
+  setActiveItem("main");
+
   useEffect(() => {
     if (!isAuthenticated) {
       return logout();
@@ -30,13 +30,12 @@ export default function MainContent() {
         const result = await getTweetListAPI();
         if (result.status === 200) {
           setTweetList(result.data);
-          setLoading(true);
+          setLoading(false);
         }
       }
       getTweetList();
     }
   }, [setTweetList, isAuthenticated, logout]);
-
 
   // add new Tweet (新增推文)
   async function addTweet() {
@@ -132,7 +131,7 @@ export default function MainContent() {
           )}
         </div>
       </div>
-      {loading ? <TweetList list_data={tweetList} /> : <LoadingMes />}
+      {loading ? <LoadingMes /> : <TweetList list_data={tweetList} />}
     </div>
   );
 }
