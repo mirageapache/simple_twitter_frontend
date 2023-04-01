@@ -21,12 +21,12 @@ export default function Navbar() {
   const { isAuthenticated, logout, currentMember } = useAuth();
   const [selfId, setSelfId] = useState(null);
   const [modal_toggle, setModalToggle] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const { activeItem, setActiveItem} = useNoti();
+  const [loading, setLoading] = useState(true);
+  const { activeItem, setActiveItem } = useNoti();
   const { setIsAlert, setNotiMessage } = useNoti();
 
   useEffect(() => {
-    setLoading(false);
+    setLoading(true);
     if (!isAuthenticated) {
       return logout();
     } else {
@@ -36,7 +36,7 @@ export default function Navbar() {
           return logout();
         } else {
           setSelfId(Number(currentMemberId));
-          setLoading(true);
+          setLoading(false);
         }
       };
       checkSelf();
@@ -51,7 +51,7 @@ export default function Navbar() {
   const handleClick = () => {
     setNotiMessage({ type: "info", message: "您已登出系統！" });
     setIsAlert(true);
-    setLoading(false);
+    setLoading(true);
     logout();
   };
 
@@ -63,6 +63,8 @@ export default function Navbar() {
       </div>
       {/* Item group */}
       {loading ? (
+        ""
+      ) : (
         <div className="item_group">
           <NavItem
             text="首頁"
@@ -90,8 +92,6 @@ export default function Navbar() {
             }}
           />
         </div>
-      ) : (
-        ""
       )}
       <button className="tweet_btn" onClick={onModalToggle}>
         推文

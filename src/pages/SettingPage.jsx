@@ -10,14 +10,14 @@ import "styles/setting.css";
 export default function SettingPage() {
   const { isAuthenticated, logout, currentMember } = useAuth();
   const [userData, setUserData] = useState();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { setActiveItem } = useNoti();
 
-  setActiveItem('setting');
+  setActiveItem("setting");
 
   // 取得使用者帳號資料
   useEffect(() => {
-    setLoading(false);
+    setLoading(true);
     if (!isAuthenticated) {
       return logout();
     } else {
@@ -26,7 +26,7 @@ export default function SettingPage() {
           const result = await getAccountAPI(currentMember.id);
           if (result.status === 200) {
             setUserData(result.data.data.user);
-            setLoading(true);
+            setLoading(false);
           }
         } catch (err) {
           console.log(err);
@@ -40,6 +40,8 @@ export default function SettingPage() {
     <div>
       {/* 設定表單 */}
       {loading ? (
+        <LoadingMes />
+      ) : (
         <section className="setting_section">
           <div className="banner">
             <p>帳戶設定</p>
@@ -48,8 +50,6 @@ export default function SettingPage() {
             <AccountForm userData={userData} current_page="setting" />
           </div>
         </section>
-      ) : (
-        <LoadingMes />
       )}
     </div>
   );

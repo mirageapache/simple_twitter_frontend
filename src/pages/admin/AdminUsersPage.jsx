@@ -16,7 +16,7 @@ function AdminTweetsPage() {
   const { isAuthenticated, logout } = useAuth();
 
   const [usersData, setUsersData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -31,7 +31,7 @@ function AdminTweetsPage() {
             (pre, next) => next["tweet_count"] - pre["tweet_count"]
           );
           setUsersData(usersData);
-          setLoading(true);
+          setLoading(false);
         } catch (err) {
           console.log(err);
         }
@@ -43,7 +43,7 @@ function AdminTweetsPage() {
   return (
     <div className="admin-tweets">
       <h4 className="admin-page-title">使用者列表</h4>
-      {loading ? <AdminUsersList usersData={usersData} /> : <LoadingMes />}
+      {loading ? <LoadingMes /> : <AdminUsersList usersData={usersData} />}
     </div>
   );
 }
