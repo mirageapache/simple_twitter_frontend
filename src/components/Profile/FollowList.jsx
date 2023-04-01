@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+
 function FollowItem({
   follow,
   followMode,
@@ -8,15 +9,12 @@ function FollowItem({
 }) {
   let otherUserInfo;
   let followShipId;
-  let IdType;
   if (followMode === "followers") {
     otherUserInfo = follow["Followers"];
     followShipId = follow?.followerId;
-    IdType = "followerId";
   } else if (followMode === "followings") {
     otherUserInfo = follow["Followings"];
     followShipId = follow?.followingId;
-    IdType = "followingId";
   }
   return (
     <div className="follow-item">
@@ -37,7 +35,7 @@ function FollowItem({
               type="button"
               className={btnClass}
               onClick={() => {
-                handleFollowShip(followShipId, follow?.checkFollowed, IdType);
+                handleFollowShip(followShipId, follow?.checkFollowed);
               }}
             >
               {follow.checkFollowed ? "正在跟隨" : "跟隨"}

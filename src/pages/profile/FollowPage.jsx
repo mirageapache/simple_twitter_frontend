@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { useAuth } from "context/AuthContext";
+import { useRecommend } from "context/RecommendContext";
+import { useNoti } from "context/NotiContext";
+import { useFollow } from "context/FollowContext";
 
 import {
   getFollowersDataAPI,
@@ -15,6 +18,7 @@ import "styles/follow.css";
 import ProfileGuide from "components/Profile/ProfileGuide.jsx";
 import FollowList from "components/Profile/FollowList";
 import TweetNavbar from "components/Profile/TweetNavbar";
+import LoadingMes from "components/LoadingMes";
 
 // data
 const navbarData = [
@@ -25,6 +29,9 @@ const navbarData = [
 // function
 function FollowPage() {
   const { isAuthenticated, logout, currentMember } = useAuth();
+  const { renewRecommendList } = useRecommend();
+  const { toggleFollowed } = useFollow();
+  const { setIsAlert, setNotiMessage } = useNoti();
   const { user_id } = useParams();
   const apiId = Number(user_id); //正在瀏覽誰
   const selfId = Number(currentMember?.id);
@@ -40,7 +47,7 @@ function FollowPage() {
   }
   const [followMode, setFollowMode] = useState(originMode);
   const [followData, setFollowData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [reNew, setRenew] = useState(false);
 
   // 取得資料
@@ -50,7 +57,7 @@ function FollowPage() {
     } else {
       const getFollowData = async (apiId) => {
         try {
-          setLoading(false);
+          setLoading(true);
           let rawFollowData =
             followMode === "followers"
               ? await getFollowersDataAPI(apiId)
@@ -66,20 +73,20 @@ function FollowPage() {
                   checkFollowed: item?.Followings?.is_followed,
                 }));
           setFollowData(dataSetState);
-          setLoading(true);
+          setLoading(false);
         } catch (err) {
           console.log(err);
         }
       };
       getFollowData(apiId);
     }
-  }, [isAuthenticated, logout, apiId, followMode, reNew]);
+  }, [isAuthenticated, logout, apiId, followMode, reNew, toggleFollowed]);
 
   // 更換分頁
   function onViewChange(modeState) {
     async function getFollowData(followMode) {
       try {
-        setLoading(false);
+        setLoading(true);
         setFollowMode(modeState);
         setRenew(!reNew);
       } catch (err) {
@@ -90,27 +97,26 @@ function FollowPage() {
   }
 
   //切換跟隨
-  function handleFollowShip(followShipId, followedState, IdType) {
-    async function toggleFollowShip(followShipId, followedState, IdType) {
+  function handleFollowShip(followShipId, followedState) {
+    async function toggleFollowShip(followShipId, followedState) {
       try {
-        if (!followedState) {
-          const result = await createFollowShipAPI(followShipId);
-          if (result.status === "success" && IdType === "followerId") {
-            // 重新取得遠端資料
-            setRenew(!reNew);
-          }
-        } else {
-          const result = await unFollowAPI(followShipId);
-          if (result.status === "success") {
-            // 重新取得遠端資料
-            setRenew(!reNew);
-          }
+        const result = followedState
+          ? await unFollowAPI(followShipId)
+          : await createFollowShipAPI(followShipId);
+        if (result?.status === "success") {
+          // 設定通知訊息
+          followedState
+            ? setNotiMessage({ type: "info", message: "已取消跟隨！" })
+            : setNotiMessage({ type: "success", message: "已跟随！" });
+          setIsAlert(true);
+          renewRecommendList(true);
+          setRenew(!reNew);
         }
       } catch (err) {
         console.log(err);
       }
     }
-    toggleFollowShip(followShipId, followedState, IdType);
+    toggleFollowShip(followShipId, followedState);
   }
 
   return (
@@ -126,14 +132,14 @@ function FollowPage() {
       </div>
       {/* 清單，等取得資料才render */}
       {loading ? (
+        <LoadingMes />
+      ) : (
         <FollowList
           followData={followData}
           followMode={followMode}
           handleFollowShip={handleFollowShip}
           selfId={selfId}
         />
-      ) : (
-        ""
       )}
     </>
   );

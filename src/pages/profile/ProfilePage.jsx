@@ -30,8 +30,8 @@ function ProfilePage() {
 
   //判斷顯示
   const identity = selfId === apiId ? "self" : "other";
-  setActiveItem('profile');
-  
+  setActiveItem("profile");
+
   // 取得使用者資訊(還要再改)
   useEffect(() => {
     if (!isAuthenticated) {
@@ -147,9 +147,7 @@ function ProfilePage() {
         <ProfileList apiId={apiId} />
       </div>
 
-      {modal_toggle && (
-        <ProfileModal onModalToggle={onModalToggle} />
-      )}
+      {modal_toggle && <ProfileModal onModalToggle={onModalToggle} />}
     </>
   );
 }
