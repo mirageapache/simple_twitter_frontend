@@ -16,7 +16,6 @@ import { ReactComponent as IconConfigLight } from "assets/icons/config_light.svg
 import { ReactComponent as IconLogout } from "assets/icons/logout.svg";
 
 import TweetModal from "./Main/TweetModal";
-import LoadingMes from "./LoadingMes";
 
 export default function Navbar() {
   const { isAuthenticated, logout, currentMember } = useAuth();
