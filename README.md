@@ -10,6 +10,8 @@
 訪客可於系統前台註冊帳號，註冊完成後登入使用。
 後台為管理本站系統資料，未開放權限予訪客。
 
+部署網址：https://mirageapache.github.io/simple_twitter_frontend/
+
 ***使用者user***
 
 - 註冊帳號後登入本系統。
