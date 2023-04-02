@@ -27,13 +27,13 @@ function ProfilePage() {
   const [reRender, setReRender] = useState(false);
   const [profileData, setProfileData] = useState({});
   const { setActiveItem } = useNoti();
-  const [preAvatar, setPreAvatar] = useState('');
-  const [preCover, setPreCover] = useState('');
+  const [preAvatar, setPreAvatar] = useState("");
+  const [preCover, setPreCover] = useState("");
 
   //判斷顯示
   const identity = selfId === apiId ? "self" : "other";
-  setActiveItem('profile');
-  
+  setActiveItem("profile");
+
   // 取得使用者資訊(還要再改)
   useEffect(() => {
     if (!isAuthenticated) {
@@ -44,9 +44,8 @@ function ProfilePage() {
           const result = await getUserDataAPI(apiId);
           if (result.status === 200) {
             const rawProfileData = result.data;
-            console.log(result.data)
             setPreAvatar(result.data.avatar);
-            setPreCover(result.data.cover)
+            setPreCover(result.data.cover);
             setProfileData(rawProfileData);
           }
         } catch (err) {
@@ -153,7 +152,11 @@ function ProfilePage() {
       </div>
 
       {modal_toggle && (
-        <ProfileModal preAvatar={preAvatar} preCover={preCover} onModalToggle={onModalToggle} />
+        <ProfileModal
+          preAvatar={preAvatar}
+          preCover={preCover}
+          onModalToggle={onModalToggle}
+        />
       )}
     </>
   );
