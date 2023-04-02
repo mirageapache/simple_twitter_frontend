@@ -66,33 +66,41 @@ npm start
 ## 操作說明 
 
 ***前台，身份別：使用者user***
-* 登入：為本系統入口頁面，使用者需登入後才可以使用系統。未登入情境下叔如本站其他頁面網址，會引導回此頁。
+* 登入：為本系統入口頁面，使用者需登入後才可以使用系統。未登入情境下以往只前往本站其他頁面，會引導回此頁。
+
 ![](https://i.imgur.com/FSqoIIc.png)
 
 * 註冊：填寫資料註冊帳號。
 ![](https://i.imgur.com/B0GvboC.png)
 
-* 前台主頁：順利登入後，進佔首頁有功能表，全站推文瀏覽，本站推薦熱門前十位使用者名單。
+* 前台主頁：順利登入後，進佔首頁有功能表，全站推文瀏覽，以及系統方推薦追蹤人數前十位的其他使用者，共登入者參考。
 ![](https://i.imgur.com/Pd9LYI4.png)
 
-* 發布推文：於首頁上方或左側功能表點選發布推文。
+* 發布推文：於首頁上方或左側功能表點選發布推文，並可於個人頁面瀏覽相關紀錄。
 ![](https://i.imgur.com/kZFeJJb.png)
 
-* 回覆他人推文：於首頁點選留言圖示或者進入該推文內，回覆留言。
+![](https://i.imgur.com/nJzDf5p.png)
+
+* 回覆他人推文：於首頁點選留言圖示或者進入該推文內，回覆留言，並可於個人頁面瀏覽相關紀錄。
 ![](https://i.imgur.com/J7akbRv.png)
 
-![](https://i.imgur.com/zzIMahp.png)
+![](https://i.imgur.com/AZGYN3D.png)
 
-* like / unlik：對他人貼文進行此功能。
+* like / unlik：對他人貼文進行此功能，並可於個人頁面瀏覽相關紀錄。
 ![](https://i.imgur.com/lKlXFOQ.png)
+
+![](https://i.imgur.com/D8WSRSG.png)
 
 
 * 個人資料：可瀏覽登入者自己的個人資料與系統內活躍情況，或者其他使用者的個人資料與系統內活躍情況。
 ![](https://i.imgur.com/ZPXwMAK.png)
 
+![](https://i.imgur.com/MLSF4Ka.png)
+
 
 * follow / unfollow ：於推薦跟隨名單、他人個人資料頁或他人跟隨資料頁面，對其他使用者建立或取消社交關係。
 ![](https://i.imgur.com/N1IDSKR.png)
+
 ![](https://i.imgur.com/vVFDNa2.png)
 
 
