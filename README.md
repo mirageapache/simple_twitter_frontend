@@ -1,14 +1,12 @@
 # Simple Twitter Project
 
-## 產品說明：
+## 產品說明
 本系統為簡潔版社群平台，可以照兩種不同角色與相應權限，操作本站系統。
 
 本專案為前端專案，與 [後端專案](https://github.com/JoshuaLiuTw/twitter-api-2020)
 搭配協作。
 
-基於資訊安全考量，未提供測試帳號。
-訪客可於系統前台註冊帳號，註冊完成後登入使用。
-後台為管理本站系統資料，未開放權限予訪客。
+訪客可於系統前台註冊帳號，註冊完成後登入使用前台。
 
 部署網址：https://mirageapache.github.io/simple_twitter_frontend/
 
@@ -25,7 +23,7 @@
 - 瀏覽全站推文，並執行刪除功能。
 - 瀏覽全站使用者清單，已將相關使用者數據。
 
-## 環境設置：
+## 環境設置
 
 - node.js - 16.14.2
 - npm - 8.5.0
@@ -65,26 +63,56 @@ npm start
 在終端機按下兩次 ctrl + C 即可終止程式
 ```
 
-## 操作說明 （截圖網點補）
+## 操作說明 
 
-* 登入：為本系統入口頁面，使用者需登入後才可以使用系統。
+***前台，身份別：使用者user***
+* 登入：為本系統入口頁面，使用者需登入後才可以使用系統。未登入情境下叔如本站其他頁面網址，會引導回此頁。
+![](https://i.imgur.com/FSqoIIc.png)
 
 * 註冊：填寫資料註冊帳號。
+![](https://i.imgur.com/B0GvboC.png)
 
 * 前台主頁：順利登入後，進佔首頁有功能表，全站推文瀏覽，本站推薦熱門前十位使用者名單。
+![](https://i.imgur.com/Pd9LYI4.png)
 
-
-* 發布推文：於首頁或左側功能表點選發布推文。
+* 發布推文：於首頁上方或左側功能表點選發布推文。
+![](https://i.imgur.com/kZFeJJb.png)
 
 * 回覆他人推文：於首頁點選留言圖示或者進入該推文內，回覆留言。
+![](https://i.imgur.com/J7akbRv.png)
+
+![](https://i.imgur.com/zzIMahp.png)
 
 * like / unlik：對他人貼文進行此功能。
+![](https://i.imgur.com/lKlXFOQ.png)
+
 
 * 個人資料：可瀏覽登入者自己的個人資料與系統內活躍情況，或者其他使用者的個人資料與系統內活躍情況。
+![](https://i.imgur.com/ZPXwMAK.png)
 
-* follow / unfollow ：可對其他使用者建立或取消社交關係。
 
-* 個人資料修改：登入者可編輯個人資料以及修改帳戶資料。
+* follow / unfollow ：於推薦跟隨名單、他人個人資料頁或他人跟隨資料頁面，對其他使用者建立或取消社交關係。
+![](https://i.imgur.com/N1IDSKR.png)
+![](https://i.imgur.com/vVFDNa2.png)
+
+
+
+* 個人資料修改：登入者可於「個人資料」頁編輯個人資料，以及於「設定」頁修改帳戶資料。
+![](https://i.imgur.com/jC2VmS3.png)
+
+![](https://i.imgur.com/AyE6Zea.png)
+
+***後台，身份別：管理者admin***
+
+* 登入：僅後台帳號可登入，帳號不開放註冊。
+![](https://i.imgur.com/oyGKtRM.png)
+
+* 後台主頁：可瀏覽全站推文，並執行刪除功能。
+
+![](https://i.imgur.com/jTWhqV7.png)
+
+* 瀏覽使用者清單，可查看系統內前台使用者活躍情況與相關數據。
+![](https://i.imgur.com/BO8KO04.png)
 
 ## 開發人員
 - 前端：James , Kimi
