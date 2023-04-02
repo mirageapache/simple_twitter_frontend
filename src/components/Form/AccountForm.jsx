@@ -128,17 +128,25 @@ export default function AccountForm({ userData, current_page }) {
       // fetch API 事件
       const result = await RegisterAPI({ req_data });
       // 判斷登入是否成功
+      console.log(result)
       if (result.status === 200) {
         setNotiMessage({type:"success", message:"註冊成功！"});
         setIsAlert(true);
         // 導向登入頁
         navigate("/login");
       } else {
+        console.log(errorMessage)
         if (result.response.data.message === "Existing email or user account") {
           setNotiMessage({type:"error", message:"帳號或Email已存在！"});
           setIsAlert(true);
         }
+        if (result.response.data.message === "Please enter the correct email format") {
+          setErrorMessate(["email", "Email格式不正確！"]);
+          setNotiMessage({type:"error", message:"Email格式不正確！"});
+          setIsAlert(true);
+        }
         if (result.response.data.message === "Confirm password is incorrect") {
+          setErrorMessate(["confirm_password", "確認密碼與密碼不相符！"]);
           setNotiMessage({type:"error", message:"確認密碼與密碼不相符！"});
           setIsAlert(true);
         }
@@ -146,6 +154,7 @@ export default function AccountForm({ userData, current_page }) {
           result.response.data.message ===
           "Password length must be between 5 and 12 characters"
         ) {
+          setErrorMessate(["password", "密碼長度應為5~12字元！"]);
           setNotiMessage({type:"error", message:"密碼長度應為5~12字元！"});
           setIsAlert(true);
         }
