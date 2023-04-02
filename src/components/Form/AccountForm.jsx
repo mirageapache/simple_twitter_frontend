@@ -140,7 +140,7 @@ export default function AccountForm({ userData, current_page }) {
           setNotiMessage({type:"error", message:"帳號或Email已存在！"});
           setIsAlert(true);
         }
-        if (result.response.data.message === "Please enter the correct email format") {
+        if (result.response.data.errors.email === "Please enter the correct email format") {
           setErrorMessate(["email", "Email格式不正確！"]);
           setNotiMessage({type:"error", message:"Email格式不正確！"});
           setIsAlert(true);
@@ -158,7 +158,6 @@ export default function AccountForm({ userData, current_page }) {
           setNotiMessage({type:"error", message:"密碼長度應為5~12字元！"});
           setIsAlert(true);
         }
-        setIsAlert(true);
         return;
       }
     }
