@@ -63,6 +63,24 @@ export default function ReplyModal({ preAvatar, preCover, onModalToggle }) {
     }
   }
 
+  function handleNameChange(e){
+    if(e.target.value.length > 50){
+      setNotiMessage({ type: "error", message: "名稱字數不可超過50字！" });
+      setIsAlert(true);
+      return;
+    }
+    setName(e.target.value);           
+  }
+
+  function handleBioChange(e){
+    if(e.target.value.length > 160){
+      setNotiMessage({ type: "error", message: "自我介紹字數不可超過160字！" });
+      setIsAlert(true);
+      return;
+    }        
+    setIntroduction(e.target.value);       
+  }
+
   // 編輯 User Data
   async function editUserData() {
     // 資料驗證
@@ -214,9 +232,7 @@ export default function ReplyModal({ preAvatar, preCover, onModalToggle }) {
                     type="text"
                     placeholder="請輸入名稱"
                     value={name}
-                    onChange={(e) => {
-                      setName(e.target.value);
-                    }}
+                    onChange={handleNameChange}
                   />
                 </div>
                 <div className="input_div">
@@ -226,9 +242,7 @@ export default function ReplyModal({ preAvatar, preCover, onModalToggle }) {
                     name="introduction"
                     placeholder="請輸入自我介紹"
                     value={introduction}
-                    onChange={(e) => {
-                      setIntroduction(e.target.value);
-                    }}
+                    onChange={handleBioChange}
                   />
                 </div>
               </div>
